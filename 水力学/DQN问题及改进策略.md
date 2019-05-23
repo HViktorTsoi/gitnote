@@ -9,6 +9,6 @@ dynamic result
 分水 实际能看到吗? 
 前馈
 
-input给出的流量 output给出的就是水位
-input给出的水位 output给出的就是流量
+input 给出的流量 output计算给出的就是水位
+input 给出的水位 output计算给出的就是流量
 上下游 流量 上下游水位
