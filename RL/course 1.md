@@ -14,3 +14,5 @@ RL agent 分类:
 RL和Planning的区别
 RL是在agent未知环境的运行机理的情况下(也就是说只能看到observation和reward),学习环境的运行机制,
 而planning是在agent可以直到环境的运行机制的情况下,已经可以向后看若干步骤(类似一颗搜索树),在这种情况下进行决策
+
+和传统搜索理论一样RL也要解决一个trade-off,即使exploration和exploitation的平衡
