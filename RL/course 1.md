@@ -8,4 +8,4 @@ RL agent 分类:
 2. policy-based 只存储策略,没有值函数
 3. Actor-critic 同时结合策略和值函数
 或者
-1. model-free 不构建模型
+1. model-free 不构建模型 不需要知道外部环境是如何变化的 只根据值函数或者策略函数
