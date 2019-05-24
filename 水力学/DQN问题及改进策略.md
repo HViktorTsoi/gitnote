@@ -12,3 +12,5 @@ dynamic result
 input 给出的流量 output计算给出的就是水位
 input 给出的水位 output计算给出的就是流量
 上下游 流量 上下游水位
+
+不应该直接在水位超限的时候直接崩溃 应该给一个大的负分
