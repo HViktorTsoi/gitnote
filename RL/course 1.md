@@ -5,4 +5,6 @@
 
 RL agent 分类:
 1. value-based 只有值函数,没有显性策略
-2. policy-based 只存储策略,没有
+2. policy-based 只存储策略,没有值函数
+3. Actor-critic 同时结合策略和值函数
+
