@@ -12,3 +12,4 @@ RL agent 分类:
 2. model-based 构建外部环境变化的模型(比如构建直升飞机姿态变化的模型)
 
 RL和Planning的区别
+RL
