@@ -3,5 +3,5 @@ Markov Process with Reward and action
 ![Screenshot from 20190525 174358.png](0)
 2. reward: 每个状态有一个reward(即每一个状态的reward是广播到其入边上的权值)
 ![Screenshot from 20190525 174513.png](1)
-3. return: 是第t步的全部折扣reward
+3. return: 是第t步的全部折扣reward,其中gamma决定了对未来可能的reward考虑多少
 ![Screenshot from 20190525 174538.png](2)
