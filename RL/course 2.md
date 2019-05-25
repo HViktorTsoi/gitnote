@@ -4,7 +4,7 @@ Markov Process with Reward and action
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/25/1558778984856-1558778984857.png)
 
-2. reward: 每个状态有一个reward(即每一个状态的reward是广播到其入边上的权值)
+2. reward: 每个状态有一个reward(即每一个状态的reward是广播到其入边上的权值),注意t时刻的immediate reward为R~t+1~
 
 3. return: 是第t步的全部折扣reward,其中gamma决定了对未来可能的reward考虑多少(不算第t步的)
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/25/1558779005329-1558779005333.png)
