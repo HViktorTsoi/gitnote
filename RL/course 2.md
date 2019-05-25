@@ -22,3 +22,5 @@
 
 则所有状态$s$的矩阵形式可表示为
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/25/1558796621415-1558796621416.png)
+
+当已知$R$
