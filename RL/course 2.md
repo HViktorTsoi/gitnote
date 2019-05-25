@@ -1,6 +1,7 @@
 Markov Process with Reward and action
 1. Markov过程: 由(状态,状态转移概率方程)构成
-![Screenshot from 20190525 174358.png](0)
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/25/1558778944853-1558778944854.png)
+
 
 2. reward: 每个状态有一个reward(即每一个状态的reward是广播到其入边上的权值)
 
