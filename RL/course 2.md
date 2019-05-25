@@ -1,3 +1,5 @@
+# Markov Reward Process(MRP)
+
 ## Markov Process with Reward and action
 1. Markov过程: 由(状态,状态转移概率方程)构成
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/25/1558778944853-1558778944854.png)
