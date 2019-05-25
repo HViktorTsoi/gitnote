@@ -13,4 +13,6 @@ Markov Process with Reward and action
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/25/1558779023901-1558779023903.png)
 
 Bellman 公式
-根据$v(s)$的
+根据$v(s)$的计算方式,有
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/25/1558796372023-1558796372025.png)
+即
