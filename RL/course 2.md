@@ -19,3 +19,6 @@
 
 即$v(s)$可表示为递归形式,进一步的,可表示为
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/25/1558796439213-1558796439215.png)
+
+则所有状态$s$的矩阵形式可表示为
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/25/1558796621415-1558796621416.png)
