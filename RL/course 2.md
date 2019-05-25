@@ -23,4 +23,8 @@
 则所有状态$s$的矩阵形式可表示为
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/25/1558796621415-1558796621416.png)
 
-当已知$R$
+当已知$R$和$\gamma$和$P$时,即可求解$v(.)$
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/25/1558796855886-1558796855887.png)
+
+sss
