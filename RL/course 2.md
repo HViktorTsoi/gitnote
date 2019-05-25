@@ -1,4 +1,4 @@
-Markov Process with Reward and action
+## Markov Process with Reward and action
 1. Markov过程: 由(状态,状态转移概率方程)构成
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/25/1558778944853-1558778944854.png)
 
@@ -12,7 +12,8 @@ Markov Process with Reward and action
 4. value: 对于t时刻的state S,value是指该state的所有reuturn的期望,即return是以S开头的一个采样序列的加权衰减reward,而value是值以s开头的所有采样序列的reward的期望(例如最简单的,平均数).
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/25/1558779023901-1558779023903.png)
 
-Bellman 公式
+## Bellman 公式
 根据$v(s)$的计算方式,有
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/25/1558796372023-1558796372025.png)
-即
+即$v(s)$可表示为递归形式,进一步的,可表示为
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/25/1558796439213-1558796439215.png)
