@@ -51,4 +51,4 @@ Policy变为
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558882751185-1558882751187.png)
 这个期望的求解方式为
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558883540784-1558883540785.png)
-他告诉我们在某个状态$s$下,take某个action有多好(在$s$上take $a$之后能到达的所有)
+他告诉我们在某个状态$s$下,take某个action有多好(在$s$上take $a$之后能到达的所有下一个状态$s'$的value和)
