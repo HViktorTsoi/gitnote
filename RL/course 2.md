@@ -37,4 +37,5 @@ MDP在MRP的条件之下,增加了action,即在转移概率矩阵P和Reward中�
 Policy变为
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558881900232-1558881900232.png)
 
-此时状态转义矩阵变为所有action对应转移矩阵的期望,reward变为所有action对应的reward的期望,
+此时状态转义矩阵变为所有action对应转移矩阵的期望,reward变为所有action对应的reward的期望,即
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558882025529-1558882025529.png)
