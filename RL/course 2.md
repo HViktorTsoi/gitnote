@@ -34,4 +34,7 @@
 MDP在MRP的条件之下,增加了action,即在转移概率矩阵P和Reward中加入Action,
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558881185872-1558881185884.png)
 
-Policy变为一个state所有
+Policy变为
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558881900232-1558881900232.png)
+
+此时状态转义矩阵变为所有
