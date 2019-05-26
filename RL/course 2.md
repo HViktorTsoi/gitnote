@@ -34,20 +34,20 @@
 MDP在MRP的条件之下,增加了action,即在转移概率矩阵P和Reward中加入Action,
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558881185872-1558881185884.png)
 
-Policy变为
+1. Policy变为
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558881900232-1558881900232.png)
 
-此时状态转移矩阵变为所有action对应转移矩阵的期望,reward变为所有action对应的reward的期望,即
+2. 此时状态转移矩阵变为所有action对应转移矩阵的期望,reward变为所有action对应的reward的期望,即
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558882025529-1558882025529.png)
 注意,这时状态间的转移不再是随机过程,而是根据action去转移,这一点与MRP是不同的(在MRP中,某个状态$s$转移到$s'$是依据概率进行的,当然转移矩阵中的元素仍然是概率,只不过变为采取某个action的概率);
 
-某个状态$s$对应的state Value Function变为
+3. 某个状态$s$对应的state Value Function变为
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558882677961-1558882677961.png)
 这个期望的求解方式为
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558883253036-1558883253037.png)
 他告诉我们这个state有多好;
 
-在$s$下选择某个action的action value function为
+4. 在$s$下选择某个action的action value function为
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558882751185-1558882751187.png)
 这个期望的求解方式为
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558883540784-1558883540785.png)
