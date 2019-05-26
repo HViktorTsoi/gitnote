@@ -41,4 +41,7 @@ Policy变为
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558882025529-1558882025529.png)
 注意,这时状态间的转移不再是随机过程,而是根据action去转移,这一点与MRP是不同的(在MRP中,某个状态$s$转移到$s'$是依据概率进行的);
 
-某个状态$s$对应的Value Function变为
+某个状态$s$对应的state Value Function变为
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558882677961-1558882677961.png)
+
+在$s$下
