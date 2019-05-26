@@ -44,4 +44,6 @@ Policy变为
 某个状态$s$对应的state Value Function变为
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558882677961-1558882677961.png)
 
-在$s$下
+在$s$下选择某个action的action value function为
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558882751185-1558882751187.png)
+
