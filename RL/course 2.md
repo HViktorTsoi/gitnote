@@ -45,6 +45,7 @@ Policy变为
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558882677961-1558882677961.png)
 这个期望的求解方式为
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558883253036-1558883253037.png)
+他告诉我们这个state有多好;
 
 在$s$下选择某个action的action value function为
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558882751185-1558882751187.png)
