@@ -29,4 +29,5 @@
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/25/1558796855886-1558796855887.png)
 
-# Markov Decision Process
+# Markov Decision Process(MDP)
+MDP在MRP的条件之下,增加了action,即在P
