@@ -56,4 +56,4 @@ MDP在MRP的条件之下,增加了action,即在转移概率矩阵P和Reward中�
 5. MDP的bellman方程,同样可写成递归形式
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/27/1558886730436-1558886730436.png)
 
-根据bellman方程,如果我们将4中的1 step look ahead展开为2 step look ahead,可得到
+根据bellman方程,如果我们将4中的1 step look ahead展开为2 step look ahead,将$q(s,a)带入到v(s),或者将v(s)带入到q(s,a)$,可得到
