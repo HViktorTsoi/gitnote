@@ -11,5 +11,7 @@ Iterative Policy Evaluation
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/28/1558975694364-1558975694365.png)
 
 开始的时候可以将所有的$v_0(s)$设置为随机值,并随机选取一个policy  $\pi_0$,然后重复迭代以下过程, 直到收敛:
-在第k轮时, 先使用当前的value fn $v_k(s)$ 来获取到policy $\pi_k$;
+在第k轮时, 首先使用上述的synchronous backups bellman方程, 来评估policy $\pi_k$, 得到
+
+先使用当前的value fn $v_k(s)$ 来获取到policy $\pi_k$;
 然后使用bellman
