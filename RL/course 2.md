@@ -63,4 +63,4 @@ MDP在MRP的条件之下,增加了action,即在转移概率矩阵P和Reward中�
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/27/1558887041599-1558887041600.png)
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/27/1558887052498-1558887052499.png)
 
-最优Policy和最优Value 
+最优policy和最优value function
