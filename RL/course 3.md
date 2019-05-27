@@ -10,4 +10,5 @@ Iterative Policy Evaluation
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/28/1558975694364-1558975694365.png)
 
-开始的时候可以将所有的$$
+开始的时候可以将所有的$v_0(s)$设置为随机值; 重复迭代以下过程:
+在第k轮
