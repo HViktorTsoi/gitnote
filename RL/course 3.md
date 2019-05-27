@@ -4,4 +4,6 @@
 
 Iterative Policy Evaluation
 用迭代的方法来求解最优的value fn,以及最优的策略.
-使用synchron
+
+使用**synchronous backups**:
+在每一个迭代
