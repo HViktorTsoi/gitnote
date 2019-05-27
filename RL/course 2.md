@@ -34,6 +34,9 @@
 MDP在MRP的条件之下,增加了action,即在转移概率矩阵P和Reward中加入Action,
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558881185872-1558881185884.png)
 
+且此时,采取action的价值为
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/27/1558938716729-1558938716730.png)
+
 1. Policy变为
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/26/1558881900232-1558881900232.png)
 
