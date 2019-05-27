@@ -79,7 +79,8 @@ MDP在MRP的条件之下,增加了action,即在转移概率矩阵P和Reward中�
 
 这个原因,进行简单分析: 在一个state上,每次只能采取一个action,因此value只能取一个最大值; 而采取了一个action后,却可能以不同的概率转移到多个state上,因此action的value是多个状态的期望(注意通常来说一个action只能确定的指向一个state,但是也有可能以不同的可能性指向不同的state. 如果是通常的,action只指向一个state的情况,其实action的value就是它本身的reward+$\gamma$*它指向的状态的value).
 
-我们使用与上一节
+我们使用与上一节MDP中同样的方法,可以讲state-vlaue和action-value转化为
+
 
 
 
