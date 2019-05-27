@@ -68,5 +68,7 @@ MDP在MRP的条件之下,增加了action,即在转移概率矩阵P和Reward中�
 1. Optimal state-value function和Optimal action-value function
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/27/1558952679883-1558952679884.png)
 
+最优策略可以通过最大化$q^*(s,a)$来
+
 
 
