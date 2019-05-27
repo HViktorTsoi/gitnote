@@ -71,7 +71,7 @@ MDP在MRP的条件之下,增加了action,即在转移概率矩阵P和Reward中�
 最优策略可以通过最大化$q^*(s,a)$来求解,即
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/27/1558952939681-1558952939682.png)
 
-注意,这里,最优的value function
+注意,这里,某个state $s$最优的value function是$s$所有的可能采取的action中价值最大的action的值,即是1个最大action的价值
 
 
 
