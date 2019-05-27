@@ -83,7 +83,3 @@ MDP在MRP的条件之下,增加了action,即在转移概率矩阵P和Reward中�
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/27/1558953760388-1558953760389.png)
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/27/1558953777986-1558953777987.png)
-
-
-
-
