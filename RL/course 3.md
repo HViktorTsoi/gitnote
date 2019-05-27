@@ -6,4 +6,8 @@ Iterative Policy Evaluation
 用迭代的方法来求解最优的value fn,以及最优的策略.
 这里我们可以使用**synchronous backups**方法,即:
 
-在每一个迭代轮次k中, 对于所有的state, 使用上一个轮次的value fn $v_k(s')$, 根据Bellman公式来更新这一个轮次的value fn $v_{k+1}(s)$ (其中$s'$是s的后继状态,就是s采取action后能转移到的状态).
+在每一个迭代轮次k中, 对于所有的state, 使用上一个轮次的value fn $v_k(s')$, 根据Bellman公式来更新这一个轮次的value fn $v_{k+1}(s)$ (其中$s'$是s的后继状态,就是s采取action后能转移到的状态), 也即:
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/28/1558975694364-1558975694365.png)
+
+开始的时候可以将所有的$$
