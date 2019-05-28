@@ -19,4 +19,4 @@
 - 重复这两步, 最终能够保证$v(s)$收敛到最优$v^*(s)$, 且$\pi(s)$收敛到最优$\pi^*(s)$, 如下图所示(证明在后面给出).
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/28/1558976217618-1558976217623.png)
 
-# Value Iteration
+## Value Iteration
