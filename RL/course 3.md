@@ -55,4 +55,4 @@ value iteration是使用**Bellman最优方程**进行求解.
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559061629982-1559061629983.png)
 
 3 sampled backups
-DP适合解决state数目不多的问题,因为即使是in-place DP, 也要对所有的states做一次backup, 因此如果有几十亿 几万亿个状态, 使用DP是不现实的,这时候就要对state和action
+DP适合解决state数目不多的问题,因为即使是in-place DP, 也要对所有的states做一次backup, 因此如果有几十亿 几万亿个状态, 使用DP是不现实的,这时候就要对state和action进行采样,每次仅使用采样后的states和actions进行计算,这也就引入了model-free RL.
