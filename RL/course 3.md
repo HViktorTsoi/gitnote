@@ -30,3 +30,5 @@ value iteration是使用**Bellman最优方程**进行求解.
 - 开始的时候可以将所有的$v_0(s)$设置为随机值,并随机选取一个policy  $\pi_0$,然后重复迭代以下过程, 直到收敛:
 
 - 在第k轮时, 直接使用synchronous backups **bellman optimal**方程(即最优方程),得到下一轮的value fn, 计算出$v_{k+1}(s)$.
+
+- 重复这两步, 最终能够保证$v(s)$收敛到最优$v^*(s)$, 且这个最优$v^*(s)$就对应着最优policy $\pi(s)$.
