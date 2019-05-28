@@ -21,3 +21,4 @@ Policy Iteration 是使用**Bellman期望方程**来求解. 用迭代的方法�
 
 ## Value Iteration
 value iteration是使用**Bellman最优方程**进行求解.
+与policy iteration不同, value iteration没有显式的policy
