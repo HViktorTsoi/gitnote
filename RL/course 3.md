@@ -33,3 +33,5 @@ value iteration是使用**Bellman最优方程**进行求解.
 
 - 重复这两步, 最终能够保证$v(s)$收敛到最优$v^*(s)$, 且这个最优$v^*(s)$就对应着最优policy $\pi(s)$.
 
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559059488985-1559059488991.png)
+
