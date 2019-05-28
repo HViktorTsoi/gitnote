@@ -45,6 +45,6 @@ value iteration是使用**Bellman最优方程**进行求解.
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559060741000-1559060741001.png)
 
 例如, 在small grid world问题中, 在同步更新算法中更新了某个格子s的$v(s)$,是将这个值存到新的backup中,当更新s的相邻格子时,需要用到s的值(look ahead, 参考bellman方程), 这个时候用的仍然是旧的backup中的$v(s)$值;而在in-place算法中,不区分新的和旧的backup,只有一个backup,计算了$v(s)$后直接覆盖原来的值,二而计算s的邻居格子时,也总是用的最新的$v(s)$值.
-这会导致计算某个状态的多个后继状态时,这些
+这会导致计算某个状态的多个后继状态时,这些后继状态用到的前驱状态的value是不同的,但是 
 
 2. 
