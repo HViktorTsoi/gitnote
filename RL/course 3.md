@@ -41,6 +41,7 @@ value iteration是使用**Bellman最优方程**进行求解.
 ## DP的改进方法
 
 1. In place DP
-不存储旧的$v(s)$,  而是计算了一次
+不存储旧的$v(s)$,  而是计算了一次$v(s)$就立刻更新, 即
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559060741000-1559060741001.png)
 
 2. 
