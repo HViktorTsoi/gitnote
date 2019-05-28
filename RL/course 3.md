@@ -51,5 +51,5 @@ value iteration是使用**Bellman最优方程**进行求解.
 2. Prioritised Sweeping
 
 如1中所说, 使用了in place之后,顺序决定了能提高的计算效率, 如果总是优先更新比较重要的state, 那么收敛速度也就能相应的加快. 因此,Prioritised Sweeping就采用了这种思想, 依据state的重要程度排序, 优先in-place更新重要的state.
-计算state重要程度的度量是Bellman error,即一个state的value在更新前后的差值,直观上来讲,一个state在某次迭代中被更新的值越大,说明其对寻找
+计算state重要程度的度量是Bellman error,即一个state的value在更新前后的差值,直观上来讲,一个state在某次迭代中被更新的值越大,说明其对寻找最优解的贡献也就可能更大(参考small grid world问题,如果某个状态周围都是0,它本身也是0,那更新了它之后它还是0,对求解没有任何帮助,这就是重要度)
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559061629982-1559061629983.png)
