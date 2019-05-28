@@ -41,6 +41,7 @@ value iteration是使用**Bellman最优方程**进行求解.
 ## DP的改进方法
 
 1. In place DP
+
 不存储旧的$v(s)$,  而是计算了一次$v(s)$就立刻更新, 即
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559060741000-1559060741001.png)
 
@@ -48,4 +49,8 @@ value iteration是使用**Bellman最优方程**进行求解.
 这会大大增加计算效率, 但是也会导致计算某个状态s的多个后继状态时,这些后继状态用到的前驱状态s的value是不同的(虽然本应该都是同一个时刻的s值), 但是对一些问题,这样是没有问题的;对于其他的问题,可能涉及到顺序的问题. 
 
 2. Prioritised Sweeping
-如1中所说, 使用了in place之后,顺序决定了能提高的计算效率, 如果总是优先更新比较重要的state, 那么收敛速度也就能相应的加快. 因此,Prioritised Sweeping就采用了这种思想, 依据state的重要程度排序
+
+
+如1中所说, 使用了in place之后,顺序决定了能提高的计算效率, 如果总是优先更新比较重要的state, 那么收敛速度也就能相应的加快. 因此,Prioritised Sweeping就采用了这种思想, 依据state的重要程度排序, 优先in-place更新重要的state.
+计算state重要程度的度量是Bellman error
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559061629982-1559061629983.png)
