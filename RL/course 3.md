@@ -43,5 +43,5 @@ value iteration是使用**Bellman最优方程**进行求解.
 1. In place DP
 不存储旧的$v(s)$,  而是计算了一次$v(s)$就立刻更新, 即
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559060741000-1559060741001.png)
-
+例如, 在small grid world问题中, 在同步更新算法中更新了某个格子的$v(s)$,是将这个值存到新的backup中,当更新这个各自的相邻
 2. 
