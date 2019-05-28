@@ -2,7 +2,7 @@
 
 注意,这节课讲解的是Planning问题,而不是RL问题.
 
-## Iterative Policy Evaluation
+## Policy Iteration
 用迭代的方法来求解最优的value fn,以及最优的策略.
 这里我们可以使用**synchronous backups**方法,即:
 
@@ -18,3 +18,5 @@
 
 - 重复这两步, 最终能够保证$v(s)$收敛到最优$v^*(s)$, 且$\pi(s)$收敛到最优$\pi^*(s)$, 如下图所示(证明在后面给出).
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/28/1558976217618-1558976217623.png)
+
+# Value Iteration
