@@ -2,7 +2,7 @@
 
 注意,这节课讲解的是Planning问题,而不是RL问题.
 
-## Policy Iteration
+## Iterative Policy Iteration
 Policy Iteration 是使用**Bellman期望方程**来求解. 用迭代的方法来求解最优的value fn,以及最优的策略.
 这里我们可以使用**synchronous backups**方法,即:
 
@@ -21,4 +21,4 @@ Policy Iteration 是使用**Bellman期望方程**来求解. 用迭代的方法�
 
 ## Value Iteration
 value iteration是使用**Bellman最优方程**进行求解.
-与policy iteration不同, value iteration没有显式的policy
+与policy iteration不同, value iteration没有显式的policy,在迭代过程中,中间的$v(s)$并不代表任何policy(而在policy iteration)
