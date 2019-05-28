@@ -29,6 +29,8 @@ value iteration是使用**Bellman最优方程**进行求解.
 
 - 开始的时候可以将所有的$v_0(s)$设置为随机值,并随机选取一个policy  $\pi_0$,然后重复迭代以下过程, 直到收敛:
 
-- 在第k轮时, 首先使用上述的synchronous backups bellman方程, 来评估policy $\pi$(上一轮迭代后得到的), 得到这一轮的value fn $v_k(s)$;
+- 在第k轮时, 直接使用synchronous backups **bellman optimal**方程,计算出$v_{k+1}(s)$
+
+首先使用上述的synchronous backups bellman方程, 来评估policy $\pi$(上一轮迭代后得到的), 得到这一轮的value fn $v_k(s)$;
 
 - 然后,使用1 step look ahead的方法, 根据这个新的$v_k(s)$来更新policy, 得到 $\pi'$(这一过程可见ppt中的small grid world例子);
