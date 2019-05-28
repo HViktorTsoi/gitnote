@@ -35,3 +35,5 @@ value iteration是使用**Bellman最优方程**进行求解.
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559059488985-1559059488991.png)
 
+## policy Iteration 和 Value Iteration 的对比
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559059648492-1559059648499.png)
