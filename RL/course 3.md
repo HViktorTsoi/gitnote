@@ -25,4 +25,10 @@ Policy Iteration 是使用**Bellman期望方程**来求解. 用迭代的方法�
 value iteration是使用**Bellman最优方程**进行求解.
 与policy iteration不同, value iteration没有显式的policy,在迭代过程中,中间的$v(s)$并不代表任何policy(而在policy iteration).
 
-使用vlaue 
+使用vlaue iteration时, 按照以下步骤:
+
+- 开始的时候可以将所有的$v_0(s)$设置为随机值,并随机选取一个policy  $\pi_0$,然后重复迭代以下过程, 直到收敛:
+
+- 在第k轮时, 首先使用上述的synchronous backups bellman方程, 来评估policy $\pi$(上一轮迭代后得到的), 得到这一轮的value fn $v_k(s)$;
+
+- 然后,使用1 step look ahead的方法, 根据这个新的$v_k(s)$来更新policy, 得到 $\pi'$(这一过程可见ppt中的small grid world例子);
