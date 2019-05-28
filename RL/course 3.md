@@ -37,3 +37,10 @@ value iteration是使用**Bellman最优方程**进行求解.
 
 ## policy Iteration 和 Value Iteration 的对比
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559059648492-1559059648499.png)
+
+## DP的改进方法
+
+1. In place DP
+不存储旧的$v(s)$,  而是计算了一次
+
+2. 
