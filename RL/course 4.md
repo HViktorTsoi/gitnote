@@ -31,5 +31,5 @@
 假如有一下state和对应的时间过程
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559123066061-1559123066062.png)
 那么对于MC方法, 需要在真正到家,得到最终的elapsed time 43之后,才能用这个值去计算均值误差,并更新前边多个状态的value;
-而对于TD来说,每一步可以用下一步的预测值来计算均值误差并直接更新该状态的value.(例如,在raining状态总预测值是40,而下一个状态exit highway后,实际上行驶的时间比之前预期的短,因此总预测值)
+而对于TD来说,每一步可以用下一步的预测值来计算均值误差并直接更新该状态的value(例如,在raining状态总预测值是40,而下一个状态exit highway后,实际上行驶的时间比之前预期的短,因此总预测值也缩小到了35,那么35这个值就可以和raining这个状态的40一起计算误差,并更新raining状态的value).
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559123079430-1559123079430.png)
