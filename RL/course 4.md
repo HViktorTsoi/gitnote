@@ -17,5 +17,8 @@
 而且实际上,增量均值的表示方式揭露了均值的一个重要意义: 看$(x_k-\mu_{k-1})$这一项,这一项称为误差项,这有一种更新的思想,当新的状态比旧的均值高,则误差为正数,需要将老的均值加上这个正数,变得稍微高一点,从而更符合观测;新状态低于旧均值是反之.这是一种重要的思想,在很多其他算法中(如kalman filter),都包含了这种思想.
 
 ### Incremental Mente-Carlo Updates
+
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559116484810-1559116484811.png)
-在每个episode末尾进行更新$V(s)$, 查询在这个episode中所有涉及到的state, 看从这个state出发能得到了return(即$G(t)$),再使用Incremental Mean进行更新
+注意,更新$V(s)$是在每个episode的末尾进行的,需要查询在这个episode中所有涉及到的states, 看从某个state出发能得到了return(即$G(t)$),再使用Incremental Mean进行更新.
+
+另外,有的时候我们需要遗忘
