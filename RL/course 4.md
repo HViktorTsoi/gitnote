@@ -7,3 +7,5 @@
 并且,这种采样的方式打破了对状态空间数目的限制,因为每一次不用把所有的状态空间都计算一遍,要计算的数量只取决于采样的多少.
 
 ## Every Visit Monte-Carlo Policy Evaluation
+
+### incremental Mean
