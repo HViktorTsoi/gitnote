@@ -25,7 +25,7 @@
 
 ### TD Learning
 与Monte-Carlo不同, TD直接在每一步更新value fn, 而不是在一个episode结束之后才更新. Monte-Carlo中,是在每个epi结束之后,获得所有有关状态的$G(t)$,并用来计算均值误差更新相关状态,每一个状态的实际return是已知的;而TD是在每一步,使用一个猜测值($R_{t+1}+\gamma V(s_{t+1})$)来计算均值误差,并直接更新value fn.
-因此,TD可以适用于没有结束状态的学习过程
+因此,TD可以适用于没有结束状态的学习过程,或者使用没有还没有结束的,不完整的序列进行学习.
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559122915954-1559122915955.png)
 
 这里以Driving Home例子说明TD的特点:
@@ -35,3 +35,4 @@
 而对于TD来说,每一步可以用下一步的预测值来计算均值误差并直接更新该状态的value(例如,在raining状态总预测值是40,而下一个状态exit highway后,实际上行驶的时间比之前预期的短,因此总预测值也缩小到了35,那么35这个值就可以和raining这个状态的40一起计算误差,并更新raining状态的value).
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559123079430-1559123079430.png)
 
+另外,MC方法是unbiased的,但是其variance高,因为
