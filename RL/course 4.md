@@ -26,3 +26,5 @@
 ### TD Learning
 与Monte-Carlo不同, TD直接在每一步更新value fn, 而不是在一个episode结束之后才更新. Monte-Carlo中,是在每个epi结束之后,获得所有有关状态的$G(t)$,并用来计算均值误差更新相关状态,每一个状态的实际return是已知的;而TD是在每一步,使用一个猜测值($R_{t+1}+\gamma V(s_{t+1})$)来计算均值误差,并直接更新value fn.
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559122915954-1559122915955.png)
+
+这里以Driving Home例子
