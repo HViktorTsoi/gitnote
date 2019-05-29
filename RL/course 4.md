@@ -36,4 +36,4 @@
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559123079430-1559123079430.png)
 
 另外,MC方法是unbiased的因为其均值是通过真实的过程观测值求得的(每个epi结束之后观测到的真实值),但是其variance高,因为一个状态的return $G(t)$取决于后面多个状态的actions, transitions, rewards;
-TD方法是biased的,因为其均值误差是由猜测值计算的到的(下一步的估计value fn),但是variance低,因为一个状态的TD target
+TD方法是biased的,因为其均值误差是由猜测值计算的到的(下一步的估计value fn),但是variance低,因为一个状态的TD target只由下一个状态action, transition, reward决定.
