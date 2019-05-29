@@ -11,4 +11,6 @@
 类比与first visit,在每一个episode中, 每当遇到某个状态s时,都增加s的计数器,并累加s的return,这样在多个episode之后,多次采样到s,求其reward的均值,就会收敛到真实的return.
 
 ### incremental Mean
-对于平常意义下的均值,有一个重要的概念: 可以将某个序列求和均值转化为
+对于平常意义下的均值,有一个重要的概念: 可以将某个序列的求和均值,转化为增量均值:
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559114588955-1559114588956.png)
+这样,就可以在一个动态序列中,没放,不需要计算整个序列的
