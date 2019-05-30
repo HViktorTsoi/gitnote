@@ -45,4 +45,4 @@ MC方法最终收敛到与观测值有最小方均根误差(MSE)的解;
 TD方法最终收敛到最大似然马尔可夫模型上,即收敛到最能拟合数据的MDP上;
 (AB例子见课件)
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/30/1559198265839-1559198265840.png)
-
+由此,我们可以
