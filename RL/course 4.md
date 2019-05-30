@@ -47,11 +47,11 @@ TD方法最终收敛到最大似然马尔可夫模型上,即收敛到最能拟�
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/30/1559198265839-1559198265840.png)
 由此我们可以得出:TD更适用于有马尔可夫性质的问题,而MC更适用于非马尔可夫性质的问题.
 
-MC方法,是将一条路径exploit到底
+MC方法,是将一条路径exploit到底,然后根据return更新value
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/30/1559198912841-1559198912842.png)
 
-TD方法只向前看一步
+TD方法只向前看一步,通过估计来更新value
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/30/1559198967117-1559198967129.png)
 
-DP方法,由于已知系统的dynamic,每次在一个状态可以探索出所有可能的action和后继状态,所以进行的
+DP方法,由于已知系统的dynamic,每次在一个状态可以探索出所有可能的action和后继状态,所以进行的是类似BFS的搜索.
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/30/1559199066281-1559199066282.png)
