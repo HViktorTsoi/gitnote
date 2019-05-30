@@ -28,7 +28,7 @@
 因此,TD可以适用于没有结束状态的学习过程,或者使用没有还没有结束的,不完整的序列进行学习.
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559122915954-1559122915955.png)
 
-### MC,TD和的区别
+### MC,TD和DP之间的关系
 首先这里以Driving Home例子说明MC和TD各自的特点:
 假如有一下state和对应的时间过程
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559123066061-1559123066062.png)
@@ -46,3 +46,6 @@ TD方法最终收敛到最大似然马尔可夫模型上,即收敛到最能拟�
 (AB例子见课件)
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/30/1559198265839-1559198265840.png)
 由此我们可以得出:TD更适用于有马尔可夫性质的问题,而MC更适用于非马尔可夫性质的问题.
+
+MC方法,是将
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/30/1559198912841-1559198912842.png)
