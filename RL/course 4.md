@@ -74,4 +74,4 @@ MC和TD都包含采样;DP没有采样,使用的是全体state和action空间.
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/31/1559238090827-1559238090828.png)
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/31/1559238099646-1559238099647.png)
-在这个过程中,并不是所有return都是同等重要的,
+在这个过程中,并不是所有return都是同等重要的,因此在每一项中加入衰减因子$\lambda$,构成平均n step return:
