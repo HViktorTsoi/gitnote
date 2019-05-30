@@ -28,7 +28,7 @@
 因此,TD可以适用于没有结束状态的学习过程,或者使用没有还没有结束的,不完整的序列进行学习.
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559122915954-1559122915955.png)
 
-这里以Driving Home例子说明TD的特点:
+这里以Driving Home例子说明MC和TD各自的特点:
 假如有一下state和对应的时间过程
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559123066061-1559123066062.png)
 那么对于MC方法, 需要在真正到家,得到最终的elapsed time 43之后,才能用这个值去计算均值误差,并更新前边多个状态的value;
