@@ -56,4 +56,5 @@ TD方法只向前看一步,通过估计来更新value
 DP方法,由于已知系统的dynamic,每次在一个状态可以探索出所有可能的action和后继状态,所以进行的是类似BFS的搜索.
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/30/1559199066281-1559199066282.png)
 
-TD和DP方法是有Bootstrapping的,包含估计;MC方法每一
+TD和DP方法是有bootstrapping的,包含估计;MC方法没有bootstrapping,只用真实值;
+MC和TD都包含采样;DP没有采样,使用的是全体state和action空间.
