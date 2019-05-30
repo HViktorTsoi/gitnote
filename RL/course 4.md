@@ -58,3 +58,9 @@ DP方法,由于已知系统的dynamic,每次在一个状态可以探索出所有
 
 TD和DP方法是有bootstrapping的,包含估计;MC方法没有bootstrapping,只用真实值;
 MC和TD都包含采样;DP没有采样,使用的是全体state和action空间.
+
+下面这张图更好的解释了MC,TD和DP之间的关系
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/30/1559200593700-1559200593701.png)
+使用全部状态空间的,只看一步的是DP,而看到底的就是搜索(注意这里针对的问题是适用与DP的问题,即最右子结构和重叠子问题,或有MDP性质)
+
+使用采样状态空间的,只看一步的是$TD_0$(还有$TD_\lambda$等算法是看更多步的),而看到底的是MC.
