@@ -72,4 +72,6 @@ MC和TD都包含采样;DP没有采样,使用的是全体state和action空间.
 由之前的内容我们知道,MC算法和TD算法各有其优缺点,那么有没有办法结合两者呢?
 这就是TD($\lambda$)算法.TD($\lambda$)在更新时进行n step look ahead,即比TD(0)要多看若干步,但又不像MC一样要等到episode结束状态之后才更新.
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/31/1559238090827-1559238090828.png)
+
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/31/1559238099646-1559238099647.png)
+在这个过程中,并不是所有return都是同等重要的,
