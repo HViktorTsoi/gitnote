@@ -41,5 +41,6 @@ TD方法是biased的,因为其均值误差是由猜测值计算的到的(下一�
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559124475248-1559124475250.png)
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/29/1559124485136-1559124485137.png)
 
-MC方法
+MC方法最终收敛到与观测值有最小方均根误差(MSE)的解
+TD方法最终收敛到
 
