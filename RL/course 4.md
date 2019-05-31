@@ -79,6 +79,7 @@ MC和TD都包含采样;DP没有采样,使用的是全体state和action空间.
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/31/1559238243215-1559238243216.png)
 实际上,当$\lambda=0$时,就是TD(0)算法;当$\lambda=1$,就是MC算法.
 
-以上是TD($\lambda$)算法的forward view, 相当于在一个状态上,用望远镜看未来的状态,并使用
+以上是TD($\lambda$)算法的forward view, 相当于在一个状态上,用望远镜看未来的状态,并在更新当前状态时,使用未来的状态的return*$\lambda$的信息来更新当前值;
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/31/1559282325246-1559282325247.png)
 
 还可以从backward view的角度进行考虑:
