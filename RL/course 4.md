@@ -93,7 +93,7 @@ MC和TD都包含采样;DP没有采样,使用的是全体state和action空间.
 这两种情况从直观上理解,能够代表一个状态的重要程度,即出现频繁且最近出现的状态比较重要,因此有较大的适应度轨迹值.在Backward过程中,适应度轨迹是作为梯度的一个权重,用来更新所有状态的value,因此需要计算所有状态的适应度轨迹.
 详解可见
 
-![如何理解增强学习中的eligibility trace？功能和优缺点是什么？ - 囧Bourne的回答 - 知乎](https://www.zhihu.com/question/60612010/answer/482730680)
+![如何理解增强学习中的eligibility trace？功能和优缺点是什么？](https://www.zhihu.com/question/60612010/answer/482730680)
 
 当$\lambda=0$时,只有当前状态被更新,和TD(0)等价;当$\lambda=1$时,TD($\lambda$)的总均值误差与MC的误差相等,此时等价于MC;
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/31/1559290897499-1559290897500.png)
