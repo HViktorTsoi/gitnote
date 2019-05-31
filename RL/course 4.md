@@ -84,5 +84,8 @@ MC和TD都包含采样;DP没有采样,使用的是全体state和action空间.
 
 但是使用forward view必须和MC一样,要等到状态结束才可以更新状态value,如果想像TD(0)一样还可以从backward view的角度进行考虑: 相当于坐在当前状态上,用喇叭向过去的状态广播当前状态的更新值,并让被广播到的每一个状态都更新相应的经过$\lambda$衰减的值.
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/31/1559283724607-1559283724608.png)
-另外还要引入适应度函数这一概念,用于结合状态chuxina频率和
+
+另外还要引入适应度函数这一概念,用于结合状态状态出现频率和状态发生时间的信息:
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/31/1559284226293-1559284226306.png)
+
 当$\lambda=0$时,只有当前状态被更新,和TD(0)等价
