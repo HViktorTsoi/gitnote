@@ -104,3 +104,4 @@ forward和backward的观点是等价的:
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/31/1559292636598-1559292636612.png)
 
 对于TD($\lambda$),其更新过程为(backward):
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/31/1559297873206-1559297873220.png)
