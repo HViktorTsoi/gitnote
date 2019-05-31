@@ -87,6 +87,8 @@ MC和TD都包含采样;DP没有采样,使用的是全体state和action空间.
 
 另外还要引入适应度轨迹这一概念,用于结合状态状态出现频率和状态发生时间的信息,可以看成是一个衰减因子,这个衰减因子等于当前状态距离所作用的过去的状态的步数的指数幂:
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/31/1559284226293-1559284226306.png)
+从公式理解,有两种情况下,当前的s就有较高的轨迹值:
+第一种是前边有很多个状态都是s,
 
 当$\lambda=0$时,只有当前状态被更新,和TD(0)等价;当$\lambda=1$时,TD($\lambda$)的总均值误差与MC的误差相等,此时等价于MC;
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/31/1559290897499-1559290897500.png)
