@@ -88,4 +88,4 @@ MC和TD都包含采样;DP没有采样,使用的是全体state和action空间.
 另外还要引入适应度函数这一概念,用于结合状态状态出现频率和状态发生时间的信息:
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/31/1559284226293-1559284226306.png)
 
-当$\lambda=0$时,只有当前状态被更新,和TD(0)等价
+当$\lambda=0$时,只有当前状态被更新,和TD(0)等价;当$\$
