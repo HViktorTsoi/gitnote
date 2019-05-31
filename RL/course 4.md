@@ -94,3 +94,4 @@ MC和TD都包含采样;DP没有采样,使用的是全体state和action空间.
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/31/1559290885488-1559290885489.png)
 
 forward和backward的观点是等价的:
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/31/1559292636598-1559292636612.png)
