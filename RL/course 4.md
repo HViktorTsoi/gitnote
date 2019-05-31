@@ -82,7 +82,7 @@ MC和TD都包含采样;DP没有采样,使用的是全体state和action空间.
 以上是TD($\lambda$)算法的forward view, 相当于在一个状态上,用望远镜看未来的状态,并在更新当前状态时,使用未来的状态的return*$\lambda$的信息来更新当前值;
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/31/1559282325246-1559282325247.png)
 
-但是使用forward view必须和MC一样,要等到状态结束才可以更新状态value,如果想像TD(0)一样还可以从backward view的角度进行考虑: 相当于坐在当前状态上,用喇叭向过去的状态广播当前状态的更新值,并让被广播到的每一个状态都更新相应的经过$\lambda$衰减的值.
+但是使用forward view必须和MC一样,要等到状态结束才可以更新状态value,如果想像TD(0)一样还可以从backward view的角度进行考虑: 相当于坐在当前状态上,用喇叭向已经理过的状态广播当前状态的更新值,并让被广播到的每一个状态都更新相应的经过$\lambda$衰减的值.
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/05/31/1559283724607-1559283724608.png)
 
 另外还要引入适应度函数这一概念,用于结合状态状态出现频率和状态发生时间的信息:
