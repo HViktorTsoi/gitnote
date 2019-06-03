@@ -20,3 +20,4 @@ input 给出的水位 output计算给出的就是流量
 - Actor:采用策略梯度; Crtic:采用值梯度
 - 分水时间,分水量
 - 使用LSTMCell 而不是整个LSTM
+- 训练的同时,有一个worker单独测试
