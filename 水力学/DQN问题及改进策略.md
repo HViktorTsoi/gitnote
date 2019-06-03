@@ -18,3 +18,4 @@ input 给出的水位 output计算给出的就是流量
 
 - 使用A3C模型,无需经验回放,通过多个agent实现batch训练,每次采样选择个完整的episode
 - Actor:采用策略梯度; Crtic:采用值梯度
+- 分水时间,分水量
