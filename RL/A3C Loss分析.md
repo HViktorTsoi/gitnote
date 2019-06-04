@@ -3,5 +3,5 @@ $$
 $$
 
 $$
-GAE=
+GAE_t=\gamma GAE_{t-1}+\delta_t
 $$
