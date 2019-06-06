@@ -22,3 +22,4 @@ input 给出的水位 output计算给出的就是流量
 - 使用LSTMCell 而不是整个LSTM
 - 训练的同时,有一个worker单独测试
 - 成功结束时，给一个大的奖励；失败结束时，给一个大的惩罚
+- 多个loss求和后backward vs 计算多个reward之后再计算loss 单个loss
