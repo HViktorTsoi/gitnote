@@ -24,3 +24,5 @@ input 给出的水位 output计算给出的就是流量
 - 成功结束时，给一个大的奖励；失败结束时，给一个大的惩罚
 - 多个loss求和后backward vs 计算多个reward之后再计算loss 单个loss回传
 - DQN版本 **不应该**把reward 和 action 也作为观测量
+- 测试时 不应该采用$epis$贪婪策略选择action 而是应该直接用最高价值action或者策略进行选择
+- endstate为1和0时应该保证持续调控reward是累加的
