@@ -8,7 +8,7 @@ Model-free MC控制其实和DP中的MC很相近,都是反复通过
 但是这里有个问题,由于在Model-free control中,无法得到系统的信息,即无法像DP那样得到所有的状态和状态之间转换的概率,因此如果一直采取贪心策略,可能卡在一种策略上,在局部最优不动了,这就是没有exploration的结果.
 
 因此,为了增加exploration,提出$\epsilon$-greedy的exploration方法,其思路非常简单:
-![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/06/11/1560268268987-1560268268988.png)
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/maste=r/gitnote/2019/06/11/1560268268987-1560268268988.png)
 就是以$\epsilon$的概率随机选action,而以$(1-\epsilon)$的概率以贪婪策略选择action.同时种策略保证是收敛的,即保证采取$\epsilon$-greedy策略之后下一时刻的Q值是不小于当前时刻的.
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/06/11/1560268683346-1560268683379.png)
 
