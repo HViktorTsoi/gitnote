@@ -26,3 +26,35 @@ input 给出的水位 output计算给出的就是流量
 - DQN版本 **不应该**把reward 和 action 也作为观测量
 - 测试时 不应该采用$epis$贪婪策略选择action 而是应该直接用最高价值action或者策略进行选择
 - endstate为1和0时应该保证持续调控reward是累加的
+
+稳态 完全收敛参数
+# =======================================
+# 强化学习模型相关
+# 线程数
+WORKERS = 21
+# 学习率
+LR = 0.0009
+# 衰减权重gamma
+G = 0.98
+# loss中entropy所占比例
+ENTROPY_WEIGHT = 0.05
+# gae参数T
+T = 1.00
+# 最大episode长度
+NS = 133
+M = 10000
+# 优化器
+SO = True
+OPT = 'Adam'
+# 随机种子
+seed = 42
+# 奖励表
+reward_table = {
+    'abs_0_5': 0.03,
+    'abs_5_10': -0.01,
+    'abs_10_15': -0.03,
+    'abs_15_20': -0.06,
+    'abs_20': -0.5,
+}
+每隔
+
