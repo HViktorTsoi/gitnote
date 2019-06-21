@@ -56,5 +56,7 @@ reward_table = {
     'abs_15_20': -0.06,
     'abs_20': -0.5,
 }
-
+失败:reward = [r - 5 for r in reward]
+成功:reward = [r + 15 for r in reward]
+每轮:reward = [r + 0.001 * self.eps_len for r in reward]
 
