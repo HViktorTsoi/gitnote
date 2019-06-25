@@ -91,3 +91,5 @@
 总结一下哈。
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/06/25/1561474387770-1561474387782.png)
 
+我只是列出了三种极端情况,大部分的情况，是部分相关的。
+
