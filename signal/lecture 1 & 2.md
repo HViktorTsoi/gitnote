@@ -72,3 +72,5 @@
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/06/25/1561473399423-1561473399425.png)
 
 这是变化规律相反的两个信号 有人能告诉我他们的夹角多少度吗 对的。是180度哈。
+
+有人能说一下，当两个信号的夹角是90度的时候 他们变化规律有什么特点吗
