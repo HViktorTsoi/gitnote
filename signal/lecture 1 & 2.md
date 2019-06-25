@@ -71,4 +71,4 @@
 不难看出，去除掉均值之后的两个信号在任何时刻相乘的结果都是负数。
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/06/25/1561473399423-1561473399425.png)
 
-这是变化规律相反的两个信号
+这是变化规律相反的两个信号 有人能告诉我他们的夹角多少度吗
