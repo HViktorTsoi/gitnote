@@ -79,5 +79,8 @@
 
 @Comfortably Numb  是的！   90度夹角的时候，此时两个信号之间的变化规律没什么关系。简而言之这两条曲线的变化是不相关的。这种不相关，我大概总结了一下，可能包括三种情况。
 
-第一种是这样
+第一种是这样 简单的说，就是不管你咋变，我都不变。任他东西南北风，我自岿然不动
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/06/25/1561473711804-1561473711825.png)
+
+第二种是下面这种情况
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/06/25/1561473764887-1561473764911.png)
