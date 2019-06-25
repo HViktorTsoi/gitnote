@@ -89,5 +89,5 @@
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/06/25/1561474294237-1561474294239.png)
 
 总结一下哈。
-
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/06/25/1561474387770-1561474387782.png)
 
