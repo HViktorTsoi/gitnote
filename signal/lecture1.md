@@ -49,3 +49,4 @@
 
 嗯嗯。很好。标准化的意思，就是在原来的公式上，将b和a的幅值的影响消除，方法就是除以两个向量的模。
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2019/06/25/1561473003486-1561473003486.png)
+这个公式，就是我们在教科书上学到的两个向量的相关系数的计算公式。
