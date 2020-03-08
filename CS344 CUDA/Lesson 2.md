@@ -17,7 +17,7 @@
 ![](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/PicGo/Screenshot%20from%202020-02-26%2000-18-36.png)
 
 
-6. Reduce：reduce必须满足两点性质 
+6. Reduce：类似求和或者求平均数的操作，reduce必须满足两点性质 
 一是二元运算符，
 二是满足结合率 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/04/1583329953204-1583329953229.png)
@@ -25,13 +25,32 @@
 > reduce或其他的运算模式中，threadID体现的是等价为串行代码中最外层循环的循环变量。并且一个通常的模式为，串行代码中i,i+1这样的访问操作，在kernel中体现为tid，tid+stride，其中stride可以为并行的线程数（这样可以保证相邻线程的访存相邻性）。
 reduce时，由于需要频繁访存，较好的办法是使用shared mem
 
-7. Scan：类似与running sum或则cumsum，如果使用串行来处理，则每次第k步的结果都依赖1..k-1步。scan的必须满足的三点要素：
+7. Scan：类似与running sum或则cumsum，如果使用串行来处理，则每次第k步的结果都依赖1..k-1步。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/05/1583344225270-1583344225272.png)
+scan的必须满足的三点要素：
 二元运算符，
 满足交换律，
 单位元I(I op a = a)。
 
 例子 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/05/1583343676119-1583343676122.png)
 scan结果的第一个元素是单位元，之后每个元素是前边所有元素经过操作符之后得到的结果。（注意这里最后的9不被考虑，这就是这类scan的性质）
+
+scan可以分为两种，其一是exclusive，不包含当前元素，其二是inclusive，包含当前元素。这两种适用于不同的算法场景。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/05/1583344351006-1583344351009.png)	
+
+**Hill Steele Scan**
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/08/1583669522412-1583669522435.png)
+work复杂度 O(n log n)(reduce的复杂度 * 步骤数)
+step复杂度 O(log n)
+
+**Blelloch Scan**
+首先是reduce，间隔0,2,4,8...做reduce；然后反过来做downswip，详细过程见下图
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/08/1583670374959-1583670374962.png)
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/08/1583673639883-1583673639886.png)
+work复杂度 2 O(n)(reduce的复杂度)
+step复杂度 2 O(log n)
+
+对比来看，HS算法的step复杂度更低，但是Ble算法的work复杂度更低，具体要根据GPU性能来决定
 8. Histogram
 
 # barrier
