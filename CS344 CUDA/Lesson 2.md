@@ -50,8 +50,15 @@ step复杂度 O(log n)
 work复杂度 2 O(n)(reduce的复杂度)
 step复杂度 2 O(log n)
 
-对比来看，HS算法的step复杂度更低，但是Ble算法的work复杂度更低，具体要根据GPU性能来决定
-8. Histogram
+对比来看，HS算法的step复杂度更低，但是Ble算法的work复杂度更低，具体要根据GPU性能来决定。当算法需要的work大于processor时，要选择work efficient的并行方式；当processor充足，满足要执行的work时，要选择step efficient的算法。
+
+8. Histogram：统计直方图。串行的直方图算法无法直接应用于并行模式，因为在累加这一步骤存在race condition(不同的线程都对同一个bin进行增加)。因此，要将histo算法改为并行，可有以下几种方法:
+
+A. 使用atomic add操作来累加直方图。实现简单，但是实际上最坏的情况多个线程是串行访问的(同一个bin被多次累加)
+B.对于k个线程，为每个线程分配一个局部直方图(局部直方图的bin和全局是一样的)，然后将数据划分为k份，每个线程独立处理维护一个局部直方图	
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/09/1583728950403-1583728950406.png)
+然后使用reduce将k个局部直方图加起来
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/09/1583729104596-1583729104598.png)
 
 # barrier
 __synchronize,类似一道屏障，所有线程到barrier之前都要等待，直到kernel内的所有线程都执行完毕，类似于线程同步
