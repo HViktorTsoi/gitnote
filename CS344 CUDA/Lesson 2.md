@@ -1,3 +1,5 @@
+RULE #0：在CUDA中， 先将问题划分到能够满足单个block的规模，并尝试使用shared mem，这样的思路很重要
+
 # 并行计算模式
 
 1. Map: 一一映射(color-gray) ![image](https://ask.qcloudimg.com/http-save/yehe-1215004/ro8uchdhvm.png?imageView2/2/w/1620)
@@ -22,8 +24,11 @@
 二是满足结合率 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/04/1583329953204-1583329953229.png)
 
-> reduce或其他的运算模式中，threadID体现的是等价为串行代码中最外层循环的循环变量。并且一个通常的模式为，串行代码中i,i+1这样的访问操作，在kernel中体现为tid，tid+stride，其中stride可以为并行的线程数（这样可以保证相邻线程的访存相邻性）。
-reduce时，由于需要频繁访存，较好的办法是使用shared mem
+> reduce或其他的运算模式中，threadID体现的是等价为串行代码中最外层循环的循环变量。并且一个通常的模式为，串行代码中i,i+1这样的访问操作，在kernel中体现为tid，tid+stride，其中stride可以为并行的线程数（这样可以保证相邻线程的访存相邻性）；另外也是因为在线程内使用i,i+1判断和写回相邻的内存对应相邻的线程不方便（因为这样相邻的线程之间就相互依赖了），而使用tid<stride这样的方式，写回i,i+stride时相邻线程不会发生冲突，判断相邻更方便。这个时候只要把tid看做是最外层的循环变量就可以了。
+
+reduce时，由于需要频繁访存，较好的办法是使用shared mem。而想要使用shared memory，就要以block为单位去划分数据，即blockDim最好为2的整数次方。在第一趟reduce中，前边若干个blocks对应的前k个元素是k个blocks的k个最大值；在第二趟reduce中，对第一趟产生的前边若干个blocks对应的元素再进行reduce；反复此步骤，直到最后得到唯一值。
+
+使用shared mem还有一个好处，就是可以在将global拷贝到shared mem时，自动将数据中没有对齐2的整数倍的边角余料数据补0，减少后期处理的复杂性。
 
 7. Scan：类似与running sum或则cumsum，如果使用串行来处理，则每次第k步的结果都依赖1..k-1步。
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/05/1583344225270-1583344225272.png)
@@ -52,16 +57,25 @@ step复杂度 2 O(log n)
 
 对比来看，HS算法的step复杂度更低，但是Ble算法的work复杂度更低，具体要根据GPU性能来决定。当算法需要的work大于processor时，要选择work efficient的并行方式；当processor充足，满足要执行的work时，要选择step efficient的算法。
 
+对于元素数量高于一个block，单个block处理不了的情况时，要用以下方式来进行scan：
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/18/1584537762178-1584537762205.png)
+具体理解用一列数字的实例来计算就可以。
+
 8. Histogram：统计直方图。串行的直方图算法无法直接应用于并行模式，因为在累加这一步骤存在race condition(不同的线程都对同一个bin进行增加)。因此，要将histo算法改为并行，可有以下几种方法:
 
 A. 使用atomic add操作来累加直方图。实现简单，但是实际上最坏的情况多个线程是串行访问的(同一个bin被多次累加)
-B.对于k个线程，为每个线程分配一个局部直方图(局部直方图的bin和全局是一样的)，然后将数据划分为k份，每个线程独立处理维护一个局部直方图	
+B. 对于k个线程，为每个线程分配一个局部直方图(局部直方图的bin和全局是一样的)，然后将数据划分为k份，每个线程独立处理维护一个局部直方图；
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/09/1583728950403-1583728950406.png)
-然后使用reduce将k个局部直方图加起来
+然后使用reduce将k个局部直方图加起来（需要使用n binds次atomicadd来合并局部直方图）
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/09/1583729104596-1583729104598.png)
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/09/1583754051205-1583754051208.png)
+C. 首先按key排序，然后按key reduce(trust库中有这两个算法的实现)
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/09/1583749101668-1583749101672.png)
 
 # barrier
-__synchronize,类似一道屏障，所有线程到barrier之前都要等待，直到kernel内的所有线程都执行完毕，类似于线程同步
+__synchronize,类似一道屏障，所有线程到barrier之前都要等待，直到block内的所有线程都执行完毕，类似于线程同步
+
+**注意__synchronize同步的范围是block，而不是全局！！！！！！**
 
 在GPU编程中，最终要的是尽可能减小内存的读写时间(注意不是次数，而是时间)
 
