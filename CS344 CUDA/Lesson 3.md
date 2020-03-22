@@ -36,7 +36,7 @@ mergesort很容易实现并行，但是存在这样的问题：在开始阶段�
 1. 多个线程，每个线程归并一个小数组;(问题数>>SM)
 
 2. 有很多中等大小的有序块需要归并，如果串行归并的话效率很低；此时对于两个有K个元素的待归并列表，需要开2K个线程；每个线程首先知道自己对应的元素在自己列表中的位置p1，然后在另一个列表中用二分搜索出元素应该在的位置p2，这样这个元素在归并好的列表中的位置就应该是p1+p2；且这个搜索的复杂度不高，仅为n(logn)；(问题数=SM)
-
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/22/1584883494640-1584883494642.png)
 3. 只剩下两组巨大的归并，此时如果还用2的方法，就会有很多SM处于idle的状态(因为2只用于处理单个block)，所以要尽可能将这个两个大数组分为小数组，并占满多个SM。(问题数<<SM)
 具体做法：
 a) 首先对两个列表做这样的操作：每隔M个元素取一个spliter元素(例如每256个元素取一个元素)标记为A B C D, E F G H等等；
@@ -45,3 +45,20 @@ c) 如下图所示，以F为例，B<F<C<G，则可以用二分找到F在BC间的
 d) 对spliter序列中的所有分段都做这样的操作，得到最终的有序数组。
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/22/1584816381706-1584816381709.png)
+
+## sorting network
+排序网络，一种无关排序算法；这里使用双调排序来实现并行，双调序列是一个先单调递增后单调递减（或者先单调递减后单调递增）的序列。双调序列可以应用Batcher定理被划分为两个子双调序列可用于子问题划分。也可以使用单双归并排序网络。
+
+排序网络可以有多种不同的结构。排序网络的一个重要特性就是数据无关，不管数据怎么分布，比较次数都是固定的。
+
+在使用GPU解决排序网络问题时，一般是一个block应用一个排序网络，可有效利用共享内存。每个线程负责一个元素，根据网络上的edge来确定和哪个线程进行比较并且交换；并且每次比较之后需要同步。
+
+以双调网络为例，首先讲两个子数组分别按升降排序并拼接在一起，构成双调序列；然后对这个序列进行并行Batcher划分，构成更小的双调序列；一直划分，直到得到的子序列长度为1为止。这时的输出序列按单调递增顺序排列。此处可参考[双调排序](https://blog.csdn.net/xbinworld/article/details/76408595)。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/22/1584880073645-1584880073651.png)
+
+## Radix sort
+基数排序，复杂度为O(kn)。从最低位开始，是0就移动到前边，是1就移动到后边，同为0或者1的保持按之前若干位的排序不变。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/22/1584883515332-1584883515337.png)
+
+重要的是，按照位数来移动的操作，在GPU上可以用compact来实现。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/22/1584883774687-1584883774690.png)
