@@ -1,6 +1,3 @@
-
-# BANK
-待确认：shared memory中的BANK数量和Thread数量一致
 # Scan的应用
 # Compact
 类似与select，将一个大的集合中的一个小的子集保留下来；
@@ -36,7 +33,6 @@ mergesort很容易实现并行，但是存在这样的问题：在开始阶段�
 1. 多个线程，每个线程归并一个小数组;(问题数>>SM)
 
 2. 有很多中等大小的有序块需要归并，如果串行归并的话效率很低；此时对于两个有K个元素的待归并列表，需要开2K个线程；每个线程首先知道自己对应的元素在自己列表中的位置p1，然后在另一个列表中用二分搜索出元素应该在的位置p2，这样这个元素在归并好的列表中的位置就应该是p1+p2；且这个搜索的复杂度不高，仅为n(logn)；(问题数=SM)
-![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/22/1584883494640-1584883494642.png)
 3. 只剩下两组巨大的归并，此时如果还用2的方法，就会有很多SM处于idle的状态(因为2只用于处理单个block)，所以要尽可能将这个两个大数组分为小数组，并占满多个SM。(问题数<<SM)
 具体做法：
 a) 首先对两个列表做这样的操作：每隔M个元素取一个spliter元素(例如每256个元素取一个元素)标记为A B C D, E F G H等等；
@@ -60,5 +56,17 @@ d) 对spliter序列中的所有分段都做这样的操作，得到最终的有�
 基数排序，复杂度为O(kn)。从最低位开始，是0就移动到前边，是1就移动到后边，同为0或者1的保持按之前若干位的排序不变。
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/22/1584883515332-1584883515337.png)
 
-重要的是，按照位数来移动的操作，在GPU上可以用compact来实现。
-![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/22/1584883774687-1584883774690.png)
+重要的是，根据某一位是0或者1来移动的操作，在GPU上可以用compact就可以实现。
+
+compact的predicate可以用位运算来计算；对输入数组的0-predicate的进行一次scan，就可以计算出0元素的地址；保存0元素的总共数量，就是1元素的起始地址，然后再对0-predicate进行scan，得到1元素的地址。
+
+通常GPU版本的radix会分为多路，而不是一位一位的比较。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/22/1584883960374-1584883960375.png)
+
+## quick sort
+qsort是递归形式的排序，GPU目前还不支持递归，因此需要将递归形式转换为循环形式，实际上是使用segment讲数组划分为三部分(左边小于pivot,pivot,右边大于pivot)
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/23/1584893097660-1584893097662.png)
+
+## key-value sort
+
+### thrust中的vector的operator=是复制，不是传递引用
