@@ -83,17 +83,34 @@ GPU的架构一般为SIMT(单指令多线程)，这样的架构可能存在Threa
 
 一个block中无论有多少个线程，最多产生32路的Thread Divergence(因为同时最多只能执行一个wrap，即32个线程)。
 
+Thread DIvergence都要在wrap的层级来考虑。
+
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/27/1585246256353-1585246256358.png)
 
+## 分支语句
 这里举2个例子，
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/27/1585247343057-1585247343061.png)
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/27/1585247780344-1585247780346.png)
 
+## 循环语句
+在循环语句的divergence情况中，首先要考虑不同分支循环体的开销。由于一个kernel负责整个循环的执行，因此一个wrap中的Divergence的严重程度会被放大循环次数这么多倍。
+
+举例：
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/27/1585249808893-1585249808896.png)
+
+以真实例子，对于kernel中对图像边界的判断代码，最多可以产生2-way的divergence
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/27/1585289082060-1585289082064.png)
+
+## 避免Divergence的方法
+- 尽量减少大量的分支代码
+- 让相邻的thread尽量执行相同的分支
+- 注意线程要有尽量相近的workload
 
 # Hint
 - 可以使用nvvp来profile，而不需要去计算实际的内存带宽应用
 
 - shared mem可以是任何维度的，不像kernel input只能一维的
 
-- 在Block中，线程的物理id(在wrap中)是按照x,y,z维度的顺序递增的，也就是说，以dim(32,16,8)这样一个线程配置的block为例子，0...31号线程都是是挨着的(y,z相同)，0...512(32*16)号线程都是挨着的(z相同)
+- 在Block中，线程的物理id(在wrap中)是按照x,y,z维度的顺序递增的，也就是说，以dim(32,16,8)这样一个线程配置的block为例子，0...31号线程都是是挨着的(y,z相同)，0...512(32*16)号线程都是挨着的(z相同)。以下面的二维矩阵为例，同一行内相邻的32个线程就是属于一个wrap的。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/27/1585289303250-1585289303252.png)
