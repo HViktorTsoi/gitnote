@@ -1,4 +1,5 @@
 RULE #0：在CUDA中， 先将问题划分到能够满足单个block的规模，并尝试使用shared mem，这样的思路很重要
+RULE #1：Kernel Launch参数中的shared meme大小是bytes，不是数量！！！
 
 # 并行计算模式
 
