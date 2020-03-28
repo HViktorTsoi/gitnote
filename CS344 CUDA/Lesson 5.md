@@ -29,4 +29,27 @@
 
 
 # SpMv问题
+稀疏矩阵x向量问题可以有两种解决方案：
 
+一是为每一个元素分配一个线程，另一个是为每一行分配一个线程。
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/28/1585396436226-1585396436228.png)
+
+## per row算法：
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/28/1585396712173-1585396712175.png)
+这个算法在每行数量相差还不大时效率很高，因为每个线程内部直接完成求和，不需要线程间通信。但是如果稀疏阵的长短都不一致，在同一个wrap中的线程，其总运行时间取决于最长的那一行，会导致处理完较短的那些行的线程空等。
+
+## per element算法
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/28/1585397491974-1585397491976.png)
+per element算法不受row算法类似的长短不一致导致的效率问题。但是这个方法需要用segment scan把每一行的结果加起来，这会导致线程之间的通信，造成额外的开销。
+
+## hybrid方法
+一个能想到的结合二者优点的方法就是：讲csr表示的稀疏矩阵划分成两部分，对矩阵的前一半用per row方法，因为前一半一般都是比较满的；对后一半使用per element方法。
+
+重点是如何划线。当行满时，per row大约比per ele快3倍，因此一个经验法则是：当超过1/3行在要划线这个位置之前都有非0元素，就在这里划线。这也是cuSparse库中hybrid的内部实现原则。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/28/1585405860427-1585405860428.png)
+
+## 总结
+- 保证所有thread是busy的，在同一个wrap中尽量避免负载不均衡的情况
+- 减少进程通信开销，local reg速度 > shared memory >> global memory
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/28/1585406912217-1585406912218.png)
