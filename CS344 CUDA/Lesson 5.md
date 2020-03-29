@@ -53,3 +53,24 @@ per element算法不受row算法类似的长短不一致导致的效率问题。
 - 保证所有thread是busy的，在同一个wrap中尽量避免负载不均衡的情况
 - 减少进程通信开销，local reg速度 > shared memory >> global memory
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/28/1585406912217-1585406912218.png)
+
+
+# Graph遍历
+## 一个基本的实现
+对于某个特定的深度d的所有顶点，迭代做以下操作：
+并行查找所有边,如果某一条边以这些顶点作为其中一端的所有节点如果这些节点里还有没被访问过的(没被标记过深度)，就将其深度标记为d+1。
+
+实际实现中，只要遍历一次所有的边就可以，找那些有一个顶点是当前深度d，且另一个顶点没被访问过的那些边对应的顶点。
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585507292091-1585507292113.png)
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585507310948-1585507310954.png)
+
+
+注意，如果有两个边同时连接到同一个顶点，如下图，那么这两个边对应的线程会同时尝试向这个顶点写入同一个值。但是并不会出现race condition，因此他们写入的是同一个值，谁先谁后 都无所谓。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585507535399-1585507535400.png)
+
+如何判断这个搜索是否完成呢？方法是没设置一个device全局变量done，每一轮bfs开始之前将其设置为true；在搜索开始后，任意一个thread，只要发现有没搜索到的节点，就将done设置为false。同样，这里不必担心race condition的问题，因为只要去写done的线程，写入的都是false，先写后写也无所谓。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585507738063-1585507738067.png)
+
+
+这个方法的复杂度是O(VE)。对于每个节点，至少要扫描一遍所有的边。这个复杂度比较差，因为E一般至少要大于，那么这个算法的复杂度至少要O(V^2^)。
