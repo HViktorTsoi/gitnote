@@ -72,5 +72,6 @@ per element算法不受row算法类似的长短不一致导致的效率问题。
 如何判断这个搜索是否完成呢？方法是没设置一个device全局变量done，每一轮bfs开始之前将其设置为true；在搜索开始后，任意一个thread，只要发现有没搜索到的节点，就将done设置为false。同样，这里不必担心race condition的问题，因为只要去写done的线程，写入的都是false，先写后写也无所谓。
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585507738063-1585507738067.png)
 
-
-这个方法的复杂度是O(VE)。对于每个节点，至少要扫描一遍所有的边。这个复杂度比较差，因为E一般至少要大于，那么这个算法的复杂度至少要O(V^2^)。
+这个方法的并行度很好，不需要线程之间的同步或者通信；访存还有优化空间；
+但是这个方法需要在host上控制bfs的轮次(这个问题可以通过CUDA5之后的dynamic parallel解决)；
+另外这个方法的一个非常大的缺陷是work complexity太高，是O(VE)。对于每个节点，至少要扫描一遍所有的边。因为E一般至少要大于，那么这个算法的复杂度至少要O(V^2^)，对于较大的图这样的复杂度过高。
