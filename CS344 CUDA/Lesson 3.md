@@ -6,6 +6,17 @@
 步骤如下
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/21/1584728222283-1584728222308.png)
 
+
+# Allocate
+输入：给定一个向量，存储的是每个位置的元素需要的空间；比如1 2 0 3 就是第1个元素要1空间，第二个要2单位空间，第三个不需要，第四个要3单位空间。
+输出：分配空间后的向量，总长度是reduce sum输入；实现方式是对输入进行scan，就得到每个元素对应空间的起始地址。
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585550286095-1585550286098.png)
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585550308560-1585550308564.png)
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585550325499-1585550325502.png)
+
 # Segmented scan
 类似上一个assignment中的长array分block进行scan，Segmented scan是对一个长array分段进行scan，因为单独对某一个小段scan会浪费GPU的资源，因此将这些段合并起来统一用一个kernel来执行，如下图。
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/21/1584774081894-1584774081897.png)
