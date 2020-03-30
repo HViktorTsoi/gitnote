@@ -9,7 +9,7 @@
 
 # Allocate
 输入：给定一个向量，存储的是每个位置的元素需要的空间；比如1 2 0 3 就是第1个元素要1空间，第二个要2单位空间，第三个不需要，第四个要3单位空间。
-输出：分配空间后的向量，总长度是reduce sum输入；实现方式是对输入进行scan，就得到每个元素对应空间的起始地址。
+输出：分配空间后的向量，总长度是reduce sum输入；实现方式是对输入进行exclusive scan，就得到每个元素对应空间的起始地址。
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585550286095-1585550286098.png)
 
