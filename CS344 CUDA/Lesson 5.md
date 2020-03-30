@@ -85,3 +85,15 @@ R: 顺序存储每个节点的第一个邻接节点在C中的位置；另外最�
 D: 初始为-1,表示每个节点是否访问过
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585548576513-1585548576516.png)
+
+1. 首先对于起始节点或者某一个轮次得到的frontier节点集合V，并行在C中找到V所有的邻居节点的起始位置；
+2. 确定V的中每一个节点v的邻居数(R[v+1]-R[v]即可得到)；
+3. 使用Allocate为新的frontier(即V的所有邻居)分配空间；
+4. 将1中找到的结果复制到3 Allocate的空间中；
+5. 并行遍历新的frontier，使用D来筛选出所有未访问过的节点，将其compact到最终的frontier中；
+6. 对新的frontier做遍历所需要的操作，返回1。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585556955730-1585556955732.png)
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585557022886-1585557022888.png)
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585557042054-1585557042057.png)
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585557062412-1585557062417.png)
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585557090515-1585557090518.png)
