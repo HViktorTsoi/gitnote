@@ -119,3 +119,5 @@ D: 初始为-1,表示每个节点是否访问过
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/31/1585584859589-1585584859592.png)
 
 整个算法的work复杂度是O(N x log(N))，但是由于是并行算法，其step复杂度只有O(log(N))，是增加工作量，但是减少并行时间的典型例子。
+
+# GPU Hash Table
