@@ -97,3 +97,25 @@ D: 初始为-1,表示每个节点是否访问过
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585557042054-1585557042057.png)
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585557062412-1585557062417.png)
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585557090515-1585557090518.png)
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585557262112-1585557262116.png)
+
+# List Ranking
+
+给定一个非顺序存储的循环链表，要求输出按顺序遍历的每个元素。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/30/1585582939206-1585582939230.png)
+
+## 串行实现
+只要从起始元素开始，按顺序遍历邻接链表即可，时间复杂度为O(N)。
+
+## 并行实现
+1. 首先对于邻接表中的所有元素，计算与其距离1 hop的所有元素；
+2. 使用1的结果计算2 hop的结果；依次计算4 hop, 8 hop的结果等，直到hop数大于总元素数；1 2总共的时间复杂度是O(log(N))。
+3. 对于起始元素0，用1 hop的结果得到他的下一个元素5，5在结果中的位置是起始元素0的位置0+1 hop=1；
+4. 把0和5作为被唤醒元素，用2 hop的结果得到他们的下一个元素分别为2,7；其中2在结果的位置是0+2hop=2,7是1+2hop=3；
+5. 把0 5 2 7作为唤醒元素，依次唤醒4 9 1 6，并得到输出的位置；重复以上过程直到得到所有元素的位置，最终结果就是一个位置数组outPos；
+6. 使用位置数组和scatter操作，元素移动到ranking后的位置。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/31/1585584833267-1585584833271.png)
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/03/31/1585584859589-1585584859592.png)
+
+整个算法的work复杂度是O(N x log(N))，但是由于是并行算法，其step复杂度只有O(log(N))，是增加工作量，但是减少并行时间的典型例子。
