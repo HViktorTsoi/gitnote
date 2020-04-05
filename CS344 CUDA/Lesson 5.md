@@ -58,7 +58,7 @@ per element算法不受row算法类似的长短不一致导致的效率问题。
 # Graph遍历
 ## 一个基本的实现
 对于某个特定的深度d的所有顶点，迭代做以下操作：
-并行查找所有边,如果某一条边以这些顶点作为其中一端的所有节点如果这些节点里还有没被访问过的(没被标记过深度)，就将其深度标记为d+1。
+并行查找所有边, 如果某一条边以这些顶点作为其中一端的所有节点如果这些节点里还有没被访问过的(没被标记过深度)，就将其深度标记为d+1。
 
 实际实现中，只要遍历一次所有的边就可以，找那些有一个顶点是当前深度d，且另一个顶点没被访问过的那些边对应的顶点。
 
@@ -121,3 +121,37 @@ D: 初始为-1,表示每个节点是否访问过
 整个算法的work复杂度是O(N x log(N))，但是由于是并行算法，其step复杂度只有O(log(N))，是增加工作量，但是减少并行时间的典型例子。
 
 # GPU Hash Table
+## Chaining
+在串行实现中：
+建表过程：首先划分b个bucket，对数据进行hash，划分到对应的bucket中；如果同一个bucket有碰撞，就顺着链表接在这个bucket后边。
+查找过程：找到数据hash对应的bucket，在这个bucket的链表上顺序查找；
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/06/1586102582504-1586102582526.png)
+在并行实现中：
+在建表和查找的过程中，同时使用b个线程来维护于b个bucket。
+
+并行实现存在的问题是，对于实际数据，每个b的chain长度都不一致，很容易造成某些线程一直在顺着链查找，而另一些线程则早就完成了查找，一直在空等。即造成负载不均衡。
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/06/1586102944180-1586102944181.png)
+
+## cuckoo算法
+- 维护k个hash table，每个bucket只有一个元素；
+- 每个hash table对应一种hash function。
+
+建表过程：
+对于k个hash table，进行k次循环，每一次做以下操作：
+1. 将n个数据映射到当前table的b个bucket中，由于每个b只存一个元素，肯定存在碰撞，这时候就随机选择b个元素(可能小于b个)作为获胜者，放入这个table中；
+2. 对于上一步失败的元素，全部拿到下一个table中去，按照和1相同的步骤进行hash和存放；
+3. 重复1,2过程，直到所有的table都被遍历完
+下边开始处理上述过程之后剩下的元素：
+
+4. 仍然重复1,2过程，只不过这次如果对于剩下的元素，如果他的hash和当前table已经存进去的某个元素的hash碰撞了，就用atomic swap将旧元素扔出去，把剩下的新元素放进table；
+5. 被换出来元素加入剩余元素集合，重复4过程，直到所有的table再被遍历一次。
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/06/1586103751583-1586103751585.png)
+
+由上述过程可知，cuckoo算法是有失败率的，不一定所有的元素都能放进去(最终总可能有元素的任意一个hash都放不进对应的表中)。但是这个失败率很低，只有几百万分之一。
+
+查找过程：
+只要按照不同的hash function顺序在对应的多个table中依次查找就可以了。
+
+
