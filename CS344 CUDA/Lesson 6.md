@@ -43,5 +43,18 @@ scatter通常比gather效率更低，通过下面的例子可以看出来，scat
 
 - 如果只有idx为8的倍数的元素被处理，由于在GPU上同一个warp只能同时运行32个线程，那么原来一个warp能处理4个元素(32个线程，每8个有一个被处理)，在compact之后能处理32个元素，加速了8倍；
 - 如果只有idx为32的倍数的元素被处理，原来一个warp只有1个元素被处理，compact之后32个元素被处理，加速了32倍；
-- 如果只有idx为128的倍数的元素被处理，这里需要注意，
+- 如果只有idx为128的倍数的元素被处理，这里需要注意，原来4个warp中只有1个元素被处理，但由于不包含128的warp会直接退出，其运行时间接近0，GPU直接调度其他的warp了，所以可认为原来1个warp(包含128的warp)只能处理1个元素；而caompact之后，由于一个warp中最多也只有32个元素，所以compact之后也只加速了32倍，而无法达到128倍。
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/10/1586507748708-1586507748710.png)
+
+
+# Regularzation
+当每个线程处理的问题的可能规模不一致时，可能会出现负债不均衡的现象，大多数线程空等一个线程结束。这时候就需要对问题进行Regularzation，将每个线程处理的问题裁剪成大致相等的规模，保证负载均衡，然后对于多出来的未处理数据，要么用cpu去处理，要么用特殊的kernel或算法去处理。
+
+以计算城市人口的问题为例，如果某些城市邻居很多，某些很少，那么如果每个线程的负载就会发生不均衡。这时候进行Regularzation的方法就是，固定每个城市搜索的的邻居数为k(比如5)，对于多出来的城市，用cpu去处理，或者设计特殊的kernel来处理。
+
+Regularzation适用场景：
+- 大多数子问题规模都相似，只有少量outlier
+- 在运行时可以确定负载情况
+
+对于问题规模相差很大，没有一个确定的均值的情况(比如处理幂率分布的数据)，就不适合Regularzation了。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/10/1586530419309-1586530419311.png)
