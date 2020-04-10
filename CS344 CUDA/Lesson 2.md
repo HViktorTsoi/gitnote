@@ -5,10 +5,10 @@ RULE #1：Kernel Launch参数中的shared meme大小是bytes，不是数量！�
 
 1. Map: 一一映射(color-gray) ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/09/1586442165621-1586442165660.png)
 
-2. Gather: 收集元素并计算结果(图像局部区域avg) ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/09/1586442193443-1586442193445.png)
+2. Gather: 收集元素并计算结果(图像局部区域avg)，线程分配给输出元素，每个线程决定他从什么地方读取。 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/09/1586442193443-1586442193445.png)
 
 
-3. Scatter: 分散操作，每个线程向内存输出多个值，也可能多个线程操作同一块内存(注意 排序属于此操作)，且每个线程计算其在哪里写入结果 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/09/1586442234809-1586442234812.png)
+3. Scatter: 分散操作，每个线程向内存输出多个值，也可能多个线程操作同一块内存(注意 排序属于此操作)，且每个线程计算其在哪里写入结果。线程分配给输入元素，每个线程决定他写入什么地方。 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/09/1586442234809-1586442234812.png)
 
 4. stencil: 模板操作，每个线程访问的输入数据为一个固定模式的模板邻居范围内(类似卷积核)的数据，数据存在重复访问 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/09/1586442270350-1586442270353.png)
 
