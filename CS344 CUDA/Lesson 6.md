@@ -58,3 +58,55 @@ Regularzation适用场景：
 
 对于问题规模相差很大，没有一个确定的均值的情况(比如处理幂率分布的数据)，就不适合Regularzation了。
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/10/1586530419309-1586530419311.png)
+
+
+# 并行优化模式总结
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/10/1586530710185-1586530710188.png)
+
+
+# Libraries
+- cuBLAS：线性代数库
+- cuFFT：FFT工具
+- cuSparse：稀疏阵代数库
+- cuRAND：随机数生成
+- NPP：low level的图像处理原语
+- Magma：LAPCAK(基本上是一堆优化器的合集)的cuda实现
+- CULA：特征值求解器，矩阵分解器等
+- ArrayFIre：数组操作库(类似numpy)
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/10/1586531787258-1586531787260.png)
+
+使用lib的基本姿势：
+1. 找到和cpu库对应的cuda api(废话)
+2. 有些库的内存管理是透明的，有些需要使用对应库的api来手动管理
+3. 注意在编译或者写cmake的时候链接对应的库
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/10/1586532252787-1586532252790.png)
+
+# 编程动力工具
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/11/1586588290390-1586588290393.png)
+
+- Thrust
+是应用在host端的(他的代码风格host样式的，类似C++ STL)，功能类似STL的通用工具。已经实现了sort，scan，reduce(by key),map等很多通用的原语了，还可以用Transform+用户自定义的functor来实现一些复杂的计算，比如实现向量加法等。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/11/1586579179700-1586579179704.png)
+
+- CUB
+是应用在kernel里的，在Kernel级别可重用的库，例如对一个kernel的每个block对应的数据进行sort。
+
+CUB提供了一种从global mem到shared mem，到thread的访存和计算模型。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/11/1586586056393-1586586056395.png)
+
+- CUDA DMA
+用来处理global memory到shared mem之前的数据传输。
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/11/1586588199943-1586588199945.png)
+
+这种数据传输在tiling或者privatization中经常使用，会遇到例如halo(所需要的数据比tid对应的数据大几圈)，或者数据不规则、有跳跃等等情况，非常繁琐，此时cudaDMA就可以用来处理这些问题。另外还可以更好的解决global mem向shared mem数据传输的效率瓶颈问题。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/11/1586588849642-1586588849644.png)
+
+注：但是CUDA DMA发展的不太好，只支持到Kepler一代，并且没有被NVIDIA官方采用。并且GPU本身没有DMA的硬件支持，cudaDMA使用额外的warp来模拟DMA。
+
+另一点需要注意的是，由于CUB的编程模型里，每一个block中的每个线程处理多个元素，因此在总元素一定的情况下，每个线程自己处理的元素大小和线程数量就构成了一对trade-off。
+
+从下图的对角线可以看出一些问题：随着ITEMS_PER_THREAD这个值增加且BLOCK_THREAD减少，性能逐渐提高，因为这样虽然减小了并行度，但是由于每个线程的工作量增大了，因此线程调度的开销和其他一些开销就被冲掉了。但是当继续增大这个值时，并行度的继续降低反而会拉低性能。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/11/1586596193678-1586596193694.png)
+
