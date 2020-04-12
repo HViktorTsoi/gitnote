@@ -110,3 +110,43 @@ CUB提供了一种从global mem到shared mem，到thread的访存和计算模型
 从下图的对角线可以看出一些问题：随着ITEMS_PER_THREAD这个值增加且BLOCK_THREAD减少，性能逐渐提高，因为这样虽然减小了并行度，但是由于每个线程的工作量增大了，因此线程调度的开销和其他一些开销就被冲掉了。但是当继续增大这个值时，并行度的继续降低反而会拉低性能。
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/11/1586596193678-1586596193694.png)
 
+
+# 其他Language
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/11/1586599131161-1586599131167.png)
+
+
+# 跨平台解决方案
+- Open CL: 类似CUDA
+- Open GL Compute: 适用于图形学
+- Open ACC: 使用指令式的方式提示编译器那里进行并行，对于改进已有的cpu代码来说开发效率很高。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/11/1586599829711-1586599829715.png)
+
+
+
+# Dynamic Parallelism
+
+## Bulk Parallelism
+批量并行用来解决可以批量并行计算的问题，比如reduce，map等等；与之相反的的是不可以批量并行的算法，比如拼接两个字符串
+
+## Nested Parallelism
+如果可以实现嵌套并行，那么在kernel中就可以直接启动其他的kernel(多个线程的global kernel，而不是device kernel)。而不是首先要返回CPU，再由CPU去调用下一个所需的kernel。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/11/1586601439502-1586601439516.png)
+这里以音频处理为例：如果想对一串音频信号的幅度进行归一化操作，限制所有音量在一定范围内，传统的模式是划分成两个kernel：
+1. 首先使用1个reduce kernel来计算音频的最大值；
+2. 再调用1个map kernel将所有的信号的值除以这个最大值。
+这个过程会造成调度的开销。如果有嵌套并行，就可以将这两个kernel合并到一起。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/11/1586601719119-1586601719141.png)
+
+## Task Parallelism
+任务并行同时让GPU运行多个相同的实例(类似batch)，占满GPU，获取尽可能高的吞吐量；
+
+## Recursive Parallelism
+递归并行，即可以直接在kernel中递归调用kernel。有了递归之后，就可以将问题划分成更小的子问题，然后使用同样的kernel去并行的处理这样更小的子问题。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/11/1586601731502-1586601731512.png)
+
+## 动态并行要点
+1. 每个thread都执行一样的程序，所以如果想要在kernel中启动其他kernel，一定要保证只有一thread启动了这个kernel(比如判断只有tid为0的线程才调用新的kernel)。（否则的话就是所有的线程每一个都启动了一个新的kernel。当然如果需求是多个线程启动多个kernel，可以按照实际情况来）。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/12/1586662889815-1586662889818.png)
+2. 每个block是独立执行的，包括某个kernel的block和他的子kernel的block也是独立的。syncthreads和stream，event之类同步操作只能同步自己，而不能同步子kernel的任何block。
+3. 每个block的shared mem是独立的，block和子block之间也不能共享shared mem。如果想在父子之间共享内存，必须使用global mem。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/12/1586662905244-1586662905245.png)
