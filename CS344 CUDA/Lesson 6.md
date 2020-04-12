@@ -129,7 +129,7 @@ CUB提供了一种从global mem到shared mem，到thread的访存和计算模型
 批量并行用来解决可以批量并行计算的问题，比如reduce，map等等；与之相反的的是不可以批量并行的算法，比如拼接两个字符串
 
 ## Nested Parallelism
-如果可以实现嵌套并行，那么在kernel中就可以直接启动其他的kernel(多个线程的global kernel，而不是device kernel)。而不是首先要返回CPU，再由CPU去调用下一个所需的kernel。
+如果可以实现嵌套并行，那么在kernel中就可以直接启动其他的kernel(多个线程的global kernel，而不是device kernel)。而不是首先要返回CPU，再由CPU去调用下一个所需的kernel。(这个专业术语叫做Launch-on-the-fly)。
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/11/1586601439502-1586601439516.png)
 这里以音频处理为例：如果想对一串音频信号的幅度进行归一化操作，限制所有音量在一定范围内，传统的模式是划分成两个kernel：
 1. 首先使用1个reduce kernel来计算音频的最大值；
@@ -149,4 +149,26 @@ CUB提供了一种从global mem到shared mem，到thread的访存和计算模型
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/12/1586662889815-1586662889818.png)
 2. 每个block是独立执行的，包括某个kernel的block和他的子kernel的block也是独立的。syncthreads和stream，event之类同步操作只能同步自己，而不能同步子kernel的任何block。
 3. 每个block的shared mem是独立的，block和子block之间也不能共享shared mem。如果想在父子之间共享内存，必须使用global mem。
+4. 注意，在动态并行中，在，诶个kernel中启动的实际上是grid，而不是blocks。
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/12/1586662905244-1586662905245.png)
+
+关于内存共享的访问权限范围，请看下边的例子：
+第一项是全局的device变量，所有gpu上的线程都可以访问；
+第二项是shared mem，只有当前block可以访问，子线程，包括任何其他block中的线程都不可访问；
+第三项是在堆上分配的global memory，任意线程都可以可以通过指针来访问。**(这里是否可以在kernel中使用malloc仍然需要确认)**
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/12/1586663246230-1586663246233.png)
+
+## 动态并行-快排
+有了动态并行之后，就可以用更优雅的方式递归实现快排了。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/12/1586673073128-1586673073131.png)
+
+除了实现更简单之外，在原始版本的cuda中，如果用迭代的方式，想把某一层快排结果收集起来，在上一层进行合并，就必须把所有有序块的信息都存下来，有大量的通信开销，这是并行的效率变得非常低。有了动态并行之后，这些信息就直接自顶向下的传递下去了。
+
+另外，由于每一块的大小都不一样，要完成同一层的快排，就需要被分配到小块的线程空等大块的线程，对负载均衡很不利(如下图绿色块所示)。而使用动态并行之后，就可以在划分子问题使，将左右两块划分到不同的stream中，这样左右完全不影响，就可以独立的完成排序了。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/12/1586673036207-1586673036211.png)
+
+动态并行快排的代码如下图所示，其中partition可以尝试用并行来实现。而下边的左右子问题在不同的stream中，可以完全并行。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/12/1586673088776-1586673088780.png)
+
+动态并行实现的快排相比非动态GPU快排的优点：
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/12/1586673466505-1586673466507.png)
