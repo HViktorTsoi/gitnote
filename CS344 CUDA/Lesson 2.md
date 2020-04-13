@@ -1,6 +1,6 @@
 RULE #0：在CUDA中， 先将问题划分到能够满足单个block的规模，并尝试使用shared mem，这样的思路很重要
 RULE #1：Kernel Launch参数中的shared meme大小是bytes，不是数量！！！
-
+RULE #2：项目组织：在项目中引入cuda时，一般以这样的组织形式：在cu代码中有一个调用内核的c++ wrapper函数；在纯c++的入口文件中(包含main函数的文件)不引入.cu文件，而是在开头声明wrapper函数的签名，并且在main函数或者其他函数中正常调用这个wrapper函数，即在源码中不体现任何纯c++代码文件和cu代码文件之间的联系；他们之间的联系完全由cmake或者编译选项来进行链接。这里的实例见Fianl Assignment中的smooth实例。
 # 并行计算模式
 
 1. Map: 一一映射(color-gray) ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/09/1586442165621-1586442165660.png)
