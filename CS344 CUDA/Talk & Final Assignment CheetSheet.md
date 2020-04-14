@@ -56,3 +56,41 @@ Dynamic Parallelism可以用来处理树状问题，比如构建八叉树，快�
 5144/4624 = 112%, 112% - 100% = 12%
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/13/1586779777824-1586779777827.png)
+
+## Question 9
+
+查表 [CUDA - WIKI](http://en.wikipedia.org/wiki/CUDA)。
+
+用SM的最多reg数量 / SM的最多Threads数量。
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/14/1586837249394-1586837249418.png)
+
+## Question 10
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/14/1586841741199-1586841741202.png)
+
+同样查表。
+
+## Question 11
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/14/1586841922231-1586841922234.png)
+查表，每个SM最多线程数 / 每个SM最多Blocks数
+
+## Question 12
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/14/1586865603840-1586865603843.png)
+
+## Question 13
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/14/1586874161563-1586874161586.png)
+
+## Question 13
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/15/1586885976330-1586885976332.png)
+
+通过双调排序的原理图可以看出，对于stage和substage而言，每一趟中，升序的部分(蓝色块)的tid满足：
+
+tid % 2^stage+1^ < 2^stage^
+
+而并行的两两元素中，负责交换的那一个线程的tid满足：
+
+tid % 2^substage+2^ < 2^substage+1^
+
+由此可完成Kernel：
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/04/15/1586885961496-1586885961497.png)
