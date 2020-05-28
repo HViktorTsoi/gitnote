@@ -169,3 +169,19 @@ eye tracking label
 光流和半监督结合
 
 tsne可视化投影后的featuremap
+
+****** 标定的时候,实在不行就做一个手工标定,手工拖动LiDAR点云,直到完全匹配上
+
+第一个多物体 带有context info的LiDAR-image转换模型
+
+将反射率连接到Decoder前端
+
+introduction介绍自动驾驶
+
+************** pointnet++实际上没有考虑进一步聚合的local特征,而仅仅是用unit pointnet单独提取每个点的特征;如果换成排了序之后的邻居节点,就可以使用鲁棒性更强的1D conv了, 保证每次都是从最近conv到最远
+
+*** 与图像GAN不同 我们的Conditional input是从LiDAR来的 不收光源影响 鲁棒性极强
+*** 不同的stride(dilation)上进行1D UP conv, 这样就能避免生成一条密集的线
+*** 投影间隔这里 应该从投影之后的dead zone反推投影前缺少的点
+
+pcl中有octree based pc change detector
