@@ -29,3 +29,14 @@ set_target_properties(upsample_ext PROPERTIES PREFIX "")
 #target_link_libraries(upsample_ext pybind11::module ${PCL_LIBRARIES})
 target_link_libraries(upsample_ext ${PYTHON_LIBARIES} ${PCL_LIBRARIES})
 ```
+
+# 分组卷积
+原始卷积： HxWxC1的fm，经过C2个KxKxC1的卷积核，得到HxWxC2的fm
+分组卷积： 将输入按照C1划分为g组，经过C2个KxKx(C1/g)的卷积核， 同样得到得到HxWxC2的fm，注意这里，对于输入，每一组有(C1/g)个通道，而每一组输入对应着(C2/g)个卷积核，每一组输出得到的是HxWx(C2/g)的fm；
+
+这样，卷积参数从C2xC1XKxK减小到了C2x(C/g)xKxK，减小到原来的g倍。	
+
+而对于深度可分离卷积，其实就是：
+1. 先用C1=C2=g的分组卷积，称之为深度卷积；
+2. 再用1x1卷积，称之为逐点卷积；
+
