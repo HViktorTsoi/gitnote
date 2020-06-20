@@ -185,3 +185,5 @@ introduction介绍自动驾驶
 *** 投影间隔这里 应该从投影之后的dead zone反推投影前缺少的点
 
 pcl中有octree based pc change detector
+
+LiDAR 一根线一根线的删除 然后训练网络去补全 这样可以达到自监督的效果
