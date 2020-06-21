@@ -195,3 +195,6 @@ IDW 计算w时dist的幂次越高 远处点的影响越小
 
 occulation统计，也就是说绝大部分像素上只有10次以下的z-冲突，因此考虑可以维护一个固定大小为H x W x 10的z-buffer-voxel(类似队列), 在做近邻搜索的时候在这个voxel中进行邻域查找即可，不需要KD-Tree。这个方法可能在GPU上效率更高，因为可以做到完全并行，而且这个方法应该在图形学里已经实现了。
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/06/21/1592739372543-1592739372566.png)
+但是实际上大于10的点里也有一些关键信息，下图中亮点是大于10的，
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/06/21/1592740171372-1592740171373.png)
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/06/21/1592740219140-1592740219141.png)
