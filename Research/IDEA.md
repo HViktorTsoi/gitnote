@@ -187,3 +187,6 @@ introduction介绍自动驾驶
 pcl中有octree based pc change detector
 
 LiDAR 一根线一根线的删除 然后训练网络去补全 这样可以达到自监督的效果
+
+
+对于深度图来说 在物体运动过程中 某个object的深度是一直发生变化的 而不像图像的纹理 
