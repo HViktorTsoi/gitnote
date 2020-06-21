@@ -193,5 +193,5 @@ LiDAR 一根线一根线的删除 然后训练网络去补全 这样可以达到
 
 IDW 计算w时dist的幂次越高 远处点的影响越小
 
-occulation统计，也就是说
+occulation统计，也就是说绝大部分像素上只有10次以下的z-冲突，因此可以固定一个大小为H x W x 10的z-buffer(类似队列), 在做
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/06/21/1592739372543-1592739372566.png)
