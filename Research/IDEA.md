@@ -204,4 +204,4 @@ occulation统计，也就是说绝大部分像素上只有10次以下的z-冲突
 
 上采样生成label LiCAM生成图像 做data augmentation
 
-*** 上边说的可以用3D 
+*** 上边说的可以用3D voxel + 3d Conv + point Kernel实现
