@@ -203,3 +203,5 @@ occulation统计，也就是说绝大部分像素上只有10次以下的z-冲突
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/06/21/1592740963766-1592740963767.png)
 
 上采样生成label LiCAM生成图像 做data augmentation
+
+*** 上边说的可以用3D 
