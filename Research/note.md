@@ -40,3 +40,4 @@ target_link_libraries(upsample_ext ${PYTHON_LIBARIES} ${PCL_LIBRARIES})
 1. 先用C1=C2=g的分组卷积，称之为深度卷积；
 2. 再用1x1卷积，称之为逐点卷积；
 
+# 公式
