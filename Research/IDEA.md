@@ -212,4 +212,4 @@ occulation统计，也就是说绝大部分像素上只有10次以下的z-冲突
 
 LiCAM BatchSize设置成小于12 越小越好
 
-****** Interpolation 投影的时候，找到最近的K个point，由于point前后会有遮挡，需要选择固定数量的点，这个就可以用一个FC Layer的weight，与得到的点的feature相乘，可以称之attentive occulation handling module
+****** Interpolation 投影的时候，找到最近的K个point，由于point前后会有遮挡，需要选择固定数量的点，这个就可以用一个FC Layer的weight，与得到的点的feature相乘，得到加权之后的，可以称之attentive occulation handling module
