@@ -212,4 +212,4 @@ occulation统计，也就是说绝大部分像素上只有10次以下的z-冲突
 
 LiCAM BatchSize设置成小于12 越小越好
 
-Interpolation
+****** Interpolation 投影的时候，找到最近的K个point，由于point前后
