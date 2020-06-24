@@ -211,3 +211,5 @@ occulation统计，也就是说绝大部分像素上只有10次以下的z-冲突
 ***** RandLA的FLANN，用的是c++ subsampling，尝试用cuda重写
 
 LiCAM BatchSize设置成小于12 越小越好
+
+Interpolation
