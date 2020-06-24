@@ -208,4 +208,4 @@ occulation统计，也就是说绝大部分像素上只有10次以下的z-冲突
 
 *** 方法中可以用膨胀-腐蚀来去除掉feature projection中的孔洞
 
-RandLA用的是c++ subsampling，尝试用cuda
+RandLA用的是c++ subsampling，尝试用cuda重写
