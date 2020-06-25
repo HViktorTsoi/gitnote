@@ -214,4 +214,4 @@ LiCAM BatchSize设置成小于12 越小越好
 
 ****** Interpolation 投影的时候，找到最近的K个point，由于point前后会有遮挡，需要选择固定数量的点，这个就可以用一个FC Layer的weight，与得到的点的几何特征相乘，得到加权之后的feature，可以称之attentive occulation handling module
 
-深度补全，
+深度补全，不需要那么精准的深度？提出新的评估标准
