@@ -217,3 +217,5 @@ LiCAM BatchSize设置成小于12 越小越好
 深度补全，不需要那么精准的深度？提出新的评估标准
 
 点云平均值叠加?
+
+可微Min-Cut Based Segmentation of Point Clouds
