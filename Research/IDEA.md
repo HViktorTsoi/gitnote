@@ -221,3 +221,5 @@ LiCAM BatchSize设置成小于12 越小越好
 可微Min-Cut Based Segmentation of Point Clouds
 
 验证方法：落入棋盘格边缘点和棋盘格面积之比
+
+不同传感器点云特征分布不同 迁移学习
