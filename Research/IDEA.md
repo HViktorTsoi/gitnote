@@ -233,4 +233,4 @@ pca查找点云主方向，找到实际的Z轴方向
 
 ** 所有参数，包括棋盘格划分的参数 都可以尝试加入到更大的优化算法中
 
-*** 对于Human in the loop，只需要点一个seed，就可以自己
+*** 对于Human in the loop，只需要点一个seed，就可以自己完成segmentation
