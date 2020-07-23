@@ -236,3 +236,5 @@ pca查找点云主方向，找到实际的Z轴方向
 *** 对于Human in the loop，只需要点一个seed，就可以自己完成segmentation
 
 棋盘格摆放位置实验
+
+*** 点云到达顺序，序列网络
