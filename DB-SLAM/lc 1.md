@@ -48,4 +48,4 @@ SOTA：CSM+梯度优化(cartographor用的就是这种方式)
 ### 回环检测方法
 SOTA：Branch and Bound+剪枝 & Lazy Decision
 
-回环出错会导致灾难后果，尽量减少回环的错误。
+回环出错会导致灾难后果，尽量减少回环的错误。减少错误的方法：lazy decision，检测到的时候
