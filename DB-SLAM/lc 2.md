@@ -20,3 +20,8 @@
 
 分为两种，1)直接线性方法 2)基于模型的方法
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595775917294-1595775917296.png)
+
+1. 直接线性方法
+直接把LiDAR的scan-match的结果真值作为真值，
+
+2. 基于模型的方法
