@@ -23,5 +23,6 @@
 
 1. 直接线性方法
 直接把LiDAR的scan-match的结果真值作为真值，假设里程计和LiDAR之间是线性的关系，即里程计x一个矩阵X就获得到LidAR的实际map值，那么求出这个值就得到了里程计的标定数据。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595777411993-1595777411996.png)
 
 2. 基于模型的方法
