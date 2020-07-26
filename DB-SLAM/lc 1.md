@@ -31,5 +31,5 @@
 ## LiDAR的帧间匹配算法
 ICP(点对点)
 PI-ICP(点对线)
-NDT()
+NDT
 CSM
