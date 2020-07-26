@@ -21,5 +21,9 @@
 
 ## Filter based SLAM
 基于滤波的方法，特点是只估计基于T时刻的位姿，但是累计误差很严重，基本步骤如下：
-1、状态预测
+1. 状态预测
+2. 测量预测
+3. 进行测量
+4. 数据关联
+5. 状态更新&地图更新
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595760928034-1595760928035.png)
