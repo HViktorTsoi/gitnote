@@ -51,3 +51,8 @@ SOTA：Branch and Bound+剪枝 CMS+ & Lazy Decision
 回环出错会导致灾难后果，尽量减少回环的错误。减少错误的方法：lazy decision，检测到回环的时候，先不优化；等出现更多回环的时候，再用回环之间的一致性去减少回环错误。liDAR做slam的缺点就是回环非常容易出错，阈值高就回环不上；阈值低就随便回环。
 
 cartographer就没有采用lazy decision，所以他在几何环境比较对称的情况下进行回环的时候经常容易出错。
+
+### 实际应用中的重点
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595767789068-1595767789070.png)
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595767805017-1595767805018.png)
