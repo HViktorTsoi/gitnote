@@ -32,14 +32,15 @@
 ICP(点对点)
 PI-ICP(点对线)
 NDT
-CSM(互相关，暴力搜索)
+CSM(互相关，暴力搜索，一般不会陷入局部极值)
 
 ## 回环检测
 Scan-to-Scan(2D中应用非常少，因为2DLidar信息量太少了)
 Scan-to-Map(每一帧和局部子图进行匹配)
 Map-to-Map(最近的N帧LiDAR聚合成子图，和过去的子图匹配)
 
-# 2D SLAM
+## 2D SLAM
 在室内用得比较多
 
+### 帧间匹配方法
 SOTA：CSM+梯度优化(cartographor用的就是这种方式)
