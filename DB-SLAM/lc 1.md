@@ -46,6 +46,6 @@ Map-to-Map(最近的N帧LiDAR聚合成子图，和过去的子图匹配)
 SOTA：CSM+梯度优化(cartographor用的就是这种方式)
 
 ### 回环检测方法
-SOTA：Branch and Bound+剪枝 & Lazy Decision
+SOTA：Branch and Bound+剪枝 CMS+ & Lazy Decision
 
 回环出错会导致灾难后果，尽量减少回环的错误。减少错误的方法：lazy decision，检测到回环的时候，先不优化；等出现更多回环的时候，再用回环之间的一致性去减少回环错误。liDAR做slam的缺点就是回环非常容易出错，阈值高就回环不上；阈值低就随便回环。
