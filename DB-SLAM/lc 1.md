@@ -54,6 +54,6 @@ cartographer就没有采用lazy decision，所以他在几何环境比较对称�
 
 ### 实际应用中的重点
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595767789068-1595767789070.png)
-运动畸变：是由于LiDAR旋转1周时间比较慢，在机器人同时运动的时候，每个点的原点就不一样了，导致收到的1帧scan有畸变
+运动畸变：是由于LiDAR旋转1周时间比较慢，在机器人同时运动的时候，每个点的原点就不一样了，导致收到的1帧scan有畸变+
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595767805017-1595767805018.png)
