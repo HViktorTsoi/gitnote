@@ -58,4 +58,5 @@ cartographer就没有采用lazy decision，所以他在几何环境比较对称�
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595767805017-1595767805018.png)
 
--
+可能的趋势：与视觉融合
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595768867829-1595768867832.png)
