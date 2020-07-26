@@ -64,4 +64,4 @@ cartographer就没有采用lazy decision，所以他在几何环境比较对称�
 ## 3D SLAM
 ### 帧间匹配方法
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595769034488-1595769034489.png)
-相比于2D SLAM，可以使用Feature-based Method，因为可以提供丰富
+相比于2D SLAM，可以使用Feature-based Method，因为可以提供更丰富的信息，这里就类似视觉SLAM了。例如LOAM就使用了line-based的feature extract
