@@ -46,4 +46,4 @@ Map-to-Map(最近的N帧LiDAR聚合成子图，和过去的子图匹配)
 SOTA：CSM+梯度优化(cartographor用的就是这种方式)
 
 ### 回环检测方法
-SOTA：Branch and Bound & Lazy Decision
+SOTA：Branch and Bound+剪枝 & Lazy Decision
