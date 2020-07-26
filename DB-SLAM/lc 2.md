@@ -5,3 +5,6 @@
 
 基本上所有工程问题，都可以化为求解AX=b的优化问题。
 
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595774233997-1595774234001.png)
+
+这里注意，最小二乘的通解中，$A^TA$的条件数一般都很大，就会导致病态解，即b扰动很小的时候，得到
