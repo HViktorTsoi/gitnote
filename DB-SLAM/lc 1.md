@@ -18,3 +18,5 @@
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595758976384-1595758976387.png)
 例如上图，从Xi到Xj有两条路径，下边是根据图上一个个观察节点累计得到的结果，上边是由重叠部分直接观测得到的，那么图优化的目标就是去优化一个误差向量e,使得由两种方法得到的Xj能够最好的重合。
+
+## Filter based 
