@@ -11,4 +11,4 @@
 
 从线性空间的角度，看最小二乘的求解是这样的：
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595774977175-1595774977178.png)
-其中Ax代表A的列向量空间，即A的所有列任意缩放之后再组合张成的 
+其中Ax代表A的列向量空间，即A的所有列任意缩放，之后再组合张成的空间。
