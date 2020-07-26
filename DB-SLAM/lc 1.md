@@ -37,4 +37,4 @@ CSM(互相关，暴力搜索)
 ## 回环检测
 Scan-to-Scan(2D中应用非常少，因为2DLidar信息量太少了)
 Scan-to-Map(每一帧和局部子图进行匹配)
-Map-to-Map()
+Map-to-Map(最近的N帧LiDAR聚合成子图，和过去的子图匹配)
