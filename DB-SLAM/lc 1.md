@@ -42,4 +42,4 @@ Map-to-Map(最近的N帧LiDAR聚合成子图，和过去的子图匹配)
 # 2D SLAM
 在室内用得比较多
 
-SOTA：CSM+梯度优化
+SOTA：CSM+梯度优化(cartographor用的就是这种方式)
