@@ -54,5 +54,6 @@ cartographer就没有采用lazy decision，所以他在几何环境比较对称�
 
 ### 实际应用中的重点
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595767789068-1595767789070.png)
+运动畸变导致的
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595767805017-1595767805018.png)
