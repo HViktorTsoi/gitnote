@@ -32,4 +32,7 @@
 ICP(点对点)
 PI-ICP(点对线)
 NDT
-CSM(暴力搜索)
+CSM(互相关，暴力搜索)
+
+## 回环检测
+Scan-to-scan
