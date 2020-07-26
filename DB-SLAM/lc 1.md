@@ -31,7 +31,7 @@
 ## LiDAR的帧间匹配算法
 ICP(点对点)
 PI-ICP(点对线)
-NDT
+NDT(法线分布)
 CSM(互相关，暴力搜索，一般不会陷入局部极值)
 
 ## 回环检测
@@ -60,3 +60,5 @@ cartographer就没有采用lazy decision，所以他在几何环境比较对称�
 
 可能的趋势：与视觉融合
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595768867829-1595768867832.png)
+
+## 3D SLAM
