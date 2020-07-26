@@ -74,5 +74,6 @@ cartographer就没有采用lazy decision，所以他在几何环境比较对称�
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595770161226-1595770161227.png)
 
 ## 激光SLAM问题
-1. 退化环境。 比如走廊，走廊基本上会建短
-2. 地图动态更新。环境经常在变
+1. 退化环境。 比如走廊，走廊基本上会建短；
+2. 地图动态更新。环境经常在变；
+3. 全局定位。2D SLAM的效果并不好。
