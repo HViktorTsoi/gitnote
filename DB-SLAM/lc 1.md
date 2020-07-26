@@ -1,4 +1,5 @@
 ## SLAM分类
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595757558715-1595757558729.png)
 1. 静态SLAM
 	1. 尺度地图：和真实世界尺度(尺寸)一样大小的地图；
 		1. 基于bayes(滤波器)的构建
