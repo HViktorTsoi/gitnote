@@ -29,5 +29,7 @@
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595760928034-1595760928035.png)
 
 ## LiDAR的帧间匹配算法
-ICP
-PI-ICP
+ICP(点对点)
+PI-ICP(点对线)
+NDT
+CSM
