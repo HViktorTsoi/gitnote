@@ -12,5 +12,5 @@
 分为前端和后端，前端是构图，后端是优化过程
 节点：机器人位姿
 边：节点之间的空间约束关系
-
-想要实现图优化，就必须有类似回环的东西
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595757931647-1595757931650.png)
+想要实现图优化，就必须有类似回环的东西。比如图中1~6节点
