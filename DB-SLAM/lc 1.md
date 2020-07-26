@@ -69,3 +69,5 @@ cartographer就没有采用lazy decision，所以他在几何环境比较对称�
 ### 回环检测方法
 和2D基本一致，只不过检测回环的时候可以使用Feature-based的方法。
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595769161789-1595769161790.png)
+
+### 应用重点
