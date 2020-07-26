@@ -27,3 +27,7 @@
 4. 数据关联
 5. 状态更新&地图更新
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/07/26/1595760928034-1595760928035.png)
+
+## LiDAR的帧间匹配算法
+ICP
+PI-ICP
