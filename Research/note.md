@@ -43,3 +43,6 @@ target_link_libraries(upsample_ext ${PYTHON_LIBARIES} ${PCL_LIBRARIES})
 # 一个粗暴的理解
 - 公式表征方法：列方程；　
 - 优化算法：解方程
+
+# 梯度下降算法
+梯度方向，就是函数值下降最快的方向，朝着梯度方向走就会使cost函数值下降。
