@@ -250,3 +250,5 @@ pca查找点云主方向，找到实际的Z轴方向
 Image detection作为初始值，然后在pc中检测
 
 三维Chessboard检测算法
+
+******* 直接优化2D重投影误差？
