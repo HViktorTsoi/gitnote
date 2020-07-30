@@ -248,3 +248,5 @@ pca查找点云主方向，找到实际的Z轴方向
 纯棋盘格重建
 
 Image detection作为初始值，然后在pc中检测
+
+三维Chessboard检测算法
