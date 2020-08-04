@@ -53,7 +53,7 @@ target_link_libraries(upsample_ext ${PYTHON_LIBARIES} ${PCL_LIBRARIES})
 
 # 右手法则
 123指头分别对应123轴，即
-轴-手指-
+轴-手指-颜色
 - X-大拇指-R
-- Y-大拇指-G
-- Z-大拇指-B
+- Y-食指-G
+- Z-中指-B
