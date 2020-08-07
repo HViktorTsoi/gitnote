@@ -60,5 +60,6 @@ target_link_libraries(upsample_ext ${PYTHON_LIBARIES} ${PCL_LIBRARIES})
 
 # PCL出错状态机:
 
-编译cuda10.0
-殡仪
+1. 编译cuda10.0
+2. 编译pcl
+3. 节
