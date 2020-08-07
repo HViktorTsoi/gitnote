@@ -57,3 +57,8 @@ target_link_libraries(upsample_ext ${PYTHON_LIBARIES} ${PCL_LIBRARIES})
 - X-大拇指-R
 - Y-食指-G
 - Z-中指-B
+
+# PCL出错状态机:
+
+编译cuda10.0
+殡仪
