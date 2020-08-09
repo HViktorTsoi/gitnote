@@ -4,4 +4,4 @@
 4. odometry可能时时刻刻都有累计误差，因此这个时候就要加上时时刻刻运行的amcl，可以保证里程计大概准确的情况下提供精准的定位；
 5. 为了将lego loam作为里程计使用，需要改这几个地方：
 	1. launch里边，camera_init_to_map这个static tf要改成camera_init_to_odom，发布 camera_init 到 odom 的tf
-	2. 
+	2. transformFusion里，map_2_camera_init_Trans.frame_id_要改成odom
