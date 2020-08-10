@@ -12,7 +12,7 @@
 	1. launch里边，camera_init_to_map这个static tf要改成camera_init_to_odom，发布 camera_init 到 odom 的tf
 	2. transformFusion里，map_2_camera_init_Trans.frame_id_要改成odom
 7. 用多个laset+LiDAR蔽障的时候，需要标定到同一坐标系；并且3D LiDAR最好要在z=0的平面上；
-8. 单线雷达要注意remove ego；
+8. 单线雷达要注意remove ego， 可以直接用ros里的；
 9. 
 
 
