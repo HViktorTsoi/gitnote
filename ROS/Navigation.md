@@ -3,7 +3,7 @@
 	2. tf: base_link to odom；
 	3. 2D的laser scan，默认topic名字为scan；
 	4. 需要指定建出来地图的size，否则会过于稀疏
-	5. 
+	5. 用map server保存建出来的地图
 2. obscale layer: 避障层, 其中没有inflation radius；
 3. inflation_radius: 静态地图的膨胀层，用在global mao上, 其中的inflation_radius是地图膨胀计算的半径，在此半径内，用一个指数函数来计算碰撞的cost，即这个半径并不是robot要躲避的半径，而是躲避半径函数的最大值；
 4. localization，需要稳定的里程计，之前使用lego loam作为里程计会经常抖动，结果导致路径规划器的规划出现高频抖动，控制效果非常差；换成差分底盘的轮式里程计之后，规划的轨迹和效果都非常稳定
