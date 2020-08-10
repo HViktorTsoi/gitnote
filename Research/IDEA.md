@@ -261,4 +261,4 @@ Image detection作为初始值，然后在pc中检测
 
 **** 匹配之后，把模板重投影到图像上，检查相关性
 
-side-ce
+side-ceiling loam 使用侧视雷达或者天花板的loam
