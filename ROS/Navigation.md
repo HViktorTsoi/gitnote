@@ -13,7 +13,7 @@
 	2. transformFusion里，map_2_camera_init_Trans.frame_id_要改成odom
 7. 用多个laset+LiDAR蔽障的时候，需要标定到同一坐标系；并且3D LiDAR最好要在z=0的平面上；
 8. 单线雷达要注意remove ego， 可以直接用ros里的laser filters；
-9. 
+9. amcl默认使用/scan topic来定位，这个传感器最好和建图时候的传感器一致
 
 
 
