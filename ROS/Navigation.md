@@ -16,6 +16,8 @@
 9. amcl默认使用/scan topic来定位，这个传感器最好和建图时候的传感器一致
 
 
+# Navigation TODO
+1. 
 
 # 电梯思路
 1. 用ROI框出电梯门所占的点云；
