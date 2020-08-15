@@ -18,3 +18,4 @@
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597478039975-1597478039977.png)  
 
 ## 似然场模型
+将有障碍物的鸟瞰地图进行高斯模糊，那么模糊之后的图就是似然场，
