@@ -10,4 +10,4 @@
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597477428164-1597477428200.png)
 
 但是光束模型是有缺点的：
-  
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597478039975-1597478039977.png)  
