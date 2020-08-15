@@ -9,7 +9,7 @@
 
 ## 光束模型
 
-**AMCL里用的就是光束模型()**
+**AMCL里用的就是光束模型(beam model)**
 
 激光雷达可以用光束模型来描述，光打到物体上的每一种情况，都可以用一种概率分布来建模，那么在一个地图中，给定了位置之后所有点的上述概率的联合分布，就是这个位置在地图中可能的概率。
  ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597477428164-1597477428200.png)
