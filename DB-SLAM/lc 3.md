@@ -36,4 +36,6 @@
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597480124046-1597480124047.png)
 
-但是上述的方法需要知道对应点。如果不知道对应点(实际情况)，就需要进行迭代计算，EM。
+但是上述的方法需要知道对应点。如果不知道对应点(实际情况)，就需要进行迭代计算(EM算法, ICP方法是其的一个特例)。
+
+EM算法的思路是，我们需要求A，但是求A的
