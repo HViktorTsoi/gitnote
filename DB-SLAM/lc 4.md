@@ -14,4 +14,4 @@
 # 基于优化的方法
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597497467909-1597497467922.png)
 
-有两个问题，一个是地图都栅格化了，是离散的，要想求梯度就要对地图进行插值
+有一个问题，地图都栅格化了，是离散的，要想求梯度就要对地图进行插值
