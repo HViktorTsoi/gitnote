@@ -31,4 +31,5 @@
 
 矫正方法：
 ## 纯估计方法
-使用ICP。这么看ICP的方法其实和互相关信号同步比较类似，将两帧点云都挪到原点之后，求解一个旋转矩阵，使得
+使用ICP。这么看ICP的方法其实和互相关信号同步比较类似，将a b两帧点云都挪到原点之后，求解一个旋转矩阵R，使得a和Rb之间的协方差最小。这里的方法就用到了SVD。
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597480093803-1597480093805.png)
