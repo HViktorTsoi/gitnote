@@ -37,7 +37,7 @@
 使用ICP。这么看ICP的方法其实和互相关信号同步比较类似，将a b两帧点云都挪到原点之后，求解一个旋转矩阵R，使得a和Rb之间的协方差最小。这里的方法就用到了SVD。
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597480093803-1597480093805.png)
 
-![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597480124046-1597480124047.png)
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597493977365-1597493977367.png)
 
 但是上述的方法需要知道对应点。如果不知道对应点(实际情况)，就需要进行迭代计算(EM算法, ICP方法是其的一个特例)。
 
