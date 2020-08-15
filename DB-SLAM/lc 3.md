@@ -70,3 +70,6 @@ LOAM和VICP很像。
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597482203913-1597482203915.png)
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597482442453-1597482442464.png)
+
+由于收到laser时的可能没有里程计与其
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597483069499-1597483069501.png)
