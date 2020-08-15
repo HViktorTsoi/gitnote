@@ -26,3 +26,5 @@
 似然场的缺点也是平滑，比如前面有一堵墙，在似然场中，无论laser打到墙前还是墙后还是墙上，得分都比较高，因此似然场就会弱化环境中的几何约束。(但是这种情况在现实中不严重)
 
 # laser运动畸变
+产生原因：
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597479613054-1597479613056.png)
