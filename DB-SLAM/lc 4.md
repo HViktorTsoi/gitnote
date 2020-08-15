@@ -5,4 +5,7 @@
 
 因此要引入点到线的icp，如下图，最小化的其实是点到直线的距离，即最小化点在直线的法线方向的投影长度。
 
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597496549705-1597496549717.png)
+
+算法流程如下
 
