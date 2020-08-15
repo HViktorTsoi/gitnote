@@ -39,6 +39,9 @@
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597493977365-1597493977367.png)
 
+最优解就是VUT的证明如下
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597495373035-1597495373041.png)
+
 但是上述的方法需要知道对应点。如果不知道对应点(实际情况)，就需要进行迭代计算(EM算法, ICP方法是其的一个特例)。
 
 ### 迭代ICP
