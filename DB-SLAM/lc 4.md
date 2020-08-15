@@ -7,5 +7,6 @@
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597496549705-1597496549717.png)
 
-算法流程如下
+算法流程如下，注意这个cost函数也有闭式解。
 
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597496612258-1597496612262.png)
