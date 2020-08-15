@@ -62,5 +62,7 @@ A是R,t; B是点对应(在EM中的隐变量)。
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597481484878-1597481484890.png)
 
-## 里程计辅助方法
+LOAM和VICP很像。
 
+## 里程计辅助方法
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597481923983-1597481923986.png)
