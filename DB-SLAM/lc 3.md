@@ -78,3 +78,5 @@ LOAM和VICP很像。
 对于里程计进行多次插值，就可以得到一帧激光中每个点对应的位姿
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597483763153-1597483763155.png)
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597483975757-1597483975758.png)
