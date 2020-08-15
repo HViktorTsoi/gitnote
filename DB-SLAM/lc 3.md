@@ -56,4 +56,6 @@ A是R,t; B是点对应(在EM中的隐变量)。
 4. 不断迭代，直到误差小于阈值。
 
 ### VICP
-考虑机器人速度的ICP
+考虑机器人速度的ICP：
+假定匀速运动，那么如果已知上一时刻的位姿，和机器人速度(包括线和角速度)
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597480967048-1597480967059.png)
