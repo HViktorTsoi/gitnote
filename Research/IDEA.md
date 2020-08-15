@@ -264,3 +264,5 @@ Image detection作为初始值，然后在pc中检测
 side-ceiling loam 使用侧视雷达或者天花板的loam
 
 鸟瞰图 车辆icp配准来实现位姿的求解
+
+***** 机器人学里的里程计 在室外都可以尝试用GPS来代替
