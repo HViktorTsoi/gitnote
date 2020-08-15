@@ -73,6 +73,8 @@ LOAM和VICP很像。
 
 由于收到laser时的可能没有里程计与其对应，因此需要对里程计进行插值：将里程计视为匀速或者匀加速的，可以进行一次或者二次插值。由于一帧点云会对应多个点和多个里程，这里的插值可以用左右点的值。
 
-对于里程计进行多次插值，就可以得到一帧激光中每个点
-
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597483069499-1597483069501.png)
+
+对于里程计进行多次插值，就可以得到一帧激光中每个点对应的位姿
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597483763153-1597483763155.png)
