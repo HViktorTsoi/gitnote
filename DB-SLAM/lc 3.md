@@ -28,3 +28,6 @@
 # laser运动畸变
 产生原因：
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597479613054-1597479613056.png)
+
+矫正方法：
+## 纯估计方法
