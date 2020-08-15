@@ -23,4 +23,4 @@
 这一方法计算量低，适用于结构化和非结构化环境，并且似然场是平滑的，不会因为位姿的噪声导致概率的突变。
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/08/15/1597478928138-1597478928149.png)
 
-似然场的
+似然场的缺点也是平滑，比如前面有一堵墙，在似然场中，无论laser打到墙前还是墙后还是墙上，得分都比较高，因此
