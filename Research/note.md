@@ -63,3 +63,5 @@ target_link_libraries(upsample_ext ${PYTHON_LIBARIES} ${PCL_LIBRARIES})
 1. 编译cuda10.0
 2. 编译pcl
 3. 节
+
+# 刚体变换的表现形式，线性
