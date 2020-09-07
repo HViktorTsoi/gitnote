@@ -64,4 +64,4 @@ target_link_libraries(upsample_ext ${PYTHON_LIBARIES} ${PCL_LIBRARIES})
 2. 编译pcl
 3. 节
 
-# 刚体变换的表现形式，线性
+# 刚体变换的表现形式，与DL中参数和输入的线性组合方式非常像, R=W, t=b
