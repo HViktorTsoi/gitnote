@@ -65,3 +65,5 @@ target_link_libraries(upsample_ext ${PYTHON_LIBARIES} ${PCL_LIBRARIES})
 3. 节
 
 # 刚体变换的表现形式，与DL中参数和输入的线性组合方式非常像, R=W, t=b
+
+# 将传统方法和深度学习融合, 其实就是传统方法中可学习/需要优化的参数连到NN中, 和普通的NN
