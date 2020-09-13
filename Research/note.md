@@ -71,3 +71,5 @@ target_link_libraries(upsample_ext ${PYTHON_LIBARIES} ${PCL_LIBRARIES})
 # 图优化建图方式
 节点：优化变量
 边：误差项
+
+例子：节点1：相机位姿
