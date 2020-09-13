@@ -72,4 +72,4 @@ target_link_libraries(upsample_ext ${PYTHON_LIBARIES} ${PCL_LIBRARIES})
 节点：优化变量
 边：误差项
 
-例子：节点1：相机位姿；节点2～N：特征点3D坐标；边1~N-1:从3D坐标估计
+例子：节点1：相机位姿；节点2～N：特征点3D坐标；边1~N-1:从3D坐标估计值投影到相机位姿的成像平面后，与实际测量值的loss
