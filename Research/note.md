@@ -59,10 +59,7 @@ target_link_libraries(upsample_ext ${PYTHON_LIBARIES} ${PCL_LIBRARIES})
 - Z-中指-B
 
 # PCL出错状态机:
-
-1. 编译cuda10.0
-2. 编译pcl
-3. 节
+在特定版本的eigen上装了pcl之后，
 
 # 刚体变换的表现形式，与DL中参数和输入的线性组合方式非常像, R=W, t=b
 
