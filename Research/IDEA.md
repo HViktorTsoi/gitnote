@@ -278,7 +278,7 @@ lidar反射率来作为区域平滑的约束
 
 在点云中，reflectence分布不稳定，但是其梯度或者extreme corner可能有稳定的分布
 
-****** Solid state lidar super 
+****** Solid state lidar super resolution time super resolution
 
 
 
