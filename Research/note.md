@@ -77,4 +77,4 @@ pointcloud 描述子
 
 # LiDAR Super Resolution
 改进点：loss，网络，序列信息
-效果较好：TCN，比原来要
+效果较好：TCN，比原来要高8.几%
