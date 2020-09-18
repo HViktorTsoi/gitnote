@@ -74,3 +74,7 @@ target_link_libraries(upsample_ext ${PYTHON_LIBARIES} ${PCL_LIBRARIES})
 pointcloud 描述子
 
 用objectdetection的思路做global localization
+
+# LiDAR Super Resolution
+改进点：loss，网络，序列信息
+效果较好：TCN，比原来要
