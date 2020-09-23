@@ -280,6 +280,8 @@ lidar反射率来作为区域平滑的约束
 
 ****** Solid state lidar super resolution time super resolution
 
+*** 对点云进行transform 构造标定的新数据集
+****** segmentation不准确的时候 增强slam的准确性
 
 
 
