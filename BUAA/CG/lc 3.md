@@ -4,4 +4,4 @@
 2. 主列
 用主列的方式理解，AX就可以理解为A列向量的线性组合；
 
-0空间 AX=0,X spin 的space
+0空间 AX=0,X spin的space
