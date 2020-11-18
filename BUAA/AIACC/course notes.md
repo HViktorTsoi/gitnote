@@ -1,6 +1,6 @@
-芯片层：Da Vinci
+# 芯片层：Da Vinci
 
-MAC: 矩阵相乘累加
+# MAC: 矩阵相乘累加 (Multiply Accumulate)
 
 传统算法: 矩阵大，计算次数少(例如协同过滤矩阵)
 DL: 矩阵小，但是计算次数多(参数少，多次train/infer)
