@@ -1,1 +1,3 @@
-ros 
+ros controller 控制的是joint
+
+joint的名字要与控制配置文件里的名字相同
