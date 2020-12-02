@@ -125,4 +125,4 @@ pointcloud 描述子
 
 # UTM坐标系就是我们通常所说的平面直角坐标系
 
-# Cartographer要在install_isolated的launch和confi
+# Cartographer要在install_isolated的launch和config里边更改配置文件,如果想离线建图,要使用offline node
