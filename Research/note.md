@@ -124,3 +124,5 @@ pointcloud 描述子
 尝试从A旋转到B,在旋转的过程中看每一步绕哪个轴转了多少度,最后就可以用transforms3D中的eular2mat计算出从系A到系B的旋转矩阵R,这个矩阵左乘原向量就得到新坐标系下的向量.
 
 # UTM坐标系就是我们通常所说的平面直角坐标系
+
+# Cartographer要在install_isolated的launch和confi
