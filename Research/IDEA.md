@@ -314,7 +314,8 @@ SLAM过程中有哪些算子；算法怎么和硬件结合；
 *** 对于overlapnet 是不是可以考虑cascade，先预测yaw，然后将两个点云yaw对齐之后再进行delta预测？
 yaw还可以选出多个candidate，多组对齐之后一起送到deltahead
 
-**** 对于overlapnet的delta head，其是否具备这样的性质：当两帧lidar在x方向离得越近，overlap 
+**** 对于overlapnet的delta head，其是否具备这样的性质：当两帧lidar在x方向离得越近，overlap就越大？
+目前他的互相关设计，只能保证两个输入确实有重叠的时候，其overlap输入是最大的， 
 
 
 
