@@ -311,7 +311,8 @@ SLAM过程中有哪些算子；算法怎么和硬件结合；
 
 用于loam的雷达是否存在系统误差？是否可以借助gps来进行进一步的标定？
 
-
+***对于overlapnet 是不是可以考虑cascade，先预测yaw，然后将两个点云yaw对齐之后再进行delta预测？
+yaw还可以选出多个candidate，多组对齐之后一起送到deltahead
 
 
 
