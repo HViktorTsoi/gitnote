@@ -132,4 +132,6 @@ pointcloud 描述子
 # PYBIND11到底怎么玩
 如果没有find_package(PCL) 完全按照pybind11的文档
 
-如果find_package(PCL) 必须
+如果find_package(PCL) 必须加上
+include_directories(/home/hyx/miniconda3/envs/torch/include/python3.6m)
+其中include_directories中的参数是你希望编译到的目标python版本
