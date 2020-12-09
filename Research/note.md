@@ -134,4 +134,4 @@ pointcloud 描述子
 
 如果find_package(PCL) 必须加上
 include_directories(/home/hyx/miniconda3/envs/torch/include/python3.6m)
-其中include_directories中的参数是你希望编译到的目标python版本
+其中include_directories中的参数是你希望编译到的目标python版本的include目录
