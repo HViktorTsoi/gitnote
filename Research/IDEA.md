@@ -322,6 +322,7 @@ yaw还可以选出多个candidate，多组对齐之后一起送到deltahead
 
 *** pc to image 可以放在自动驾驶车辆的监视屏上
 
+**** overlapnet 用均值方差代替correction head的输出, 方差正好可以作为slam回环初始化的初始的一个参数
 
 
 
