@@ -324,6 +324,8 @@ yaw还可以选出多个candidate，多组对齐之后一起送到deltahead
 
 **** overlapnet 用均值方差代替correction head的输出, 方差正好可以作为slam回环初始化的初始的一个参数
 
+**** 非重复扫描雷达的通用特征描述子/通用
+
 
 
 
