@@ -328,6 +328,7 @@ yaw还可以选出多个candidate，多组对齐之后一起送到deltahead
 
 *** horizon lio sam
 
+** PC2IMG remove car;然后vslam
 
 
 
