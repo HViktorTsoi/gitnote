@@ -322,13 +322,11 @@ yaw还可以选出多个candidate，多组对齐之后一起送到deltahead
 
 *** pc to image 可以放在自动驾驶车辆的监视屏上
 
-<<<<<<< HEAD
 **** overlapnet 用均值方差代替correction head的输出, 方差正好可以作为slam回环初始化的初始的一个参数
 
 **** 非重复扫描雷达的通用特征描述子/通用回环检测描述子
 
 *************点云生成的图像是一种不变性的描述，是不是可以用来做回环检测或者定位？
->>>>>>> d093ebc5b2ff76efe6915bb4a075a942e85057be
 
 *** horizon lio sam
 
