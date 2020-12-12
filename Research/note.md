@@ -129,3 +129,6 @@ pointcloud 描述子
 
 # Cartographer要在install_isolated的launch和config里边更改配置文件,如果想离线建图,要使用offline node
 
+# transformer in CV
+transformer最大的优势是可以并行处理一个序列，而不像RNN之类的必须要先处理一个词再接着下一个
+
