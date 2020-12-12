@@ -132,5 +132,5 @@ pointcloud 描述子
 # transformer in CV
 transformer最大的优势是可以并行处理一个序列（用attention），而不像RNN之类的必须要先处理一个词再接着下一个
 
-transformer在分类上结果，小数据集没有cnn好，但是大数据集预训练
+transformer在分类上结果，小数据集没有cnn好，但是大数据集预训练之后效果比部分cnn好得多
 
