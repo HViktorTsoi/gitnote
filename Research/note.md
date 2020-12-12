@@ -129,7 +129,6 @@ pointcloud 描述子
 
 # Cartographer要在install_isolated的launch和config里边更改配置文件,如果想离线建图,要使用offline node
 
-<<<<<<< HEAD
 # PYBIND11到底怎么玩
 如果没有find_package(PCL) 完全按照pybind11的文档
 
@@ -139,7 +138,8 @@ include_directories(/home/hyx/miniconda3/envs/torch/include/python3.6m)
 可以通过
 python -c "from sysconfig import get_paths;print(get_paths()['include'])"
 查到
-=======
+
+
 # transformer in CV
 transformer最大的优势是可以并行处理一个序列（用attention），而不像RNN之类的必须要先处理一个词再接着下一个
 
@@ -148,4 +148,3 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 可能的原因：
 1. CNN是参数共享，transformer里有很多fc的，参数量多一些，数据量更大可能会更好一点；
 2. 全attention结构确实比CNN能够更好的建模全局信息；
->>>>>>> d093ebc5b2ff76efe6915bb4a075a942e85057be
