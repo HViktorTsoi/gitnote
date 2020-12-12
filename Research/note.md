@@ -135,4 +135,5 @@ transformer最大的优势是可以并行处理一个序列（用attention），
 transformer在分类上结果，小数据集没有cnn好，但是大数据集预训练之后效果比部分cnn好得多
 
 可能的原因：
-1. CNN是参数共享，transformer里有很多fc的，参数量多一些，数据量
+1. CNN是参数共享，transformer里有很多fc的，参数量多一些，数据量更大可能会更好一点；
+2. 全attention结构确实比CNN能够更好的建模全局信息；
