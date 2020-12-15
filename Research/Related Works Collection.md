@@ -15,3 +15,5 @@ Xu， 用3D sobel算子，在voxel之后的点云中找候选线(任务是分割
 - Vision-based localization using an edge map extracted from 3d laser range data
 把边缘看做面的交界，先做平面分割，然后用平面交线作为edge。这个方法在小平面处不工作。
 
+- Edge detection and feature line tracing in 3D-point clouds by analyzing geometric properties of neighborhoods
+把点投影到局部
