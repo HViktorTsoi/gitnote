@@ -4,5 +4,5 @@
 Lin，把3D点云投影成不同视角的2D点云，然后用LSD提取线特征，再把线重投影回3D用region growing链接在一起
 
 - Road curb extraction from mobile lidar point clouds
-Xu， 用3D sobel算子，在voxel之后的点云中找候选线，然后
+Xu， 用3D sobel算子，在voxel之后的点云中找候选线(任务是分割路牙)，然后利用点集的局部方向把线连在一起
 
