@@ -10,3 +10,4 @@ Xu， 用3D sobel算子，在voxel之后的点云中找候选线(任务是分割
 用局部曲率来计算边缘， 这个适用于密集高质量点云(但是LOAM也用了？？)
 
 - Contour detection in unstructured 3D point clouds
+用法线、特征值等作为feature， 做有监督的分类，把edge区分出来。但是没有训练数据就不工作了
