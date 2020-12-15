@@ -11,3 +11,6 @@ Xu， 用3D sobel算子，在voxel之后的点云中找候选线(任务是分割
 
 - Contour detection in unstructured 3D point clouds
 用法线、特征值等作为feature， 做有监督的分类，把edge区分出来。但是没有训练数据就不工作了
+
+- Vision-based localization using an edge map extracted from 3d laser range data
+把边缘看做面的交界，先做
