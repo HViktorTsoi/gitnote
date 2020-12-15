@@ -6,3 +6,5 @@ Lin，把3D点云投影成不同视角的2D点云，然后用LSD提取线特征�
 - Road curb extraction from mobile lidar point clouds
 Xu， 用3D sobel算子，在voxel之后的点云中找候选线(任务是分割路牙)，然后利用点集的局部方向把线连在一起
 
+- Automated registration of dense terrestrial laser- scanning point clouds using curves
+用局部曲率来计算边缘， 这个适用于密集的
