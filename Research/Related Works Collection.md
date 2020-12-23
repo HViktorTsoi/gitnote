@@ -31,3 +31,5 @@ GPU实现的互相关配准
 - Eigen-factors: Plane estimation for multi-frame and time- continuous point cloud alignment
 在多帧之间利用共同观测到的平面来优化位姿序列
 
+- Tightly coupled 3d lidar inertial odometry and mapping
+将当前帧与
