@@ -19,4 +19,5 @@ Xu， 用3D sobel算子，在voxel之后的点云中找候选线(任务是分割
 把点投影到局部平面上， 根据angular gap(一种度量，论文里有详细解释)，来判断哪些点是edge
 
 # BALM
-- 
+- A correlation-based approach to robust point set registration
+使用互相关
