@@ -29,3 +29,4 @@ Xu， 用3D sobel算子，在voxel之后的点云中找候选线(任务是分割
 GPU实现的互相关配准
 
 - Eigen-factors: Plane estimation for multi-frame and time- continuous point cloud alignment
+在多帧之间利用共同观测到的平面来
