@@ -32,4 +32,4 @@ GPU实现的互相关配准
 在多帧之间利用共同观测到的平面来优化位姿序列
 
 - Tightly coupled 3d lidar inertial odometry and mapping
-将当前帧与
+将当前帧与滑动窗口内之前已经构建的map进行配准；但是和BA相比，忽略了滑窗内部
