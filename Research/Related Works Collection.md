@@ -20,4 +20,7 @@ Xu， 用3D sobel算子，在voxel之后的点云中找候选线(任务是分割
 
 # BALM
 - A correlation-based approach to robust point set registration
-使用互相关，可以实现多帧的配准
+使用互相关，可以实现多帧的配准；但是需要计算所有对之间的
+
+- Real-time correlative scan matching
+互相关配准的实时实现
