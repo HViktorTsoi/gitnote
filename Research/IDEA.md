@@ -333,7 +333,7 @@ yaw还可以选出多个candidate，多组对齐之后一起送到deltahead
 
 ***** 点云帧间插值
 
-** 点云生成图像，灰度图和反射率图之间用cycleGAN loss，，其余的AB通道用颜色图像训练
+** 点云生成图像，灰度图和反射率图之间用cycleGAN loss，以及feature matching loss，其余的AB通道用颜色图像训练
 
 
 
