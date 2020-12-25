@@ -335,6 +335,8 @@ yaw还可以选出多个candidate，多组对齐之后一起送到deltahead
 
 ** 点云生成图像，灰度图和反射率图之间用cycleGAN loss，以及feature matching loss，其余的AB通道用颜色图像训练
 
+****** 雷达点云的反射率分布是不是和日照有关？如果有关，是不是可以用来做图像的阴影消除？
+
 
 
 
