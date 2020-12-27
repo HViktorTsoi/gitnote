@@ -10,3 +10,5 @@ VIO(或者是odometry)的应用可能为：手机拍照防抖，无人机追踪�
 
 注意这里的表示方式的顺序，Twi代表i系到w系的变换，即Twi右乘一个i系下的坐标得到其在w下的坐标
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/12/27/1609079525458-1609079525462.png)
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/12/27/1609079802034-1609079802039.png)
