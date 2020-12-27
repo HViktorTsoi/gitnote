@@ -12,3 +12,5 @@ VIO(或者是odometry)的应用可能为：手机拍照防抖，无人机追踪�
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/12/27/1609079525458-1609079525462.png)
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/12/27/1609079802034-1609079802039.png)
+
+对四元数求导：
