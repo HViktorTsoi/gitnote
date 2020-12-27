@@ -13,6 +13,8 @@ VIO(或者是odometry)的应用可能为：手机拍照防抖，无人机追踪�
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/12/27/1609079802034-1609079802039.png)
 
-对四元数求导：
+四元数对时间求导：
+首先是四元数求极限
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/12/27/1609080238018-1609080238021.png)
+然后对时间求导
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2020/12/27/1609080407641-1609080407643.png)
