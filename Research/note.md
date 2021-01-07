@@ -174,7 +174,7 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 
 4. MMD
 	1. 找一个核函数将两个样本映射为一个实数,这个核函数需要能度量两个样本的相似程度,越相似函数值越高;
-	2. 
+	2. 计算用所有的
 
 5. Wasserstein Distance
 6. 1-Nearest Neighbor Classifier
