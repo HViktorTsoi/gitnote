@@ -184,7 +184,7 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 
 6. one-Nearest Neighbor Classifier
 	1. 把生成的图像打上0标签, 真实图像打上1标签, 混合在一起构成数据集D(共2n张图像);
-	2. 每次从D
+	2. 每次从D中拿出2n-1个样本,训练一个
 
 7. GANtrain-GANtest
 8. NRDS
