@@ -227,4 +227,7 @@ SD, 锐度差异, 算法类似PSNR, 但是比较的是两幅图像的锐度差;
 人类评估, 目前已知的工具有Amazon Mechanical Turk (AMT), 在测试中, 随机 同时 给两个video(图片), 不告诉被测试者是什么模型生成的, 从几个维度上评价, 选择出哪个结果更真实;
 
 12. Synthetic-Neuroscore
+参考论文
+Synthetic-Neuroscore: Using a neuro-AI interface for evaluating
+generative adversarial networks
 
