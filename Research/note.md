@@ -177,7 +177,9 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 	2. 用所有的样本来计算MMD距离, 其可以来度量生成分布和真实数据集分布的相似程度;
 
 5. Wasserstein Distance
-	1. 首先要有一个训练好的判别器
+	1. 首先要有一个训练好的判别器;
+	2. 对生成图像和训练集图像, 分别用判别器来计算出判别值;
+	3. 然后用所有的判别值
 
 6. 1-Nearest Neighbor Classifier
 7. GANtrain-GANtest
