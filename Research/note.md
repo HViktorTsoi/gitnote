@@ -158,7 +158,7 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 1. Inception Score
 将生成图像送进inception, 得到1x1000的预测向量; 
 	1. 如果生成的样本比较真实,那么Inception应该给出某个比较明确的类别, 向量中某个值比较高, 其信息熵较低;
-	2. 如果
+	2. 如果生成的样本多样性好,那么对于产生的一批样本,其对应的这批类别标签标签的分布应该比较均匀(各个类别)
 
 2. FID, Frechet Inception Distance score
 3. Perceptual loss
