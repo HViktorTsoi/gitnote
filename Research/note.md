@@ -156,6 +156,8 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 
 # 生成图像质量评价标准
 1. Inception Score
+将
+
 2. FID, Frechet Inception Distance score
 3. Perceptual loss
 4. MMD
