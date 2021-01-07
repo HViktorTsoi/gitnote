@@ -182,7 +182,9 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 	3. 然后用所有的判别值来计算Wasserstein距离;
 	4. 这个评价指标可以探测到生成样本的简单记忆情况和模式崩溃情况, 但是因为D是在特定数据集上训练出来的, 只能用来评价这个数据集上的图像, 比如在苹果图像上训练的,就不能用来判别橘子并算Wasserstein距离;
 
-6. 1-Nearest Neighbor Classifier
+6. one-Nearest Neighbor Classifier
+
+
 7. GANtrain-GANtest
 8. NRDS
 9. SSIM, PSNR, LPIPS, SD
