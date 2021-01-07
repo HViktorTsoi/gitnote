@@ -212,21 +212,21 @@ SSIM, 结构相似度, 基本思路是基于图像局部灰度的均值方差,�
 PSNR, 峰值信噪比, 基本思路是求两幅图像逐像素差的倒数, 算法参考WIKI;
 SD, 锐度差异, 算法类似PSNR, 但是比较的是两幅图像的锐度差;
 
-10. Perceptual loss
+## 9. Perceptual loss
 类似vid2vid中的feature matching loss, 用某种Encoder, 对真实图像和生成图像分别进行encode, 然后对输出的feature进行比较;
 
-11. 借助分类/检测/分割任务进行评估
+## 10. 借助分类/检测/分割任务进行评估
 在生成图像上进行分类/检测/分割任务, 本质上和Perceptual loss, 以及GANtrain-GANtest中的Base-test比较类似,
 
-12. Forward / Backward Consistency
+## 11. Forward / Backward Consistency
 这个是WC vid2vid针对他的模型提出的, 来判断视频生成任务中, 生成的视频是否有时间上的一致性: 
 	1. 对于一个时长为t的视频序列的input, 将其顺序-逆序拼接在一起, 构成时长为2t的video input;
 	2. 将video input作为输入, 送进模型中, 得到预测的视频输出;
 	3. 比较第0帧和最后一帧的图像的差异(论文中用的就是逐像素差); 如果模型有时间一致性, 那么第0帧和最后一帧应该是完全一致的(同理第1和第n-1, 第2和第n-2等也应该是一致的);
 
-13. subjective scores
+## 12. subjective scores
 人类评估, 目前已知的工具有Amazon Mechanical Turk (AMT), 在测试中, 随机 同时 给两个video(图片), 不告诉被测试者是什么模型生成的, 从几个维度上评价, 选择出哪个结果更真实;
 
-14. Synthetic-Neuroscore
+## 13. Synthetic-Neuroscore
 参考论文Synthetic-Neuroscore: Using a neuro-AI interface for evaluating generative adversarial networks
 让人类在看GAN生成图像和真实图像的时候, 分别带上EEG设备采集脑, 然后通过对EEG进行分类和对比, 来确定生成的图像是否和真实图像一致;
