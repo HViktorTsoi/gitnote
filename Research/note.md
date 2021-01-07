@@ -200,7 +200,7 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 	1. 在真实图像St上训练分类器, 并在真实验证集Sv上测试, 准确率记为GANBase;
 	2. 在生成图像上Sg训练分类器, 并在真实验证集Sv上测试, 准确率记为GANtrain;
 	3. 在真实图像St上训练分类器, 并在生成图像Sg上测试, 准确率记为GANtest;
-	4. 
+	4. 比较GANBase和GANtrain, train较小, 说明GAN存在问题, 可能是发生了模式丢失, 
 
 9. SSIM, PSNR, LPIPS, SD
 10. Perceptual loss
