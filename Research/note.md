@@ -173,6 +173,8 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 	3. 计算这两个分布的Fréchet距离, 生成图像质量的度量;
 
 4. MMD
+
+
 5. Wasserstein Distance
 6. 1-Nearest Neighbor Classifier
 7. GANtrain-GANtest
