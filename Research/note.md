@@ -178,6 +178,7 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 
 		5. IS的高低会受到图像像素的影响
 
+
 ## 2. FID, Frechet Inception Distance score
 
 	1. 分别把生成器生成的样本和判别器生成的样本送到分类器中, 抽取分类器的中间层的抽象特征, 假设该抽象特征符合多元高斯分布;
@@ -185,6 +186,8 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 	2. 估计生成样本和真实样本产生的特征的均值和方差, 这样就拿到了生成和真实这两个分布的参数;
 
 	3. 计算这两个分布的Fréchet距离, 生成图像质量的度量;
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2021/01/07/1610014718100-1610014718101.png)
+
 
 ## 3. MMD, Maximum Mean Discrepancy
 
@@ -193,6 +196,7 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 	2. 用所有的样本来计算MMD距离, 其可以来度量生成分布和真实数据集分布的相似程度;
 
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2021/01/07/1610014680718-1610014680719.png)
+
 
 ## 4. Wasserstein Distance
 
@@ -203,6 +207,7 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 	3. 然后用所有的判别值来计算Wasserstein距离;
 
 	4. 这个评价指标可以探测到生成样本的简单记忆情况和模式崩溃情况, 但是因为D是在特定数据集上训练出来的, 只能用来评价这个数据集上的图像, 比如在苹果图像上训练的,就不能用来判别橘子并算Wasserstein距离;
+
 
 ## 5. one-Nearest Neighbor Classifier
 
@@ -222,7 +227,7 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2021/01/07/1610014435334-1610014435335.png) 
 	
 
-## 6. NRDS
+## 6. NRDS, Normalized Relative Discriminative Score
 
 可用于多个GAN模型的比较, 想法是：实践中，对于训练数据集和GAN生成器生成的样本集，只要使用足够多的epoch，总可以训练得到一个分类器C，可以将两类样本完全分开，使得对训练数据集的样本，分类器输出趋于1，对GAN生成的样本，分类器输出趋于0。
 
@@ -238,6 +243,7 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 	
 ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2021/01/07/1610014370518-1610014370620.png)
 
+
 ## 7. GANtrain-GANtest
 
 是一种评价流程, 定义真实图像训练样本集St, 真实图像验证集Sv, 生成图像样本集合Sg; 
@@ -252,6 +258,7 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 
 	5. 比较GANBase和GANtest, 如果test较高, 说明发生了过拟合, 发生了简单记忆问题; 如果test较低, 说明生成的数据分布不好, 图像质量不高;  
 
+
 ## 8. SSIM, PSNR, SD
 
 这一系列是对图像质量进行评估, 主要是来评估图像的锐度/对比度/亮度分布, 而不是基于图像内容进行评价; 
@@ -263,13 +270,16 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 
 - SD, 锐度差异, 算法类似PSNR, 但是比较的是两幅图像的锐度差;
 
+
 ## 9. Perceptual loss
 
 类似vid2vid中的feature matching loss, 用某种Encoder, 对真实图像和生成图像分别进行encode, 然后对输出的feature进行比较;
 
+
 ## 10. 借助分类/检测/分割任务进行评估
 
 在生成图像上进行分类/检测/分割任务, 本质上和Perceptual loss, 以及GANtrain-GANtest中的Base-test比较类似,
+
 
 ## 11. Forward / Backward Consistency
 
@@ -281,9 +291,11 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 
 	3. 比较第0帧和最后一帧的图像的差异(论文中用的就是逐像素差); 如果模型有时间一致性, 那么第0帧和最后一帧应该是完全一致的(同理第1和第n-1, 第2和第n-2等也应该是一致的);
 
+
 ## 12. subjective scores
 
 人类评估, 目前已知的工具有Amazon Mechanical Turk (AMT), 在测试中, 随机 同时 给两个video(图片), 不告诉被测试者是什么模型生成的, 从几个维度上评价, 选择出哪个结果更真实;
+
 
 ## 13. Synthetic-Neuroscore
 
