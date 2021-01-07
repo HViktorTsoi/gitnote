@@ -170,16 +170,8 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 2. FID, Frechet Inception Distance score
 	1. 分别把生成器生成的样本和判别器生成的样本送到分类器中, 抽取分类器的中间层的抽象特征, 假设该抽象特征符合多元高斯分布;
 	2. 估计生成样本和真实样本产生的特征的均值和方差, 这样就拿到了生成和真实这两个分布的参数;
-	3. 计算这两个分布的
+	3. 计算这两个分布的Fréchet距离, 生成图像质量的度量;
 
 3. Perceptual loss
-4. MMD
-5. Wasserstein Distance
-6. 1-Nearest Neighbor Classifier
-7. GANtrain-GANtest
-8. NRDS
-9. SSIM, PSNR, LPIPS, SD
-10. 借助分类/检测/分割任务进行评估
-11. subjective scores
-12. Synthetic-Neuroscore
+
 
