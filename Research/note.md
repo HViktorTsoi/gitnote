@@ -160,8 +160,9 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 3. Perceptual loss
 4. MMD
 5. 1-Nearest Neighbor Classifier
-5. Wasserstein Distance
-3. SSIM, PSNR, LPIPS, SD
-4. 借助分类任务进行评估
-5. subjective scores
+6. GANtrain-GANtest
+7. Wasserstein Distance
+8. SSIM, PSNR, LPIPS, SD
+9. 借助分类任务进行评估
+10. subjective scores
 
