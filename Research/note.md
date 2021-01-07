@@ -301,4 +301,4 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 
 参考论文Synthetic-Neuroscore: Using a neuro-AI interface for evaluating generative adversarial networks
 
-让人类在看GAN生成图像和真实图像的时候, 分别带上EEG设备采集脑, 然后通过对EEG进行分类和对比, 来确定生成的图像是否和真实图像一致;
+让人类在看GAN生成图像和真实图像的时候, 分别带上EEG设备采集脑电信号, 然后通过对EEG进行分类和对比, 来确定生成的图像是否和真实图像一致;
