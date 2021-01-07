@@ -172,6 +172,15 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 	2. 估计生成样本和真实样本产生的特征的均值和方差, 这样就拿到了生成和真实这两个分布的参数;
 	3. 计算这两个分布的Fréchet距离, 生成图像质量的度量;
 
-3. Perceptual loss
 
+4. MMD
+5. Wasserstein Distance
+6. 1-Nearest Neighbor Classifier
+7. GANtrain-GANtest
+8. NRDS
+9. SSIM, PSNR, LPIPS, SD
+10. Perceptual loss
+10. 借助分类/检测/分割任务进行评估
+11. subjective scores
+12. Synthetic-Neuroscore
 
