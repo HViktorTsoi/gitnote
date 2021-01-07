@@ -196,7 +196,7 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 	4. 这样经过多个epoch, 对于每个GAN的数据, 都能绘制一条 epoch-输出 曲线, 这条曲线面积越大, 说明在分类器用了越少的epoch来认为某个GAN的样本是真实图像, 这就能说明生成图像的质量更高;  
 
 7. GANtrain-GANtest
-是一种评价流程
+是一种评价流程, 
 
 9. SSIM, PSNR, LPIPS, SD
 10. Perceptual loss
