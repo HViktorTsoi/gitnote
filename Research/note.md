@@ -168,7 +168,7 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 		5. IS的高低会受到图像像素的影响
 
 2. FID, Frechet Inception Distance score
-分别吧
+分别把生成器生成的样本和判别器生成的样本送到分类器中
 
 3. Perceptual loss
 4. MMD
