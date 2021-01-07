@@ -158,6 +158,8 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 1. Inception Score
 2. FID, Frechet Inception Distance score
 3. Perceptual loss
+4. MMD
+5. Wasserstein Distance
 3. SSIM, PSNR, LPIPS, SD
 4. 借助分类任务进行评估
 5. subjective scores
