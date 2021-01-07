@@ -173,7 +173,7 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 	3. 计算这两个分布的Fréchet距离, 生成图像质量的度量;
 
 4. MMD
-
+	1. 找一个核函数将两个样本
 
 5. Wasserstein Distance
 6. 1-Nearest Neighbor Classifier
