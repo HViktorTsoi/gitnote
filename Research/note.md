@@ -156,7 +156,7 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 
 # 生成图像质量评价标准
 1. Inception Score
-将生成图像送进inception, 得到1000
+将生成图像送进inception, 得到1x1000的预测向量; 如果生成的样本比较真实,那么Inception应该给出某个比较明确的
 
 2. FID, Frechet Inception Distance score
 3. Perceptual loss
