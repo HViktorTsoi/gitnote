@@ -198,7 +198,9 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 7. GANtrain-GANtest
 是一种评价流程, 定义真实图像训练样本集St, 真实图像验证集Sv, 生成图像样本集合Sg; 
 	1. 在真实图像St上训练分类器, 并在真实验证集Sv上测试, 准确率记为GANBase;
-	2. 在生成图像上Sg训练分类器, 并在真实验证集Sv上测试, 准确率记为GANtrain; 
+	2. 在生成图像上Sg训练分类器, 并在真实验证集Sv上测试, 准确率记为GANtrain;
+	3. 在真实图像St上训练分类器, 并在生成图像Sg上测试, 准确率记为GANtest;
+	4. 
 
 9. SSIM, PSNR, LPIPS, SD
 10. Perceptual loss
