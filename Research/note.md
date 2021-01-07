@@ -186,11 +186,13 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 
 	3. 计算这两个分布的Fréchet距离, 生成图像质量的度量;
 
-## 3. MMD
+## 3. MMD, Maximum Mean Discrepancy
 
-	1. 找一个核函数将两个样本映射为一个实数,这个核函数需要能度量两个样本的相似程度,越相似函数值越高;
+	1. 找一个核函数k将两个样本映射为一个实数,这个核函数需要能度量两个样本的相似程度,越相似函数值越高;
 
 	2. 用所有的样本来计算MMD距离, 其可以来度量生成分布和真实数据集分布的相似程度;
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2021/01/07/1610014680718-1610014680719.png)
 
 ## 4. Wasserstein Distance
 
