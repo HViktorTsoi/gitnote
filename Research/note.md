@@ -201,9 +201,11 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 	2. 在生成图像上Sg训练分类器, 并在真实验证集Sv上测试, 准确率记为GANtrain;
 	3. 在真实图像St上训练分类器, 并在生成图像Sg上测试, 准确率记为GANtest;
 	4. 比较GANBase和GANtrain, train较小, 说明GAN存在问题, 可能是发生了模式丢失, 或者样本不够真实, 让分类器学不到有效的特征; 或者生成的类别分的不够开; 如果二者比较接近, 说明生成图像的质量较高, 和训练集有很多模式相似性;
-	5. 比较GANBase和GANtest, 如果test较高, 说明发生了过拟合, 发生了简单记忆问题; 如果test较低, 说明生成的数据分布不好,  
+	5. 比较GANBase和GANtest, 如果test较高, 说明发生了过拟合, 发生了简单记忆问题; 如果test较低, 说明生成的数据分布不好, 图像质量不高;  
 
 9. SSIM, PSNR, LPIPS, SD
+这一系列是直接
+
 10. Perceptual loss
 10. 借助分类/检测/分割任务进行评估
 11. Forward / Backward Consistency
