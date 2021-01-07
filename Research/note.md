@@ -212,6 +212,9 @@ PSNR, 峰值信噪比, 基本思路是求两幅图像逐像素差的倒数, 算�
 SD, 锐度差异, 算法类似PSNR, 但是比较的是两幅图像的锐度差;
 
 10. Perceptual loss
+类似vid2vid中的feature matching loss, 用某种Encoder, 对真实图像和生成图像分别进行encode, 然后对
+
+
 10. 借助分类/检测/分割任务进行评估
 11. Forward / Backward Consistency
 11. subjective scores
