@@ -228,4 +228,4 @@ SD, 锐度差异, 算法类似PSNR, 但是比较的是两幅图像的锐度差;
 
 12. Synthetic-Neuroscore
 参考论文Synthetic-Neuroscore: Using a neuro-AI interface for evaluating generative adversarial networks
-
+让人类在看GAN生成图像的时候, 带上EEG接口, 
