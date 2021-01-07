@@ -210,11 +210,14 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 
 	3. 用剩下的1个样本做测试; 如此重复留一法验证2n次,直到所有样本都被验证一遍,计算最终的准确率;
 
-	4. 如果准确率接近0%, 说明出现简单记忆现象: 每个生成样本都和真实样本距离很近, 在1-NN查找的时候, 永远只能找到和留一的生成(真实)样本对应那个真实(生成)样本; ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2021/01/07/1610014530089-1610014530089.png)
+	4. 如果准确率接近0%, 说明出现简单记忆现象: 每个生成样本都和真实样本距离很近, 在1-NN查找的时候, 永远只能找到和留一的生成(真实)样本对应那个真实(生成)样本; 
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2021/01/07/1610014530089-1610014530089.png)
 	
-	5. 如果准确率接近100%, 说明生成的样本分布和真实样本分布差的很远,很容易就能够区分开,说明生成的质量很差; ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2021/01/07/1610014539557-1610014539558.png)
+	5. 如果准确率接近100%, 说明生成的样本分布和真实样本分布差的很远,很容易就能够区分开,说明生成的质量很差; 
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2021/01/07/1610014539557-1610014539558.png)
 
-	6. 当准确率接近50%的时候, 才说明生成和真实样本的距离接近, 而又不是过拟合导致很近;  ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2021/01/07/1610014435334-1610014435335.png) 
+	6. 当准确率接近50%的时候, 才说明生成和真实样本的距离接近, 而又不是过拟合导致很近;  
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2021/01/07/1610014435334-1610014435335.png) 
 	
 
 ## 6. NRDS
@@ -228,9 +231,10 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 	3. 然后当前训练的模型对n个GAN的数据进行测试, 记录输出(0~1的值, 越接近1说明分类器认为这个图像越像真实样本)和当前的epoch;
 
 	4. 这样经过多个epoch, 对于每个GAN的数据, 都能绘制一条 epoch-输出 曲线, 这条曲线面积越大, 说明在分类器用了越少的epoch来认为某个GAN的样本是真实图像, 这就能说明生成图像的质量更高;  
-	5. ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2021/01/07/1610014399416-1610014399443.png)
+
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2021/01/07/1610014399416-1610014399443.png)
 	
-	6. ![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2021/01/07/1610014370518-1610014370620.png)
+![title](https://raw.githubusercontent.com/HViktorTsoi/gitnote-image/master/gitnote/2021/01/07/1610014370518-1610014370620.png)
 
 ## 7. GANtrain-GANtest
 
