@@ -208,7 +208,7 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 适合任务:超分辨, 压缩后重建等GT和预测值有较明确的映射关系的任务
 SSIM, 结构相似度, 
 PSNR, 峰值信噪比, 基本思路是求两幅图像逐像素差的倒数, 算法参考WIKI;
-SD, 锐度差异, 计算凡事
+SD, 锐度差异, 算法类似PSNR, 但是比较的是两幅图像的锐度差;
 10. Perceptual loss
 10. 借助分类/检测/分割任务进行评估
 11. Forward / Backward Consistency
