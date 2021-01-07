@@ -164,6 +164,7 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 7. GANtrain-GANtest
 8. NRDS
 9. SSIM, PSNR, LPIPS, SD
-10. 借助分类任务进行评估
+10. 借助分类/检测/分割任务进行评估
 11. subjective scores
+12. Synthetic-Neuroscore
 
