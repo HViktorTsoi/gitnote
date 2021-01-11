@@ -49,4 +49,5 @@ GPU实现的互相关配准
 通过场景中的语义信息(tree， building)等进行matching
 
 - Pointnetvlad: Deep point cloud based retrieval for large-scale place recognition
-用
+- Netvlad: Cnn architecture for weakly supervised place recognition
+用pointnet和netvlad结合起来，通过网络拿到场景点云的embedding， 
