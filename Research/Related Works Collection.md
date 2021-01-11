@@ -45,4 +45,7 @@ GPU实现的互相关配准
 - Appearance-based loop detection from 3d laser data using the normal distributions transform
 直接用NDT的描述子来计算两帧的相似度
 
-- 
+- Segmatch: Segment based place recognition in 3d point clouds
+通过场景中的语义信息(tree， building)等进行matching
+
+
