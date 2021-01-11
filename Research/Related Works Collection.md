@@ -43,4 +43,6 @@ GPU实现的互相关配准
 这两篇类似，从点云中提keypoint，然后用Gestalt descriptors描述子， 每个keypoint给他附近的点(可能是目标帧的)vote，最后的评分作为判断是否回环的score；
 
 - Appearance-based loop detection from 3d laser data using the normal distributions transform
-直接用NDT
+直接用NDT的描述子来计算两帧的相似度
+
+- 
