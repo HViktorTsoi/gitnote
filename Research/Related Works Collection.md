@@ -39,4 +39,4 @@ GPU实现的互相关配准
 
 # Loam Livox 回环检测
 - Place recognition using keypoint voting in large 3d lidar datasets
-从点云中提keypoint，然后用Gestalt descriptors描述子， 每个keypoint给他附近的
+从点云中提keypoint，然后用Gestalt descriptors描述子， 每个keypoint给他附近的点(可能是目标帧的)vote，最后的评分
