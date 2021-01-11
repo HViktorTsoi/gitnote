@@ -36,3 +36,5 @@ GPU实现的互相关配准
 
 - Efficient continuous-time slam for 3d lidar-based online mapping
 使用多尺度的栅格地图，可以实现multi-view配准；但是太占用运算资源和内存；
+
+# Loam Livox 
