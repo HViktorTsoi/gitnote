@@ -49,4 +49,4 @@ GPU实现的互相关配准
 通过场景中的语义信息(tree， building)等进行matching
 
 - Pointnetvlad: Deep point cloud based retrieval for large-scale place recognition
-
+用
