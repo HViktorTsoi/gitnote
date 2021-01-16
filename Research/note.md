@@ -306,3 +306,5 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 
 
 # torch里的DataParallel是把batchsize平均分到多个gpu上，这里要看一下跨卡batch norm
+
+# 
