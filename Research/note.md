@@ -307,4 +307,5 @@ transformer在分类上结果，小数据集没有cnn好，但是大数据集预
 
 # torch里的DataParallel是把batchsize平均分到多个gpu上，这里要看一下跨卡batch norm
 
-# 
+# 局部坐标系的点云转换到世界坐标系
+对于局部坐标系(LiDAR为中心的点云)Pl, 现在有其在世界坐标系下的位姿P(w-l), 
