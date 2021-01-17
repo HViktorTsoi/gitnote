@@ -357,4 +357,4 @@ yaw还可以选出多个candidate，多组对齐之后一起送到deltahead
 
 *** 加self attention
 
-***  egomotion和生成的
+***  egomotion和生成的光流相减，
