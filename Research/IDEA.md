@@ -356,3 +356,5 @@ yaw还可以选出多个candidate，多组对齐之后一起送到deltahead
 *** 点云缺少的部分，用稠密光流进行补全
 
 *** 加self attention
+
+***  egomotion和生成的
