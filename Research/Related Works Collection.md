@@ -52,4 +52,40 @@ GPU实现的互相关配准
 - Netvlad: Cnn architecture for weakly supervised place recognition
 用pointnet和netvlad结合起来，通过网络拿到场景点云的embedding，来做回环的描述子
 
+- Learning to see by moving
+从ego motion估计任务中学习VO要用的feature
 
+- Deepvo: Towards end-to-end visual odometry with deep recurrent convolutional neural networks
+使用RNN从video中学习odometry
+
+- Demon: Depth and motion network for learning monocular stereo
+- Deeptam: Deep tracking and mapping
+从单目中学习深度，做SFM任务
+
+- Eng: End-to-end neural geometry for robust depth and pose estimation using cnns
+利用DNN来预测深度、光流，从而估计相机运动
+
+- Unsupervised learning of depth and ego-motion from video
+SFM-learner，用自监督的方式学习深度和motion
+
+- Unsupervised scale-consistent depth and ego-motion learning from monocular video
+解决SFM-learner的尺度不一致问题
+
+- UnDeepVO，Depth-VO- Feat
+利用双目来解决尺度不一致问题
+
+- Geonet: Unsupervised learning of dense depth, optical flow and camera pose,
+- Competitive collaboration: Joint unsupervised learning of depth, camera motion, optical flow and motion segmentation
+结合光流估计、深度估计等做slam
+
+- CNN-SLAM
+CNN做单目深度估计
+
+- CNN-SVO
+利用CNN来初始化feature点处的深度，来解决初始map的深度不确定性
+
+- Deep virtual stereo odometry: Leveraging deep depth prediction for monocular direct sparse odometry
+depth估计加入到DSO中
+
+- Pose graph optimization for unsupervised monocular visual odometry
+加入了位姿图优化
