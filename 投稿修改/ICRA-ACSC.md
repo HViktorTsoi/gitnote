@@ -24,6 +24,8 @@
 
 ## 2. Mathematical equations are used in a very confusing manner. It is very difficult to understand the terms and the reason for the expression.
 
+## 3. In Figure 5, the authors are trying to show the reflectivity distribution of the checkerboard and the black-white pattern and claim they have the same spatial distribution. However, it is hard to observe how to relate the distributions. Please give more clear explanations.
+
 因为篇幅问题，公式描述的不清晰，对所有的公式增加描述
 
 ## Fig 3, part b: Is camera intrinsic matrix used for extracting corners?
@@ -120,4 +122,6 @@ style.
 
 ## After integrating the continuous Laser scans in the time-domain. An iteratively searching method is performed to find the best-fit plane and filter the outliers leveraging the RANSAC based method. Unfortunately, the accuracy of the proposed method is not reported in the paper or compared with any existing well-known RANSAC based methods in the literature. 
 
-这里应该通过仿真实验说明
+这里应该通过仿真实验来验证checker plane拟合的准确性
+
+## The formulation of the cost function of 3D corner estimation is assumed to be one of the keys. The checkerboard model is given with zero z values but the transformations (Eq.7and8) are formulated as 2D transformations. Please give more detailed derivations.
