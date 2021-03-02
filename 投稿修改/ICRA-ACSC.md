@@ -126,4 +126,7 @@ style.
 
 ## The formulation of the cost function of 3D corner estimation is assumed to be one of the keys. The checkerboard model is given with zero z values but the transformations (Eq.7and8) are formulated as 2D transformations. Please give more detailed derivations.
 
-## In Figure 8(a), it shows that by increasing the number of target placement will decrease the reprojection error. We can see a small jump when the number of target placements is
+## In Figure 8(a), it shows that by increasing the number of target placement will decrease the reprojection error. We can see a small jump when the number of target placements is Around 25-26. Please give some explanations why this happens.
+这里实际上是用inner corner的优势，在两个position时收敛的效果已经很好了，要加一句说明
+
+## And Figure 8(b) is trying to show the influence of integrated count to the calibration performance. From the figure, increasing the integrated frame count from 0 to 50 will cause the reprojection error from 0 to 20. Please show a more clear figure and give better explanations about this. Also, please demonstrate if the vertical axis of the figure represents the average reprojection error.
