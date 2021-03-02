@@ -37,4 +37,6 @@
 
 ## Please separate the images in Figures 1, 6 etc., if they do not need to appear together. Otherwise it will confuse the reader.  
 
-将
+将图1和图6重新排版
+
+## Also please check if it is correct to alternate between the use of terms reflectivity and reflectance.
