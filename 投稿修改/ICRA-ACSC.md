@@ -2,5 +2,8 @@
 
 这里是reviewer没读懂，或者cost function那里写的不清除，不需要人工指定intensity的值，其值的高低是用来决定点云属于哪一类模式
 
-## 和ILCC相比缺少创新性，在refine和checker localization上做的很好，但是当拿到checker之后，流程几乎和ILCC一致
-在cost function上，棋盘格投影方式，
+## 和ILCC相比缺少创新性，在refine和checker localization上做的很好，但是当拿到checker之后，流程几乎和ILCC一致，在方法部分没有显式的引用ILCC
+在cost function上，棋盘格投影方式，有区别
+
+## 在实验部分，提出的方法是target-based的，不知道为什么要和Pandey 2015的targetless的对比，如果换成target-based会更fair
+修改版本中仅和target-based的进行对比
