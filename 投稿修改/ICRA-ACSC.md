@@ -3,4 +3,4 @@
 这里是reviewer没读懂，或者cost function那里写的不清除，不需要人工指定intensity的值，其值的高低是用来决定点云属于哪一类模式
 
 ## 和ILCC相比缺少创新性，在refine和checker localization上做的很好，但是当拿到checker之后，流程几乎和ILCC一致
-在loss上，棋盘格投影
+在cost function上，棋盘格投影方式，
