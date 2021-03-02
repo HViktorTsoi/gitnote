@@ -40,3 +40,7 @@
 将图1和图6重新排版
 
 ## Also please check if it is correct to alternate between the use of terms reflectivity and reflectance.
+
+## Eqn (1) terms are not defined. What is N_H, N, P_{xy}...and so forth? Also what is H()? In Eqn (2) also there is similar problem.
+
+## Terms in Eqn. 8 should be suitably defined. Also correct \tilde{p_i^x}, tilde{p_i^y} as \tilde{p}_i^x, \tilde{p}_i^y.
