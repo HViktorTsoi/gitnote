@@ -58,3 +58,55 @@
 Ranjith Unnikrishnan, Martial Hebert; Fast Extrinsic
 Calibration of a Laser Rangefinder to a Camera;
 CMU-RI-TR-05-09; 2005.
+
+## Minor aspects:
+1) Abstract: "...large quantity of studies..." may be
+"...large number of studies..."
+2) Page 1, column 1, para 1: "...the commonest one is..."
+may be "...the most common one is..."
+3) Page 1, column 1, para 2: "...However, The..." may be
+"...However, the..."
+4) Page 1, column 2, para 1: "...such drawbacks seriously
+affected corresponding feature extraction in point clouds,
+and thus" may be "...such drawbacks seriously affects the
+feature extraction from point clouds..."
+5) Page 1, column 2, para 2: "...and proposed a 3D corner
+extraction method by utilizing the reflectance
+intensity..." may be "...and propose a 3D corner extraction
+method by utilizing the reflectance intensity..."
+6) Page 1, column 2, para 2: "...Based on the 3D corners
+and corresponding 2D corners(from the optical image), a
+target-based calibration is proposed" may be reworded as "A
+target based calibration that uses the extracted 3D corners
+and 2D corners from the optical image."
+7) Page 2, column 1, para 3: Please reword "The
+targetless-based method tries"
+8) Page 2, column 1, para 4:"Scaramuzza et al. [20]
+proposed" is not correct. Please check and correct author
+name.
+9) Page 2, column 2, para 1: "...and achieve accuracy
+calibration results.." may be "...and achieve accurate
+calibration results.." 
+10) Please state the unit of measurement in Fig 2.
+11) Page 3, column 1, para 1: "..., the integrate the
+noise-free points in time-domain." may be changed as a new
+sentence ". The noise free points are then integrated."
+Also consider about splitting the main sentence further to
+aid in better clarity. 
+12) Page 3, column 1, para 2: "that may contains the
+checkerboard." may be reworded as "that may contain the
+checkerboard."
+13) Page 3, column 2, para 2: "due to due systematic" may
+be corrected suitably.
+14) Page 5, column 1, para 2: "...the RANSCA-based..." may
+be corrected.
+15) Page 5, column 1, para 2: "process continues
+repeatedly, until all errors" may be reworded as "process
+continues, until all errors"
+16) Page 6, column 1, last par: "samples at 5^{\~}6 poses."
+may be corrected.
+17) There are numerous other language issues. Please check
+in detail before final submission.
+18) Format for Table captions may have to comply with IEEE
+style. 
+
