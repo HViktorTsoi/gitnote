@@ -111,3 +111,9 @@ in detail before final submission.
 style. 
 
 ## Unlike previous work, the claimed contribution of this paper is to make the best of the non-repetitive pattern of SSL utilizing temporal integration and feature refinement, which however does not theoretically contribute much to the state of art.
+
+## The implementation of the idea is too simple and still at the abstract level
+
+## More importantly, no theoretical or experimental comparison is done to claim the benefits of using the 3D and 2D corner features instead of planes - which is easy to get from Lidar point cloud.
+
+这里需要通过实验验证，用棋盘格的形式进行
