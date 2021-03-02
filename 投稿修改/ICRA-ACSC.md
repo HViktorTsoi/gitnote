@@ -116,4 +116,8 @@ style.
 
 ## More importantly, no theoretical or experimental comparison is done to claim the benefits of using the 3D and 2D corner features instead of planes - which is easy to get from Lidar point cloud.
 
-这里需要通过实验验证，用棋盘格的形式进行
+这里需要通过实验验证，用checker的内角点会比面特征更高效
+
+## After integrating the continuous Laser scans in the time-domain. An iteratively searching method is performed to find the best-fit plane and filter the outliers leveraging the RANSAC based method. Unfortunately, the accuracy of the proposed method is not reported in the paper or compared with any existing well-known RANSAC based methods in the literature. 
+
+这里应该通过仿真实验说明
