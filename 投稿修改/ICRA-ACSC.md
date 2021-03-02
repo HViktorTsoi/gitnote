@@ -125,3 +125,5 @@ style.
 这里应该通过仿真实验来验证checker plane拟合的准确性
 
 ## The formulation of the cost function of 3D corner estimation is assumed to be one of the keys. The checkerboard model is given with zero z values but the transformations (Eq.7and8) are formulated as 2D transformations. Please give more detailed derivations.
+
+## In Figure 8(a), it shows that by increasing the number of target placement will decrease the reprojection error. We can see a small jump when the number of target placements is
