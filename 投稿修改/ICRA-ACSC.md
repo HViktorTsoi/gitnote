@@ -20,3 +20,6 @@
 
 ## Scaramuzza et al. [20] proposed a geometric model-based… 引用文献错误
 
+## The article is interesting except for issues in language and mathematical expressions. Please help the reader to better understand and appreciate the article by making suitable corrections. 
+
+因为篇幅问题，公式描述的不清晰，对所有的公式增加描述

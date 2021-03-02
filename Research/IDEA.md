@@ -358,3 +358,5 @@ yaw还可以选出多个candidate，多组对齐之后一起送到deltahead
 *** 加self attention
 
 ***  egomotion和生成的光流相减，放进weight map中
+
+标定，增加overlap非常小的challenging case，
