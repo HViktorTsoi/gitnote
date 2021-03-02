@@ -16,3 +16,7 @@
 
 ## 作者说SSL的轴向误差很大，但是缺使用了法向分割方法来定位棋盘格，并且work了，这个需要说明。
 
+说明在法向分割的过程中，邻域选择的范围比较大，因此会得到更平滑的法线估计；
+
+## Scaramuzza et al. [20] proposed a geometric model-based… 引用文献错误
+
