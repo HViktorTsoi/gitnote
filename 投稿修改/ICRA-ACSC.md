@@ -2,5 +2,5 @@
 
 这里是reviewer没读懂，或者cost function那里写的不清除，不需要人工指定intensity的值，其值的高低是用来决定点云属于哪一类模式
 
-## 和ILCC相比缺少创新性
+## 和ILCC相比缺少创新性，
 
