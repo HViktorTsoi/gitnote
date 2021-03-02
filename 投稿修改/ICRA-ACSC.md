@@ -20,7 +20,9 @@
 
 ## Scaramuzza et al. [20] proposed a geometric model-based… 引用文献错误
 
-## The article is interesting except for issues in language and mathematical expressions. Please help the reader to better understand and appreciate the article by making suitable corrections. 
+##  1. The article is interesting except for issues in language and mathematical expressions. Please help the reader to better understand and appreciate the article by making suitable corrections. 
+
+## 2. Mathematical equations are used in a very confusing manner. It is very difficult to understand the terms and the reason for the expression.
 
 因为篇幅问题，公式描述的不清晰，对所有的公式增加描述
 
@@ -44,3 +46,15 @@
 ## Eqn (1) terms are not defined. What is N_H, N, P_{xy}...and so forth? Also what is H()? In Eqn (2) also there is similar problem.
 
 ## Terms in Eqn. 8 should be suitably defined. Also correct \tilde{p_i^x}, tilde{p_i^y} as \tilde{p}_i^x, \tilde{p}_i^y.
+
+## In Fig 5 please mention the label in the y axis.
+
+## Does || || and | | both represent euclidean norm? Please use it in uniform fashion.
+
+## Average re-projection error of 2.11 is quite good. Whatis the reason for such a superior performance in-spite of the uncertainties in the sensor?
+这里应该在abalation实验中明确每个部分的贡献，然后说明每个方法在SSL上表现出的问题；
+
+## Authors may consider citing the following article.
+Ranjith Unnikrishnan, Martial Hebert; Fast Extrinsic
+Calibration of a Laser Rangefinder to a Camera;
+CMU-RI-TR-05-09; 2005.
