@@ -24,11 +24,14 @@
 
 因为篇幅问题，公式描述的不清晰，对所有的公式增加描述
 
-# Fig 3, part b: Is camera intrinsic matrix used for extracting corners?
+## Fig 3, part b: Is camera intrinsic matrix used for extracting corners?
 
 在问题描述中说明，已知相机内参
 
-# Correct the journal details of reference [18]. 
+## Correct the journal details of reference [18]. 
 
 
-# Concerning the result in Table 2: Does the pre-processing bias the results in favor of the proposed algorithm? Is it possible to do this without preprocessing to ensure fairness.
+## Concerning the result in Table 2: Does the pre-processing bias the results in favor of the proposed algorithm? Is it possible to do this without preprocessing to ensure fairness.
+
+在实验部分增加完整的abalation study
+
