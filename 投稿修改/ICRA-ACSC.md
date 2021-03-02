@@ -110,3 +110,4 @@ in detail before final submission.
 18) Format for Table captions may have to comply with IEEE
 style. 
 
+## Unlike previous work, the claimed contribution of this paper is to make the best of the non-repetitive pattern of SSL utilizing temporal integration and feature refinement, which however does not theoretically contribute much to the state of art.
