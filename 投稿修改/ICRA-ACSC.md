@@ -130,3 +130,7 @@ style.
 这里实际上是用inner corner的优势，在两个position时收敛的效果已经很好了，要加一句说明
 
 ## And Figure 8(b) is trying to show the influence of integrated count to the calibration performance. From the figure, increasing the integrated frame count from 0 to 50 will cause the reprojection error from 0 to 20. Please show a more clear figure and give better explanations about this. Also, please demonstrate if the vertical axis of the figure represents the average reprojection error.
+
+对图8b的横轴需要修改，加一致的颜色
+
+## Please be careful with the notation, for example, at the left corner of Page 5, the measurement P_c should be bolded.
