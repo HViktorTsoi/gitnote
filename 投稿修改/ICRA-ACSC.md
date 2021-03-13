@@ -163,3 +163,5 @@ style.
 
 21. 注意NRE不加绝对值
 22. 不同LiDAR Model的resample 密度测试
+23. upholder removal移动到localization section中
+24. NRE应该是$d/d_{mean}*pixel或者是$$d/d_{min}*pixel$
