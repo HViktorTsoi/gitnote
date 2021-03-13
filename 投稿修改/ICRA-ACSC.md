@@ -139,10 +139,27 @@ style.
 # 重点修改
 1. 对ILCC的流程进行修改，突出创新性；
 2. 突出挑战性场景，此时仅有基于有目标的标定方法才能work；
-3. 做abalation study；
+3. 做abalation study,描述的时候说明各个模块的作用；
 4. 说明不用planefeature的原因，想要充分利用intensity 
 5. 用箱线图表示，预处理的过程对各个传感器的重投影误差的影响(0.5)
 6. 加上公式描述
 7. 检测到的checkerboard的可视化(0.5)
 8. 积分过程中，加入噪点，和降噪算法对结果的影响(0.5)
-9. 积分的量对棋盘格特征显著性的可视化(0.5)
+9. ~~积分的量对棋盘格特征显著性的可视化(0.5)~~
+10. segmentation之后各个part的score和可视化
+11. 将segmentation阶段展开说
+12. 将resample阶段展开说(PCA之后进行重采样)
+13. 量化评估integration对平面方差的影响
+14. 在其他雷达模型上的泛化性能
+15. 平面方差随距离的分布
+16. 高度方向的宽度分布示意图
+17. 最佳摆放位置实验
+18. 每个图的纵坐标含义补充
+19. 已知的参数, 中间参数 For Calirity
+20. 和其他方法的对比:  
+    1.  resample
+    2.  LiDAR中的breaking point
+    3.  没有考虑Non-repetitive scanning的noise model
+
+21. 注意NRE不加绝对值
+22. 不同LiDAR Model的resample 密度测试
