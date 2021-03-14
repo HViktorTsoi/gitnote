@@ -165,3 +165,14 @@ style.
 22. 不同LiDAR Model的resample 密度测试
 23. upholder removal移动到localization section中
 24. NRE应该是$d/d_{mean}*pixel或者是$$d/d_{min}*pixel$
+25. people can explore， high precision using such kind of non-repetitive scanning LiDAR
+26. 关闭arxiv的论文
+
+
+
+# Introduction
+Solid-State LidAR更加适用于在开放场景下的工业级别AR应用，比如远程驾驶，或者无人搜救，因为其有比RGBD相机更远的深度感知距离和更精确的深度测量能力，并且其成本要远低于高端的LiDAR。但是另一方面，上述的场景需要对LiDAR和相机之间的精确标定。
+
+基于solid-state lidar的噪声模型进行降噪和feature refinement
+
+然后，标定目标被从场景中定位 
