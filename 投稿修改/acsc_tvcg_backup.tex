@@ -1,0 +1,944 @@
+\documentclass[journal]{vgtc}  
+\ifpdf%                                % if we use pdflatex
+  \pdfoutput=1\relax                   % create PDFs from pdfLaTeX
+  \pdfcompresslevel=9                  % PDF Compression
+  \pdfoptionpdfminorversion=7          % create PDF 1.7
+  \ExecuteOptions{pdftex}
+  \usepackage{graphicx}                % allow us to embed graphics files
+  \DeclareGraphicsExtensions{.pdf,.png,.jpg,.jpeg} % for pdflatex we expect .pdf, .png, or .jpg files
+\else%                                 % else we use pure latex
+  \ExecuteOptions{dvips}
+  \usepackage{graphicx}                % allow us to embed graphics files
+  \DeclareGraphicsExtensions{.eps}     % for pure latex we expect eps files
+\fi%
+
+\usepackage{amsmath,bm,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{epsfig}
+\usepackage{gensymb}
+\usepackage{subfig}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{hyperref}
+\usepackage[linesnumbered,boxed,ruled,commentsnumbered]{algorithm2e}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage{cite}
+
+\usepackage{microtype}                 % use micro-typography (slightly more compact, better to read)
+\PassOptionsToPackage{warn}{textcomp}  % to address font issues with \textrightarrow
+\usepackage{mathptmx}                  % use matching math font
+\usepackage{times}                     % we use Times as the main font
+\renewcommand*\ttdefault{txtt}         % a nicer typewriter font
+\usepackage{tabu}                      % only used for the table example
+
+% \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+%     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+%% If you are submitting a paper to a conference for review with a double
+%% blind reviewing process, please replace the value ``0'' below with your
+%% OnlineID. Otherwise, you may safely leave it at ``0''.
+\onlineid{1178}
+
+%% declare the category of your paper, only shown in review mode
+\vgtccategory{Research}
+%% please declare the paper type of your paper to help reviewers, only shown in review mode
+%% choices:
+%% * algorithm/technique
+%% * application/design study
+%% * evaluation
+%% * system
+%% * theory/model
+\vgtcpapertype{algorithm/technique}
+
+\title{ACSC: Automatic Calibration for Non-repetitive Scanning Solid-State LiDAR and Camera Systems}
+% \title{\LARGE \bf ACSC: Automatic Calibration for Non-repetitive Scanning Solid-State LiDAR and Camera Systems\\
+% 	%{\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and
+% 	%should not be used}
+% 	%\thanks{Identify applicable funding agency here. If none, delete this.}
+% }
+
+% \author{Jiahe Cui$^{1}$$^{2}$$^{3}$, Jianwei Niu$^{1}$$^{2}$$^{3}$, Zhenchao Ouyang*$^{3}$, Yunxiang He$^{3}$ and Dian Liu$^{3}$  % <-this % stops a space
+% \thanks{*Email: ouyangkid@buaa.edu.cn}% <-this % stops a space
+% \thanks{$^{1}$State Key Laboratory of Virtual Reality Technology and Systems, Beihang University, Beijing 100191, China}%
+% \thanks{$^{2}$Beijing Advanced Innovation Center for Big Data and Brain Computing (BDBC), Beihang University, Beijing 100191, China}%
+% \thanks{$^{3}$Hangzhou Innovation Institution, Beihang University, Hangzhou 310000, Zhejiang, China}%
+% % \thanks{$^{4}$Zhengzhou University Research Institute of Industrial Technology Zhengzhou University, Zhengzhou 450001, China.}%
+% % \thanks{$^{5}$Nanhu Laboratory, Jiaxing 314000, Zhejiang, China}%
+% }
+
+\author{Anonymous Submission}
+
+% \authorfooter{
+% %% insert punctuation at end of each item
+% \item
+%  Roy G. Biv is with Starbucks Research. E-mail: roy.g.biv@aol.com.
+% \item
+%  Ed Grimley is with Grimley Widgets, Inc.. E-mail: ed.grimley@aol.com.
+% \item
+%  Martha Stewart is with Martha Stewart Enterprises at Microsoft
+%  Research. E-mail: martha.stewart@marthastewart.com.
+% }
+
+
+
+\abstract{
+% 	Recently, the rapid development of Solid-State LiDAR enables low-cost and efficient obtainment of 3D point clouds from the environment, which has inspired a large number of studies and applications. However, the non-uniformity of its scanning pattern, and the inconsistency of the ranging error distribution bring challenges to its calibration task. In this paper, we proposed a fully automatic calibration method for the non-repetitive scanning Solid-State LiDAR and camera systems. First, a temporal-spatial-based geometric feature refinement method is presented, it performs noise reduction and feature refinement based on the noise model of the Solid-State LiDAR and extracts effective features from point clouds; then, the calibration target (a printed checkerboard) is segmented from the background, and the 3D corners of the target are estimated with the reflectance intensity distribution of points. Based on the above, a target-based extrinsic calibration method is finally proposed. We evaluate the proposed method on different types of LiDAR and camera sensor combinations in real conditions, and achieve accuracy and robustness calibration results. 
+	
+	Recently, the rapid development of Solid-State LiDAR (SSL) enables low-cost and efficient obtainment of 3D point clouds from the environment, which has inspired a large number of studies and applications. However, the non-uniformity of its scanning pattern, and the inconsistency of the ranging error distribution bring challenges to its calibration task. In this paper, we propose a fully automatic calibration method for the non-repetitive scanning SSL and camera systems. First, by modeling the noise distribution of the SSL, a geometric feature refinement method is presented, to eliminate the influence of the systematic error from the SSL. Then the calibration target is located and the feature refinement is applied to obtain a stable and accurate measurement of the target. The 3D corners of the refined target are estimated by non-linear optimization, which is guided by the reflectance intensity distribution of the target measurement.	With the corresponding 3D corners and 2D corners estimated from the images, the extrinsic parameters are solved with Perspective-n-Point (PnP). We evaluate the proposed method on different types of LiDAR and camera combinations in real conditions, and both subjective observation and quantitative evaluation results show the accuracy and robustness of the method.
+% 	The code is available at \textcolor[RGB]{236,0,140}{\url{https://github.com/HViktorTsoi/ACSC.git}}. 
+}
+
+\keywords{Calibration, Sensor fusion, Computer vision}
+
+
+\teaser{
+  \centering
+  \includegraphics[trim=5 65 20 5, clip, width=\linewidth]{teaser.pdf}
+%   \includegraphics[width=0.9\linewidth]{teaser.pdf}
+  \caption{(A) Colored point cloud using the proposed calibration method; (B) The reprojection of integrated point clouds to the image using the solved extrinsic parameter; (C) The calibration target used is a printed checkerboard; the placement is shown on the left; the sensor setup and its coordinate system are described on the right.}
+\label{fig:teaser}
+}
+% \teaser{
+%  \includegraphics[width=1.5in]{}
+%  \caption{Lookit! Lookit!}
+% }
+
+% \renewcommand{\manuscriptnotetxt}{}
+\vgtcinsertpkg
+
+
+\begin{document}
+% \begin{IEEEkeywords}
+% 	component, formatting, style, styling, insert
+% \end{IEEEkeywords}
+
+\firstsection{Introduction}
+
+\maketitle
+
+
+Multi-sensor fusion has always been essential to computer vision systems, for accurate perception of the surrounding environment. Among different types of fusion, the most common one is the combination of the depth sensor, like LiDAR (Light Detection And Ranging) or ToF camera, and the optical camera. In many AR applications, having an accurate depth measurement of the surrounding environment is essential for providing a more realistic experience with plausible occlusions and interactions between the virtual content and the real environment \cite{wu2019tangible, newcombe2011kinectfusion}. And in object detection/tracking tasks, the fusion of the depth and RGB information can also provide the complementary features for better scene understanding\cite{qi2020imvotenet, ouyang2018multiview, jaritz2020xmuda}. 
+
+The first and most critical step in fusing the multi-modal data from the depth sensor and the camera, is the accurate extrinsic calibration. The general calibration process is to detect the multiple corresponding 3D-2D points, and then solve the relative pose between LiDAR and the camera by utilizing the PnP method. Thus, it is essential to find the corresponding features accurately by geometric and texture constraints from point clouds and images. The corner or edge detection algorithm based on image is well-investigated\cite{duda2018accurate, de2010automatic, liu2016automatic}; hence, the main challenge of calibration is how to accurately extract corresponding features from the sparse and noisy point clouds.
+
+
+% Multi-sensor fusion\cite{wang2019multi} can not only utilize more information from the environment, but also compensate for defects between sensors and improve the robustness of perception tasks.
+
+% \begin{figure}[!htb]
+% 	\centering
+% 	\includegraphics[trim=20 60 30 20, clip, width=0.47\textwidth]{sm_sensor.pdf}
+% 	\caption{(a) Top: The reprojection of integrated point clouds to the image using the extrinsic parameter solved by ACSC; (b) Bottom: The calibration target we use is a printed checkerboard; the placement is shown in the left; the sensor setup and its coordinate system are described in the right.}
+% 	\label{fig:coord}
+% \end{figure}
+
+In the past two years, the Solid-State LiDAR system has begun to be widely applied by different intelligent unmanned platforms\cite{lin2020loam,liu2020balm, lin2019fast}. Solid-State LiDAR is more suitable for industrial-level AR applications in open, large-scale environments, such as remote driving \cite{merenda2019effects} and unmanned search and rescue \cite{demirkan2020evaluation}, the device is small and portable, and the perception range of the depth and the ranging accuracy are much higher than the RGB-D cameras. However, the non-repetitive scanning mode is utilized by most of the Solid-State LiDARs, the spatial distribution of points from a single frame is non-uniform, and its ranging measurement is sensitive to the texture and color of targets. Besides, the ranging error is also non-uniformly distributed due to its low-cost measuring unit. These drawbacks may not affect semantic-level perception tasks such as 3D objection detection, but may seriously affect low-level feature extraction and thus reduce the performance of calibration. There are few former studies on the automatic calibration of Solid-State LiDAR-camera systems.
+
+
+% \begin{figure}[H]
+% 	\centering
+% 	\includegraphics[trim=25 25 25 25, clip, width=0.49\textwidth]{raw_data.pdf}\\
+% 	\caption{(1) Top: A sample frame of point cloud from non-repetitive scanning Solid-State LiDAR in our calibration scenario; (2) Bottom: The corresponding image from camera.}
+% 	\label{fig:scan}
+% \end{figure}
+
+% , RoboSense hybrid Solid-State LiDAR (RS-32/Ruby). Our method can also be generalized to traditional mechanical LiDARs.
+% this paper proposes a novel extrinsic calibration method for the Solid-State LiDAR-camera system.
+To tackle the above-mentioned problems, this paper proposes an Automatic extrinsic Calibration method for the Solid-State LiDAR-Camera systems (ACSC). We first adopt time-domain integration to obtain dense measurement by accumulating the point clouds from static scenes within a preset time window (varies for different types of LiDARs). Then, we model the noise distribution of the Solid-State LiDARs, and design a feature refinement pipeline to eliminate the influence of systematic error of the LiDAR, and extract as much effective information as possible from the point clouds. The 3D corners of the refined calibration target are then estimated by non-linear optimization, which is constrained by the similarity between the reflectance intensity distribution and the formulated pattern of the calibration target. The extrinsic parameters are solved by RANSAC-based PnP with the extracted 3D corners and corresponding 2D corners from the images. We evaluated the proposed method in different types of LiDAR, e.g., the Livox Horizon, Avia, and Mid , and camera combinations. The main contributions of this paper are summarized as follows:
+
+% We first design a time-domain integration and point cloud feature refinement pipeline to extract as much effective information as possible for non-repetitive scanning point clouds, and propose a 3D corner extraction method by utilizing the reflectance intensity distribution of the calibration target. A target-based calibration method that uses the extracted 3D corners and corresponding 2D corners from the optical image is proposed. We also evaluated the proposed method in different types of LiDAR, e.g., the Livox Horizon, Avia and Mid LiDAR, and camera combinations. The main contributions of this paper are summarized as follows:
+
+
+
+\begin{itemize}{}
+	\item An automatic target-based calibration method for the Solid-State LiDAR and camera system is proposed;
+	\item A 3D-Corner estimation pipeline based on the noise model and the reflectance intensity distribution of the non-repetitive scanning Solid-State LiDAR is presented;
+	\item To evaluate the calibration performance, multiple real-world experiments based on various combinations of LiDARs with cameras are deployed, and the proposed method can accurately solve the extrinsic parameters from various types of sensor combinations.
+	      % \item Based on the proposed method, we developed an practical calibration tool for Solid-State LiDAR - camera system, the code is available at \url{https://github.com/HViktorTsoi/LivoxCameraCalibrationDev}
+\end{itemize}
+
+% The rest of the paper is organized as follows. Section II gives a review of related works on extrinsic calibration methods. Section III introduces the presented calibration method, and evaluation in real world conditions are illustrated in Section IV. A brief summary and future plans are given in the last section. 
+
+
+% \begin{figure*}[!htb]
+% 	\setlength{\abovecaptionskip}{-0.cm}
+% 	\setlength{\belowcaptionskip}{-0.cm}
+% 	\centering
+% 	\includegraphics[trim=20 270 75 22, clip, width=0.99\textwidth]{pipeline.pdf}\\
+% 	\caption{The proposed calibration method for Solid-State LiDAR and camera system. (a) The time-domain integration and checkerboard inner corner estimation process of point clouds from Solid-State LiDAR. The input $\{Q_1,Q_2,...,Q_T\}$ are multiple frames of Solid-State LiDAR points, $S_c$ represents the standard checkerboard model constructed from the geometric parameter of the calibration target we use, $C_{std}$ is the corner generated from $S_c$, and $\mathcal{L}$ is the similarity measurement function for optimizing the 3D corner location, as defined in \textbf{Section}~\ref{sec:corner_pattern_formulation}; (b) 2D corner estimation from images; (c) The extrinsic calibration process using multiple 3D-2D corner pairs from (a) and (b), with the checkerboard at different placements. }
+% 	\label{fig:pipeline}
+% \end{figure*}
+
+% =========================================================================================
+\section{Related Works}
+% For better detection of the corresponding features from both camera and LiDAR, there are various previous studies concentrating on the designing of unique reference targets . 
+
+
+\subsection{Target-based calibration}
+
+The target-based method is widely applied in vision sensor calibration. The basic idea is to design calibration targets and detect corresponding features that can be
+ measured in all sensor FOVs. The planar checkerboard is the most commonly used calibration target for both intrinsic and extrinsic calibrations of the monocular/stereo camera and LiDAR systems\cite{fuersattel2017accurate, gu2019environment, prokos2012automatic}. The corner patterns can be captured based on corner extraction algorithms, such as quadrangles detection or multi-scale Harris points detection\cite{de2010automatic,liu2016automatic,geiger2012automatic}. And the corresponding corners are then used for solving the PnP problems to calculate extrinsic parameters. 
+
+% Most of the extrinsic calibration methods are based on reference targets, the common idea is to design calibration targets or corresponding features that can be clearly detected in all sensor FOVs. The planar board is the most commonly used calibration target for both intrinsic and extrinsic calibrations of the monocular/stereo cameras\cite{fuersattel2017accurate, gu2019environment, prokos2012automatic, huang2020improvements}. 
+
+For better detection of the corresponding features, various previous studies are concentrating on the design for unique reference targets Fremont et al.\cite{fremont2008extrinsic} designed a black circle-based planar board, then searched the 3D coordinates of the circle center and the normal vector of the plane for extrinsic calibration between a camera and a LiDAR. Zhou et al.\cite{zhou2018automatic} proposed a single-shot calibration method, by extracting line features from the LiDAR points and the image. Wang et al.\cite{wang2017reflectance} proposed a 3D corner estimation algorithm based on the correlation between the reflectance intensity of the laser and the color of the calibration target. Resch \cite{resch2015site} proposed a semi-automatic calibration approach for projector-camera systems that recovers the global scale with an arbitrary target of known geometry. Pusztai et al.  \cite{pusztai2018accurate} proposed a bundle adjustment-based method for calibration of multi-LiDAR-multi-Camera systems, with ordinary boxes as the calibration target.  
+
+Compared with the targetless-based methods, the target-based method is usually more precise and robust, and the calibration error is easy for traceability, which is suitable for accurate calibration in a controlled environment. Therefore the proposed method in this paper adopts this method, and the calibration target is a printed checkerboard. 
+
+
+\subsection{Targetless-based calibration}
+The targetless-based method aims at finding natural patterns (mainly the line or orthogonal) from the scene, and formulates them in terms of geometric constraints to then solve the extrinsic. Basically, they can be divided into static-based and motion-based methods. The former one is similar to target-based registration, finding reference features with static targets. Scaramuzza et al.\cite{scaramuzza2007extrinsic} proposed an extrinsic calibration technique that requires manually associating 2D points on the image with 3D points on the point cloud. In \cite{gong20133d}, the trihedral features detected from the environment, such as walls and corners on the street, are used for calibration, however, the method relies on high-cost Velodyne-64E to find the trihedron patterns. pandey er al.\cite{pandey2015automatic} proposed a targetless calibration method, the extrinsic parameter is solved by maximizing the mutual information (MI) obtained between the sensor-measured surface intensities from images or point clouds. In contrast, motion-based methods\cite{fu2019lidar} use Simultaneous Localization And Mapping (SLAM) technologies, the extrinsic is calculated based on the motion estimation between the fixed sensors, by minimizing the trajectory-to-trajectory matching error. 
+
+Recently, Deep learning methods have also been applied to targetless multi-sensor calibration. Schneider \cite{schneider2017regnet} proposed RegNet, a deep convolutional neural network to learn the related features from the point cloud projection and image, and to infer a 6 (DOF) extrinsic parameter between multimodal sensors. Yuan \cite{yuan2020rggnet} proposed an online calibration method by considering the Riemannian geometry and utilizing a deep generative model to learn an implicit tolerance model. A  geometrically supervised network is proposed \cite{iyer2018calibnet} by Iyer, for extrinsic calibration between LiDAR and camera. The training stage is supervised by a cloud distance loss and a photometric loss, and the model outputs a 6-DoF rigid-body transformation between sensors. The deep learning-based method has significant advantages in corresponding feature extraction from different sensors, however, the trained models may be hard to be generalized for arbitrary configurations, and re-training is often more resource-consuming than applying a conventional calibration approach.
+
+
+The methods above have achieved fine results on mechanical LiDAR and camera systems, but it is challenging to generalize them to Solid-State LiDAR, whose point cloud measurement have significantly different feature distribution from the mechanical models. Pablo et al.\cite{garcia2020geometric} proposed a geometric model-based method for Solid-State LiDAR intrinsic correction. Liu et al.\cite{lin2020decentralized} proposed a multi-LiDAR calibration method by utilizing LOAM-based trajectory matching. The intensity value is related to the superficial texture and color of the measured targets; therefore, it can provide as much plentiful semantic information as optical images, especially for dense point cloud from non-repetitive scanning Solid-State LiDAR after time-domain stacking.  In this paper, by utilizing temporal integration and feature refinement, the proposed calibration method can make the best of the non-repetitive pattern of Solid-State LiDAR, and achieve accurate calibration results. 
+% The previous studies concentrate on the geometric features from point cloud, while ignore the reflectance intensity information given by LiDAR. Wang et al.\cite{wang2017reflectance} proposed a 3D corner estimation algorithm based on the correlation between the reflectance intensity of laser and the color of calibration target. \cite{pandey2015automatic} proposed a calibration method by maximizing the mutual information between the luminance distribution of images and reflectance of point clouds. The intensity value is related to the superficial texture and color of the measured targets; therefore, it can provide as much plentiful semantic information as optical images, especially for dense point cloud from non-repetitive scanning Solid-State LiDAR after time-domain stacking. 
+
+%  Its corner patterns can be easily captured based on corner extraction algorithms, such as quadrangles detection, multi-scale Harris points detection, Shi-Tomasi corners or Hessian corner detector\cite{de2010automatic,liu2016automatic,geiger2012automatic}, both from images and point clouds. The corresponding corners are then used for solving the PnP problems to calculate extrinsic parameters. 
+
+% Pusztai et al.\cite{pusztai2017accurate} proposed a cardboard box based calibration system, detecting the edges and corners of ordinary boxes with both sensors. But the calibration process requires several manually key-point selection from each face of box (in point cloud), and rotation of the boxes along a special intersection line for several times to refine the result. The spherical target\cite{ruan2014calibration} can also be used for extrinsic calibration, and the projection of the ball on the camera plane is a perfect circle, ensuring that the center of the circle can be easily found and can be used for estimating extrinsic parameters to align other 3D sensors. 
+
+% Alismail et al.\cite{alismail2012automatic} designed a fully automated ICP-based camera-LiDAR calibration system based on a similar board with a circle and a fiducial marker at the center. The LiDAR use in their system is a single-line SICK mounted on a spinning, and can generate dense point cloud instead of several lines. This method is only capable of calibrate the camera-LiDAR system for SLAM. 
+% White, homogeneous, planar triangle or diamond shaped boards are used for extrinsic calibration in \cite{park2014calibration}. Their system first use the points on the border of the plane for estimating the side lines of the board, and generate the vertices of the polygonal board for 2D-3D projection from camera to LiDAR point cloud. At least three boards are needs to meet the need of minimum constraints. 
+
+% Besides, in target-based methods, it is usually necessary to adjust the checkerboard placement and perform multiple sampling and calculation during calibration for better performance. By using several checkerboards with multiple orientations during calibration, single shot-based calibration can reduce the human interaction and calculation time during the calibration process\cite{fuersattel2017accurate,geiger2012automatic}. While few researches has systematically analyzed the influence of the checkerboard placement distribution (i.e., distance, rotation, pitch) on the calibration result.
+
+% To solve this problem, previous solution contract on creating new reference board/targets only with a single color (white\cite{mishra2020extrinsic,alismail2012automatic,gong20133d,ruan2014calibration} in most case). However, they also have to deal with the key point detection problem, and targets with different shapes are used. To avoid the large noise caused by checkerboard, 
+% % 增加对基于单次采样优化标定缺点的描述.
+
+
+% \textbf{Targetless-based calibration}. 
+
+% An extended Kalman filter (EKF) and motion-based calibration method \cite{lin2020decentralized} is designed for calibration of several LiDAR with small overlapping FOV. Each LiDAR calibrates itself based on a global point cloud map constructed from LiDAR odometry and mapping (LOAM). The whole process of motion-based calibration often needs continuous sampling, and takes longer time and therefore is more complex. 
+ 
+% The above mentioned methods either utilize correspondences of points, lines, circles or the geometric information, however, the reflected intensity of point cloud are rarely used. No matter what kind of reference target, sampling times and sampling features are used, the main objective is to minimize systematic errors due to geometric calibration factor. However, when dealing with Solid-State LiDAR (as shows in Fig.~\ref{fig:scanning_pattern}), the noisy point clouds pose crucial challenges on eliminate measurement errors.
+
+% A RANSAC (RANdom SAmple Consensus) trajectory-to-trajectory matching based thermal–visible image registration method is proposed in \cite{torabi2012iterative}. The accuracy of this kind of calibration is still insufficient\cite{ishikawa2018lidar,fu2019lidar}.
+
+
+
+\begin{figure*}[!htb]
+	\setlength{\abovecaptionskip}{-0.cm}
+	\setlength{\belowcaptionskip}{-0.cm}
+	\centering
+	\includegraphics[trim=20 270 75 12, clip, width=0.99\textwidth]{sm_pipeline.pdf}\\
+	\caption{The proposed calibration method. (a) The feature refinement and checkerboard inner corner estimation process of point clouds from Solid-State LiDAR. The input $\{Q_1,Q_2,...,Q_T\}$ are incoming frames of LiDAR, $S_c$ represents the standard model constructed from the geometric parameter of the calibration target we use, $C_{std}$ is the corner generated from $S_c$, and $\mathcal{L}$ is the similarity measurement function for optimizing the 3D corner location; (b) 2D corner estimation from images; (c) The extrinsic calibration process. }
+	\label{fig:pipeline}
+	
+\end{figure*}
+
+
+
+
+% =========================================================================================
+\section{Method}
+\label{sec:methods}
+For the Solid-State LiDAR-camera system, the problem of extrinsic calibration is to estimate the relative rotation and translation between the two sensors, namely, the task is to solve the extrinsic parameter matrix ($\bm E\in SE3$) based on the corresponding points extracted from the same frame of the two different sensors. The proposed method uses a printed checkerboard as the calibration target, the dimension of the inner corners on the board is $N_h \times N_w$, and the inner grid size is $G_s$. The extrinsic parameters are calculated by solving the PnP problem, based on the 3D and 2D coordinates of inner corners on the checkerboard, from point clouds and images measurements, respectively. 
+
+Since the cameras can provide high-resolution images, the 2D corners are relatively accurate and stable, and the main challenge is how to accurately extract the corners from the unstably-distributed point clouds of Solid-State LiDAR. We conduct research on the representative LIVOX series LiDAR in this paper, and Fig.~\ref{fig:scanning_pattern} shows several typical patterns obtained in scanning of the calibration target. The collected point clouds contain the following major shortages: 1) The non-repetitive scanning pattern is used, causing very sparse single frame of point cloud, and also the uneven distribution of scan lines. Although the point cloud can be densified by stacking multiple frames of data, the outlier points are also reserved, as shown in Fig.~\ref{fig:scanning_pattern}(a)-(h). 2) The range measurement of LiDAR is relative to the target texture and color, and thus the points on the surface of measured targets fluctuate greatly (Fig.~\ref{fig:scanning_pattern}(a)-(h)), leading to large variance of axial ranging (direction of beams). The closer the distance, the more serious the jitter(see Fig.~\ref{fig:scanning_pattern}(a)-(c)). 3) The special scanning pattern leads to different distribution of point densities at different scanning areas, as shown in Fig.~\ref{fig:scanning_pattern}(d), (e), (g) and (h).
+
+To solve the above problems, a time-domain integration algorithm is first applied to densify and denoise the non-repetitive point cloud. Then, the feature refinement pipeline is employed to reconstruct noise-free measurement of the calibration target from integrated points. The 3D corners of the refined target measurement are then estimated by non-linear optimization. The extrinsic parameters are solved by RANSAC-based PnP with the extracted 3D corners and corresponding 2D corners from the images. The entire workflow is illustrated in Fig.~\ref{fig:pipeline}.
+
+
+
+
+\begin{figure*}[!htb]
+	\centering
+	\subfloat[$d=1.5m$]{\includegraphics[trim=0 0 0 60, clip, width=0.24\textwidth]{0000.png.jpg}}
+	\subfloat[$d=2.5m$]{\includegraphics[trim=0 0 0 60, clip, width=0.24\textwidth]{0002.png.jpg}}
+	\subfloat[$d=3.9m$]{\includegraphics[trim=0 0 0 60, clip, width=0.24\textwidth]{0018.png.jpg}}
+	\subfloat[$d=4.2m$]{\includegraphics[trim=0 0 0 60, clip, width=0.24\textwidth]{0026.png.jpg}}
+	\vspace{-0.3cm}
+	\\
+	\subfloat[$d=7.6m$]{\includegraphics[trim=0 0 0 60, clip, width=0.24\textwidth]{0021.png.jpg}}
+	\subfloat[$d=8.7m$]{\includegraphics[trim=0 0 0 60, clip, width=0.24\textwidth]{0022.png.jpg}}
+	\subfloat[$d=10.7m$]{\includegraphics[trim=0 0 0 60, clip, width=0.24\textwidth]{0024.png.jpg}}
+	\subfloat[$d=12.3m$]{\includegraphics[trim=0 0 0 60, clip, width=0.24\textwidth]{0001.png.jpg}}
+	\vspace{-0.3cm}
+	\\
+	\caption{The integrated point clouds on a plane checkerboard from non-repetitive scanning Solid-State LiDAR at different distances (left: front view; right: side view). $d$ denotes the distance between the checkerboard center and LiDAR, and the unit of the $x$ and $y$ axis in each subplot is $m$. The noise is affected by both the distance and surface color of the object, and is more obvious in the side views.}
+	\label{fig:scanning_pattern} 
+\end{figure*}
+
+
+
+
+\subsection{Calibration target feature refinement}
+\label{sec:feature_refinement}
+
+\subsubsection{Time-domain integration of point clouds}
+To increase the area covered by the laser beam and to ensure rapid sensing of a fixed FOV, the Solid-State LiDAR adopts the non-repetitive scanning mode (as shown in Fig.~\ref{fig:scanning_pattern}). This is significantly different from the traditional ring-shaped mechanical LiDAR, therefore simply adopting previous calibration methods on the Solid-State LiDAR with non-repetitive scanning mode can only obtain rough feature extraction results, which seriously affects the subsequent calibration process.
+
+Instead of using single scan directly, we take advantage of the non-repetitive scanning pattern, and integrate the continuous scans in the time domain to densify the point clouds. In this way, the checkerboard measurement can be obtained, with dense intensity features that provide as much semantic information as the image does. However, if incoming point clouds are simply stacked, the noise points from each frame will also be accumulated, and eventually cause fuzzy results (as shown in Fig.~\ref{fig:scanning_pattern}); therefore, we fuse the time-domain integration with spatial outliers removal algorithm to reduce noise, based on the neighbor density distribution of points. The detailed procedure is described in Algorithm~\ref{alg:integration}.
+
+% \IncMargin{1em} 
+% \begin{algorithm}[!ht]
+% 	%\label{alg:1}
+% 	\SetAlgoNoLine
+% 	\SetKwInOut{Input}{\textbf{Input}}\SetKwInOut{Output}{\textbf{Output}}
+% 	\Input{\\
+% 		$T$ frames of point cloud $\bm Q=\{Q_1,Q_2,...,Q_T\}$\; \\
+% 		Threshold of neighbor size $K$;\\
+% 		Scaling factor of standard deviation $scale_{std}$;}
+% 	\Output{\\
+% 		Stacked point cloud $\bm P$\; }
+% 	\BlankLine
+% 	Initialize $P = \emptyset $\;
+% 	% standarized $\Theta$\;
+% 	% Initialize the popularity of categories $\rho$ randomly\;
+% 	\Repeat
+% 	{\text{All $T$ frames of point clouds in $\bm Q$ are consumed.}}
+% 	{
+% 		for frame $Q_t$, build KD-Tree\;
+% 		\For {each point $q_i \in Q_t$}{
+% 			search the $K$ nearest points of $q_i$\;
+% 			calculate the average distance ($disK_i$) of the $K$ neighbours\; 
+% 		}
+% 		calculate mean ($meanK$) and standard deviation ($stdK$) of $[disK_0, disK_1, ..., disK_N]$\;
+% 		$thresh = meanK + scale_{std} \times stdK $\;
+% 		\For {each point $q_i \in Q_t$}{
+% 			\uIf{$ disK_i < thresh $} {
+% 				Remove $q_i$ from $Q_t$\;
+% 			}
+% 		}
+% 		$\bm P = \bm P + \{ Q_t \}$\;
+% 	}
+% 	\caption{Time-domain integration of point cloud\label{al_timedomain}}
+% \end{algorithm}
+% \DecMargin{1em}
+
+\IncMargin{1em} 
+\begin{algorithm}[!ht]
+	\SetAlgoNoLine
+	\SetKwInOut{Input}{\textbf{Input}}\SetKwInOut{Output}{\textbf{Output}}
+	\Input{\\
+		$T$ frames of point cloud $\bm Q=\{Q_1,Q_2,...,Q_T\}$\; \\
+		Threshold of neighbor size $K$;\\
+		Scaling factor $scale_{std}$;}
+	\Output{\\
+		Stacked point cloud $\bm P$\; }
+	\BlankLine
+	Initialize $P = \emptyset $\;
+	% standarized $\Theta$\;
+	% Initialize the popularity of categories $\rho$ randomly\;
+	\Repeat
+	{\text{All $T$ frames of point clouds in $\bm Q$ are consumed}}
+	{
+		for frame $Q_t$, build KD-Tree\;
+		\For {each point $q_i \in Q_t$}{
+			search the $K$ nearest points of $q_i$\;
+			calculate the average distance ($disK_i$) of the $K$ neighbours\; 
+		}
+		calculate the mean distance $meanK$ and standard deviation $stdK$ of $[disK_0, disK_1, ..., disK_N]$\;
+		$thresh = meanK + scale_{std} \times stdK $\;
+		\For {each point $q_i \in Q_t$}{
+			\uIf{$ disK_i < thresh $} {
+				Remove $q_i$ from $Q_t$\;
+			}
+		}
+		$\bm P = \bm P + \{ Q_t \}$\;
+	}
+	\caption{The time-domain integration process of incoming point cloud frames from Solid-State LiDAR.}
+	\label{alg:integration}
+\end{algorithm}
+\DecMargin{1em}
+
+\subsubsection{Checkerboard localization}
+
+
+The purpose of this section is to locate the checkerboard measurement from the background point cloud. Considering that the surface normal of the checkerboard is roughly contiguous, the normal difference-based segmentation\cite{ioannou2012difference} is first deployed to extract the candidate clusters that may contain the checkerboard. Notice that, when estimating the normal of the point clouds, we use a relatively large neighboring radius to reduce the impact of measurement noise. We then filter the clusters according to the priori information of the checkerboard: morphological features (i.e., length-width ratio and variance of surface normals), and spatial characteristics of the reflectivity. In the end, the standard target similarity measurement $\mathcal{L}$ (presented in \textbf{Section}~\ref{sec:corner_pattern_formulation}) is used to measure the differences between the detected checkerboards from the point cloud and the standard model, and only the clusters with the minimum difference are maintained as the target (marked as $P_c$). Besides, considering that the current process does not intend to solve the accurate coordinate of corners, the point cloud clusters are first downsampled before calculating $\mathcal{L}$; therefore, the filtering process is time-efficient.
+
+\subsubsection{Feature refinement}
+To obtain a noise-free and accurate checkerboard measurement, a series of point cloud feature enhancement methods are designed, and the whole process is shown in Fig.~\ref{fig:refine}.
+
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[trim=20 400 370 20, clip, width=0.49\textwidth]{Refine.pdf} 
+	\caption{The feature refinement process, from raw point cloud of the checkerboard $P_c$, which is segmented from background points, to the noise-free measurement $P^I_c$.}
+	\label{fig:refine} 
+\end{figure}
+
+
+\textbf{Upholder removal.} Considering the upholder/ground may be connected to the checkerboard $P_c$ after being segmented from the background, we first remove those points of upholder. Suppose the placement and the relative coordinates of the sensor and the checkerboard are as shown in Fig.~\ref{fig:teaser} (C), the upper and lower boundaries of the checkerboard in the Z-axis direction are needed to be determined. The coordinate system of the checkerboard placement is shown in Fig.~\ref{fig:corner}.  For the upper boundary, we choose the $Z$ coordinate of the highest point $Z_{top} = \max{P^z_c}$. In the ideal condition, the lower boundary can be determined based on the width distribution of checkerboard points along the Z-axis. The width distribution of $P_c$ along $Z$ can be described as $H(| P^{xy}_c - \frac{1}{N} \sum P^{xy}_c |, z)$, and the junction is the position with the largest negative gradient. 
+
+However, due to the non-uniformity of Solid-State LiDAR scans, we generally get multiple lower boundaries, and the point with the largest negative gradient may also not fall on the real lower boundary either, therefore, we use the height of checkerboard ($N_h G_s$) as a constraint, and select the best $Z_{down}$ that minimizes the difference between the highest-lowest distance and the checkerboard size according to Eq.~\ref{eq:lowboundary}. 
+
+%但是实际上, 点云分布的离散型和不均匀性导致宽度分布函数并不是连续的, 实际情况下总会找到多个负梯度较大的点, 并且其中最大的点并不会对应标定板下边沿, 这回导致标定板被从中间分割开, 从而无法进行后续的角点估计. 因此我们在这里引入标定板自身的尺寸约束, 在所有可能的下边界分割点中, 选择使得$(Z_{down}, Z_{top})$之间的距离最接近标定板高度的点, 即
+
+\begin{equation}
+	\label{eq:lowboundary}
+	\centering
+	\begin{aligned}
+		Z_{down}=\argmax_{z}                                           
+		{                                                              
+		\frac                                                          
+		{\partial {H(| P^{xy}_c - \frac{1}{N} \sum P^{xy}_c |, z)} } 
+		{\partial {z}}                                                 
+		}                                                              
+		                                                               \\
+		+ ~                                                            
+		w \frac                                                        
+		{| (Z_{top} - z) - N_h G_s |}                                  
+		{N_h G_s}                                                      
+	\end{aligned}
+\end{equation}
+Where $w$ is the ratio of checkerboard size constraint. All the other points that are not in this range $(Z_{down}, Z_{top})$ will be removed. For simplicity, the remaining checkerboard point cloud is also marked as $P_c$.
+
+\textbf{Ideal plane fitting.} Ideally, all points related to the checkerboard are supposed to fall on a plane in 3D space. However, As shown in Fig.~\ref{fig:scanning_pattern}, the point clouds are scattered along the axial direction due to due systematic error of Solid-State LiDAR measurement, and therefore it is hard to estimate the accurate corner coordinates. We thus design an iteratively refining method to fit the point cloud to the ideal plane where the checkerboard lies. During each iteration, we first use the RANSAC-based method to fit the optimal plane:
+
+\begin{equation}
+	\label{eq:iplane}
+	\centering
+	Ax+By+Cz+D=0
+\end{equation}
+Here, the $A$, $B$, $C$ and $D$ are the estimated parameter for describing the plane. The point clouds ${P'_c}$ within a distance of $\delta$ to the plane are reserved:
+
+\begin{equation}
+	\label{eq:fitting}
+	\centering
+	%\begin{matrix}
+	\bm {P'_c} = 
+	\{
+	(x_0,y_0,z_0) \in \bm {P_c}
+	\mid
+	\frac{|Ax_0+By_0+Cz_0+D|}{\sqrt{A^2 + B^2 + C^2}} < \delta
+	\}
+	%\end{matrix}
+\end{equation}
+
+Now the point set ${P'_c}$ is closer to the ideal plane than $P_c$, we set the filtering threshold to half of the previous one $\delta=\delta/2$, and repeat the fitting and filtering process. When all the point clouds are within the threshold of the current iteration, the calculation stops. 
+
+Finally, the noise-free point cloud is unified to the ideal plane. According to the ranging principle of Solid-State LiDAR, the laser beam is emitted from the center of the sensor to a spherical surface in the field of view, and is reflected after encountering obstacles; therefore, the ranging measurement of points may contain errors in the radial direction (from the obstacle to the sensor center), while that at the azimuth and polar directions can be ignored. Based on this prior, the projective transformation model is utilized for projecting the noise point cloud onto the ideal plane, as described in Eq.~\ref{eq:unify}.
+% (Eq.~\ref{eq:unify}) instead of orthogonal transformation model\cite{ref17}.
+
+\begin{equation}
+	\label{eq:unify}
+	\centering
+	\bm{P^I_c} = \{ (x_0t, y_0t, z_0t) \mid (x_0,y_0,z_0) \in \bm {P'_c} \} 
+\end{equation}
+where
+\begin{equation}
+	\label{eq:unify_sub}
+	\centering
+	t = \frac{-D} {Ax_0 + B y_0 + C z_0} 
+\end{equation}
+
+\textbf{Plane-based resampling.} It can be seen from Fig.~\ref{fig:scanning_pattern}~(e) that, there is a curve dividing the checkerboard into parts with different point densities; the same circular pattern also exists in Fig.~\ref{fig:scanning_pattern}(b) and (c). This is a common phenomenon caused by the non-repetitive scan pattern of Solid-State LiDAR, and varies with the position of the checkerboard and the types of devices (i.e., mid, avia and horizon). As the global constraints of point cloud measurement are used to estimate corners, such non-uniformity will affect the contribution of areas with different densities, thus leading to inaccurate estimation of the cost function.
+
+To solve this problem, the unified points $\bm {P^I_c}$ is first divided into multiple grids, and then the random sampling is adopted to each gird $\bm {P_g}$ to maintain the point cloud density not greater than $\delta_{\rho}$. By combining the downsampled grid together, we can get a checkerboard point cloud with uniform density. This optimization can reduce the impact of high-density areas on penalty function during later corner fitting, and lead to better overall corner detection results.
+
+\subsection{3D Corner Estimation}
+
+After the above steps, the checkerboard measurement with reflectance distribution that is similar to the texture pattern from the image can be obtained. However, due to the sparsity and non-uniformity of point clouds, locality-based corner estimation methods, such as template matching or gradient-diff algorithm, still cannot be directly applied. Here we introduce a non-linear optimization that is constrained by the global reflectance distribution of checkerboard measurement for estimating the corners. The process is shown in Fig.~\ref{fig:corner}. 
+
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[trim=20 240 400 20, clip, width=0.49\textwidth]{Corner.pdf} 
+	\caption{Schematic diagram of corner estimation. The transformation from the refined checkerboard measurement $P^I_c$ to the standard model $S_c$ is first solved using the reflectance distribution, and then used to inversely transform the corners of the $S_c$ to original checkerboard.} 
+	\label{fig:corner} 
+	
+\end{figure}
+
+
+\subsubsection{Corner pattern formulation}
+\label{sec:corner_pattern_formulation}
+
+Given the geometrical parameter of the checkerboard $\{N_w, N_h, G_s\}$, a standard checkerboard model with reflectance information can be constructed as Eq.\ref{eq:standard_chessboard}:
+
+\begin{equation}
+	\label{eq:standard_chessboard}
+	\centering
+	\begin{matrix}
+		\bm {S_c} = \{ (x,y,z,I) \mid x \in (0, N_w G_s),y \in (0, N_h G_s), 
+		\\
+		z=0, I=\delta(x,y,z) \}
+		\\ \\
+		\delta(x,y,z) = 
+		\left \{  
+		\begin{aligned}
+		I^{max}, &   &   
+		\lfloor \frac{x} {G_s} \rfloor = \lfloor \frac{y} {G_s} \rfloor  \pmod 2
+		\\
+		I^{min}, &   &   
+		\lfloor \frac{x} {G_s} \rfloor \neq \lfloor \frac{y} {G_s} \rfloor  \pmod 2
+		\end{aligned}
+		\right.  
+	\end{matrix}
+\end{equation}
+
+Considering the measured value of the checkerboard point cloud ($\bm P^I_c$) by LiDAR is physically the same size with ($\bm S_c$) without scaling, the checkerboard measurement and the standard model can be aligned through rigid body transformation, and the 3D inner corner coordinates can also be solved by inverse transformation, since the corners of the standard model are already known from geometrical parameters. Therefore, we converted the 3D corner estimation into a non-linear optimization problem: solving the rigid body transformation parameters $\{R,t\}$ that make the measured value of the transformed checkerboard point cloud closest to the ideal standard model according to Eq.~\ref{eq:transfer}.
+
+\begin{equation}
+	\label{eq:transfer}
+	\centering
+	\bm R^*, \bm t^* =
+	\argmin_{\bm R,\bm t} 
+	\mathcal{L}
+	(
+	\bm S^{xyz}_c,
+	\tilde {\bm P}^{xyz}_c,
+	\bm S^{I}_c,
+	\bm P^{I}_c
+	),
+\end{equation}
+where
+\begin{equation}
+	\label{eq:transfer_exp}
+	\tilde {\bm P}^{xyz}_c 
+	=
+	\left [
+		\begin{matrix}
+			\bm R   & \bm t \\
+			\bm 0^T & \bm 1 
+		\end{matrix}
+	\right]
+	\bm P^{xyz}_c,
+	\bm R \in SO3, t \in R^3
+\end{equation}
+The critical part is designing the function $\mathcal{L}$ that can accurately evaluate the distance between the measured value $\bm P^I_c$ and the standard model $\bm S_c$, which we model by the difference of reflectance distribution with spatial shift, and it will be discussed at \ref{estimation}. By considering both the rigid body characteristics and reflectance pattern of the checkerboard, the inner corner coordinates can be estimated integrally. 
+
+% \textbf{And is more precise and stable than detect corners one by one based on local features and then combine them together\cite{}.} %如果没有对比实验, 或者ref, 其实可以删去.
+
+
+\begin{figure}
+	\centering
+	\includegraphics[trim=10 0 0 -11, clip,width=0.49\textwidth]{intensity.png} 
+	\caption{Reflectance distribution of checkerboard point cloud under different distances. The black and white bars respectively represent the reflectance of the corresponding color grid in the checkerboard.}
+	\label{fig:intensitydis} 
+	
+\end{figure}
+
+
+
+\begin{figure*}[!htb]
+	\centering
+	% \subfloat[]{\includegraphics[trim=10 320 200 60, clip, width=0.5\textwidth]{vis/vis_horizon.pdf}}
+	% \subfloat[]{\includegraphics[trim=10 317 185 56, clip, width=0.5\textwidth]{vis/vis_mid100.pdf}}
+	% \\
+	% \subfloat[]{\includegraphics[trim=10 280 120 67, clip, width=0.5\textwidth]{vis/vis_mid40.pdf}}
+	% \subfloat[]{\includegraphics[trim=10 160 450 75, clip, width=0.5\textwidth]{vis/vis_reproj.pdf}}
+	\subfloat[]{\includegraphics[trim=0 200 0 100, clip, width=0.485\textwidth]{vis/PG_Horizon.png}}
+	\vspace{.1in}
+	\subfloat[]{\includegraphics[trim=0 200 0 100, clip, width=0.485\textwidth]{vis/Mid100_outdoor_edge.png}}
+	\vspace{-0.5cm}
+	\\
+	\subfloat[]{\includegraphics[trim=0 0 0 0, clip, width=0.24\textwidth]{vis/colored1.jpg}}
+	\vspace{.01in}
+	\subfloat[]{\includegraphics[trim=0 0 0 0, clip, width=0.24\textwidth]{vis/colored2.jpg}}
+	\vspace{.01in}
+	\subfloat[]{\includegraphics[trim=0 0 0 0, clip, width=0.24\textwidth]{vis/colored3.jpg}}
+	\vspace{.01in}
+	\subfloat[]{\includegraphics[trim=0 0 0 0, clip, width=0.24\textwidth]{vis/colored4.jpg}}
+	\vspace{-0.4cm}
+	\caption{(a) - (b): The projected point cloud on images using the solved extrinsic parameters. The points are colored according to reference intensity; (c) - (f): The colorized point clouds (after integration) by projecting the RGB data from the image. }
+	\label{fig:visualization} 
+\end{figure*}
+
+
+
+
+\subsubsection{Corner estimation}
+\label{estimation}
+
+According the formulation in \textbf{Section}~\ref{sec:corner_pattern_formulation}, the corner estimation problem is equivalent to 3D transformation-solving problem. Notice that, since we have unified the checkerboard measurement to an ideal plane in \ref{sec:feature_refinement}, the point cloud $P^I_c$ can be transformed to $xOy$ plane, to further reduce the complexity of rigid body transformation optimization. Thus, the 3D transformation solving problem is simplified as solving the change of direction angle and displacement in 2D space. To achieve this, we first adopt PCA (Principle Components Analysis) decomposition on $P^I_c$ to get a new set of orthogonal basis $\bm B=[\bm \mu_1, \bm \mu_2, \bm \mu_3]^T$, where $\bm \mu_1, \bm \mu_2$ indicate the direction with highest and second highest variance, and $\bm \mu_3$ is the normal direction of the checkerboard; the span of them is a new space where $P^I_c$ falls in the $xOy$ plane. Meanwhile, $\bm B$ is also the rotation matrix of $P^I_c$ from the original location to $xOy$. The direction of decomposed basis of the coordinate axis can be ambiguous, therefore we use the constraint from \cite{wang2017reflectance} to select the coordinate axes with the closest direction to the standard checkerboard model as the initial base $\bm B$. 
+
+Then, we represent the similarity between $P_c$ and $S_c$ according to their reflectance. As shown in Fig.~\ref{fig:intensitydis}, the reflectance of the checkerboard measurement $P_c$ and the black-white pattern on the physical checkerboard basically show the same spatial distribution, and therefore the similarity function can be defined as Eq.~\ref{eq:similarity_function}: 
+\begin{equation}
+	\label{eq:similarity_function}                  
+	\begin{aligned}
+		\mathcal{L}                                         
+		(                                                   
+		\bm S^{xyz}_c,                                      
+		\tilde {\bm P}^{xyz}_c,                             
+		\bm I_S,                                            
+		\bm I_P                                             
+		)                                                   
+		=                                                   
+		\sum                                                
+		_{\tilde{p_i} \in \bm{\tilde{P_c}} }                
+		^{N_c}                                              
+		{\mathcal{L}_1 + \mathcal{L}_2},                    
+		                                                    \\
+		\mathcal{L}_1                                       
+		=                                                   
+		\delta_{in}( \tilde{p_i}, \bm S^{xyz}_c )           
+		| \bm I_S( \tilde{p_i} ) - \bm I_P( \tilde{p_i} ) | 
+		d( \tilde{p_i}, G_i ),                              
+		                                                    \\
+		\mathcal{L}_2                                       
+		=                                                   
+		( 1 - \delta_{in}( \tilde{p_i}, \bm S^{xyz}_c ) )   
+		d( \tilde{p_i}, G_i )                               
+	\end{aligned}
+\end{equation}
+
+Here, $\tilde {\bm P}^{xyz}_c$ is the geometry coordinates of the checkerboard defined in Eq.~\ref{eq:transfer_exp}, $\bm I_P$ is the corresponding reflectance intensity value, $\bm S^{xyz}_c$ and $\bm I_S$ are the same representation for the standard model; $\delta_{in}$ is the discriminant function for judging whether the point $\tilde{p_i}$ falls within the border rectangle of the standard checkerboard, and $G_i$ is the closet corner to $\tilde{p_i}$, as defined in Eq.~\ref{eq:similarity_function_G_d}:
+\begin{equation}
+	\begin{aligned}
+		\label{eq:similarity_function_G_d}                                        
+		G^x_i = \argmin_{G^x_j} {|\tilde{p^x_i} - G^x_j|},                        
+		                                                                          \\
+		G^y_i = \argmin_{G^y_j} {|\tilde{p^y_i} - G^y_j|},                        
+		                                                                          \\
+		d( \tilde{p_i}, G_i ) = |G^x_i - \tilde{p^x_i}| + |G^y_i - \tilde{p^y_i}| 
+	\end{aligned}
+\end{equation}
+
+Thus, the optimal solution of $\bm R, \bm t$ can be solved through nonlinear optimization, the L-BGFS\cite{byrd1995limited} method is utilized for optimizing this problem. Combined with corners $C_{std}$ that are directly calculated by the geometric parameter of the checkerboard, the final estimated corner coordinates $C_{3D}$ of the point cloud (Eq.~\ref{eq:corner}) can be obtained through inverse transformation:
+
+\begin{equation}
+	\label{eq:corner}
+	\centering
+	\begin{matrix}
+		C_{3D}
+		=
+		\left [
+		\begin{matrix}
+		\bm {R^T} & \bm {-R^T} \bm {t} \\
+		\bm {0^T} & 1                  
+	\end{matrix}
+	\right]
+	C_{std}.
+	\end{matrix}
+\end{equation}
+
+
+
+\subsection{Extrinsic Parameter Calibration}
+
+\textbf{2D corner detection from image.} The checkerboard corner detection algorithm \cite{duda2018accurate} is used to detect the corners $C_{2D}$ from the image, which is corresponding to stacked point cloud frame from Solid-State LiDAR. Note that due to the symmetry of the checkerboard along the diagonal direction, the order of the corner points detected in the image and in the point cloud may be ambiguous. We reorder the detected corner points and index them from the lower left corner.
+
+\textbf{Extrinsic parameter solving and refinement.}
+Considering the samples of checkerboard measurement used during calibration are limited, we utilize an iterative solving method combined with RANSAC that can effectively improve the robustness and accuracy of extrinsic parameter calibration. After the corresponding 3D-2D corner points are obtained from the point cloud and image, the RANSAC-based PnP is first adopted to get an initial solution $\bm {E_0}$; Based on the initial value, the 3D corner points are projected backed to the image plane. After that, the residual between the projected coordinates and the image corner coordinates $C_{diff}$ is calculated according to Eq.~\ref{eq:diff}.
+
+\begin{equation}
+	\label{eq:diff}
+	\centering
+	C_{diff}=|\frac{1}{z} \bm{E_0} \bm{K}
+	\left [
+		\begin{matrix}
+			\bm {C^x_{3D}} \\
+			\bm {C^y_{3D}} \\
+			\bm {C^z_{3D}} 
+		\end{matrix}
+	\right]
+	-C_{2D}|
+\end{equation}
+
+Here, $K$ denotes the intrinsic parameter of camera. For each iteration, we first filter the points with $C_{diff}$ higher than the threshold $\delta_{reproj}$, then solve PnP problem repeatedly on the new point set, then shrink $\delta_{reproj}=\delta_{reproj}/2$ and repeat the process above, until the projection error is lower than $\delta_{0_{reproj}}$. The final extrinsic parameter matrix is denoted as $E$. 
+
+
+% \begin{figure*}[!htb]
+% 	\centering
+% 	\subfloat[]{\includegraphics[trim=10 327 200 57, clip, width=0.33\textwidth]{vis_horizon.pdf}}
+% 	% \subfloat[]{\includegraphics[trim=0 55 0 25, clip, width=0.33\textwidth]{PG_Horizon.jpg}}
+% 	\subfloat[]{\includegraphics[trim=0 105 0 53, clip, width=0.33\textwidth]{PG_Horizon.jpg}}
+% 	\subfloat[]{\includegraphics[trim=20 160 450 76, clip, width=0.33\textwidth]{vis_reproj.pdf}}
+% 	\\[-1.5ex]
+% 	% \subfloat[]{\includegraphics[trim=10 317 185 56, clip, width=0.5\textwidth]{vis_mid100.pdf}}
+% 	% \\
+% 	% \subfloat[]{\includegraphics[trim=10 280 120 67, clip, width=0.5\textwidth]{vis_mid40.pdf}}
+% 	% \\
+% 	% 
+% 	% \subfloat[]{\includegraphics[trim=0 200 0 100, clip, width=0.495\textwidth]{Mid100_outdoor_edge.png}}
+% 	\caption{(a) Visualization of the calibration results. The point clouds are projected onto the image plane based on the solved extrinsic parameter matrix; (b) The projected point clouds on images (with the edge enhanced) in outdoor environment; (c) The colorized point clouds by projecting the pixel from the image using the calibration result.}
+% 	\label{fig:visualization} 
+	
+% \end{figure*}
+
+
+% \begin{figure}[H]
+% 	\centering
+% 	\includegraphics[trim=3 0 0 0, clip, width=0.46\textwidth]{sm_reproj.png} 
+% 	\caption{Normalized reprojection error to evaluate performance of extrinsic calibration of different Solid-State LiDAR models. }
+% 	\label{fig:reprojection_error} 
+% \end{figure}
+
+\begin{figure*}[!htb]
+	\centering
+	\subfloat[Horizon]{\includegraphics[trim=0 15 5 35, clip, width=0.2\textwidth]{reproj_hist/reproj_Livox_Horizon.png}}
+	\subfloat[Avia]{\includegraphics[trim=0 15 5 35, clip, width=0.2\textwidth]{reproj_hist/reproj_Livox_AVIA.png}}
+	\subfloat[Mid-100]{\includegraphics[trim=0 15 10 35, clip, width=0.2\textwidth]{reproj_hist/reproj_Livox_Mid-100.png}}
+	\subfloat[Mid-70]{\includegraphics[trim=0 15 10 35, clip, width=0.2\textwidth]{reproj_hist/reproj_Livox_MID-70.png}}
+	\subfloat[Mid-40]{\includegraphics[trim=0 15 10 35, clip, width=0.2\textwidth]{reproj_hist/reproj_Livox_Mid-40.png}}
+	\\
+	\caption{Normalized reprojection error to evaluate performance of extrinsic calibration of different Solid-State LiDAR models. }
+	\label{fig:reprojection_error} 
+\end{figure*}
+
+
+
+% =========================================================================================
+\section{Experiments and results}
+% This section describes the experiments performed to evaluate the accuracy and robustness of the proposed calibration method in detail. Both qualitative and quantitative calibration results on different type of Solid-State LiDAR models are considered. The proposed method gives accurate results over different Solid-State LiDAR model and LiDAR-camera combinations.
+
+\subsection{Calibration Setup}
+In real-condition calibration process, the Solid-State LiDAR and camera are required to be in a fixed relative position, and the intrinsic of camera are assumed to be known. Through multiple sampling of the checkerboard placed in different positions and orientations within the FOV of the sensors, the corresponding images and multi-frame point cloud are collected, and are then used to calculate the extrinsic parameters.
+
+We evaluate the proposed method on multiple representative Solid-State LiDAR and camera models, the sensor details are described in Table.~\ref{tab:sensor_parameter}. For each sensor combination, we place the checkerboard in multiple positions in the corresponding calibration scene, collect multi-frame point cloud-image pairs, and then use 50\% of them to solve the external parameters, and the other 50\% to validate the accuracy of the calibrated extrinsic. Because certain modules such as checkerboard localization and plane fitting require random initial solutions, we repeat the calibration-validation process 10 times, for each sensor combination, and integrate all the results to evaluate the final performance.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[!htb]
+	\renewcommand\arraystretch{1.1}
+	\centering
+	\begin{tabular}{cccc}
+		\toprule[2pt]
+		\multirow{2}{*}{\textbf{Sensor type}}              & \multirow{2}{*}{\textbf{Sensor model}} & \multicolumn{2}{c}{\textbf{FOV($^\degree$)}} \\ \cline{3-4} 
+		                                          &                  & \textbf{H}     & \textbf{V}    \\
+		\midrule
+		% \multirow{3}{*}{ \makecell[c]{Solid-state \\ LiDAR}} & Livox Horizon     & 81.7  & 25.1 \\
+		\multirow{3}{2cm}{ \centering Solid-state \\ LiDAR} & Livox Horizon     & 81.7  & 25.1 \\
+		                                          & Livox Avia     & 70.4  & 77.2 \\
+		                                          & Livox Mid-40     & 38.4  & 38.4 \\
+		                                          & Livox Mid-70    & 70.4  & 70.4 \\
+		                                          & Livox Mid-100    & 98.4  & 38.4 \\
+		\midrule
+		\multirow{3}{*}{Camera}
+		                                          & MYNT EYE-D D1000 & 103.0 & 55.0 \\
+		& PointGrey Flea3          & 111.0 & 82.9  \\
+		% & AVT Mako G-158c         & 111.0 & 82.9  \\
+		% & PointGrey Flea3         & \multicolumn{2}{c}{6mm lens} \\
+		\bottomrule[2pt]
+	\end{tabular}
+	\caption{The detailed model and parameter of sensors we used to evaluate the proposed calibration method. The different cameras are combined with the 5 types of LiDARs, totally there are 10 sensor combinations for evaluation.}
+	\label{tab:sensor_parameter}
+	
+\end{table}
+
+
+% \begin{figure*}[!htb]
+% 	\centering
+% 	\subfloat{\includegraphics[trim=0 15 5 20, clip, width=0.33\textwidth]{reproj_Horizon.png}}
+% 	\subfloat{\includegraphics[trim=0 15 10 20, clip, width=0.33\textwidth]{reproj_Mid100.png}}
+% 	\subfloat{\includegraphics[trim=0 15 10 20, clip, width=0.33\textwidth]{reproj_Mid40.png}}
+% 	\\
+% 	\caption{Normalized reprojection error to evaluate performance of extrinsic calibration of different Solid-State LiDAR models. }
+% 	\label{fig:reprojection_error} 
+% \end{figure*}
+
+
+
+\begin{figure}[!htb]
+	\centering
+	\subfloat[Before Calibration]{\includegraphics[trim=100 0 100 30, clip, width=0.24\textwidth]{calibration/before.jpg}}
+	\vspace{.1in}
+	\subfloat[After Calibration]{\includegraphics[trim=100 0 100 30, clip, width=0.24\textwidth]{calibration/after.jpg}}
+	\caption{Comparison of the projection images result before and after calibration. The point cloud are projected to the image plane based on the extrinsic parameters, and then colored based on the reflectance intensity.}
+	\label{fig:calibration_result} 
+\end{figure}
+
+\subsection{Qualitative Results}
+
+To visualize the calibration results, we project the point cloud (collected from both indoor and outdoor environments) onto the image plane with the solved extrinsic parameter, as shown in Fig.~\ref{fig:visualization} (a)-(b), with the colors of the projected points generated according to the corresponding reflectance. For clarity, the edges of the images are extracted, to make the matching difference in the projection more significant. It can be seen (especially from edges of objects) that the projected points (with different reflectance) match the original image precisely. Fig.~\ref{fig:visualization} (c)-(f) shows the examples of the colorized point cloud from different scenarios, by re-projecting the RGB pixels back into the 3D space, it can be seen that the projected image texture is also accurately matched to the 3D point cloud, indicating the high accuracy of the solved parameters.
+
+Fig~\ref{fig:calibration_result} illustrates the comparison results of the projection images before and after calibration. Before calibration, we use the manual measurement of the relative position between LiDAR and camera as the extrinsic parameter. From the projection in Fig.~\ref{fig:calibration_result} (a), it can be seen from the checkerboard in the foreground and the wall in the background, that the point cloud and the image cannot be accurately aligned with the measured parameter. By utilizing the proposed method, the alignment between the point clouds and the images is significantly improved (Fig.~\ref{fig:calibration_result} (b)).
+
+
+
+
+\subsection{Normalized Reprojection Error}
+
+In real conditions, it is hard to get a reference ground-truth measurement of the extrinsic parameters between LiDAR and camera. A compromise solution is to evaluate the result by measuring the errors between the reprojected checkerboard corners from the point cloud and the image\cite{koide2019general}. We first project the estimated 3D corners of checkerboard $C_{3D}$ to 2D space, based on the camera intrinsic $\bm K$ and estimated extrinsic $\bm E$. Then, the corners from image $C_{2D}$ are treated as pseudo ground-truth to calculate reprojection error. Notice that, due to the perspective projection of camera, the distance of the checkerboard placements may affect the scales of reprojected points (for instance, when the placements of the checkerboard are too far from the sensors, the reprojection error is smaller than the actual value), therefore, we re-scale the reprojection by distance normalization to reduce this bias, as described in Eq.~\ref{eq:pe1}:
+
+
+\begin{equation}
+	\label{eq:pe1}
+	\centering
+% 	NRE=\sum_{p \in C'_{3D}, c_{2d} \in C_{2D}}{\frac{d(p)}{d_{max}}|p - c_{2d}|}
+	NRE=\frac{d(p)}{d_{max}}(p - c_{2d}), p \in C'_{3D}, c_{2d} \in C_{2D}
+\end{equation}
+
+where
+
+% 
+\begin{equation}
+	\label{eq:pe2}
+	\centering
+	C'_{3D}
+	= 
+	\frac{1}{z} 
+	\bm{E} 
+	\bm{K}
+	\left [
+		\begin{matrix}
+			\bm {C^x_{3D}} \\
+			\bm {C^y_{3D}} \\
+			\bm {C^z_{3D}} 
+		\end{matrix}
+	\right]
+\end{equation}
+
+Here, $c_{2d}$ is the closest image pixel to the reprojected point $p$, and $d(p)$ is the distance of $p$ from LiDAR center. Fig.~\ref{fig:reprojection_error} illustrates the normalized reprojection errors of different Solid-State LiDAR models, $X$ and $Y$ denote the error along with the width and height of the projected image. It can be seen that most reprojection errors are within 0.6 pixel. For Fig.~\ref{fig:reprojection_error} (e), the reprojection error of Mid-40 is a slightly higher than that of the other types, which is because it has a smaller sensor FOV (about 40 degree), thus less target placements can be sampled, causing absent constraints when solving the PnP problem. As a result, the calculation accuracy of extrinsic parameters decreases.  
+
+\begin{table}[!htb]
+	\centering
+		\begin{tabular}{cccccc}
+			\toprule[2pt]
+			\multicolumn{1}{c}{\multirow{2}{*}{Method}} & \multicolumn{1}{c}{\multirow{2}{*}{$AVG$}} & \multicolumn{4}{c}{$ |NRE|<pe~(\%) $}                                                                             \\ \cline{3-6} 
+			\multicolumn{1}{c}{}                        & \multicolumn{1}{c}{}                         & \multicolumn{1}{c}{$pe=0.5$} & \multicolumn{1}{c}{$=1$} & $=5$ & $=10$ \\
+			\midrule
+			% MI\cite{pandey2015automatic}                                          & 9.77		&		1.89		&		3.93		&		39.34		&		60.15               \\
+			% ILCC\cite{wang2017reflectance}                                        &   4.76		&		5.64		&		10.60		&		59.40		&		90.60               \\
+			ILCC\cite{wang2017reflectance}                                        &     1.368		&		55.818		&		77.805		&		96.439		&		96.687              \\
+			Zhou\cite{zhou2018automatic}                                        &      1.469		&		54.410		&		71.884		&		96.356		&		96.894              \\
+			% HUANG\cite{huang2020improvements}                                       & 7.73		&		4.54		&		9.41		&		39.33		&		70.59\\
+			\textbf{Ours}                                        						&    \textbf{0.644}		&		\textbf{83.830}		&		\textbf{96.366}		&		\textbf{98.240}		&		\textbf{98.385}             \\
+			\bottomrule[2pt]
+		\end{tabular}
+	\caption{Quantitative evaluation of the calibration methods. $AVG$ denotes the average normalized reprojection error (pixels); $|NRE|<pe$ denotes the percentage of corners with reprojection error less than $pe$ pixels.}
+	\label{tab:compare}
+	% 
+\end{table}
+
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[trim=0 15 0 15, clip,width=0.47\textwidth]{sm_placement_time.png} 
+	\caption{Impact of different target placements and integrated frame count on the calibration performance. }
+	\label{fig:placement} 
+	
+\end{figure}
+
+Table. \ref{tab:compare} shows the quantitative evaluation results of the proposed method and previous studies on the LiDAR-camera calibration task. Notice that, due to the dependence on the ring-based scanning pattern of mechanical LiDAR (e.g. Velodyne HDL64), most of the implementations of previous studies failed to detect the calibration target from Solid-State LiDAR point clouds, and thus refused to calculate extrinsic parameter; therefore we resample the point cloud into a ring-based pattern. Since the methods in  \cite{zhou2018automatic} and \cite{wang2017reflectance} are designed for sparse ring-based LiDAR, for a fair comparison, we sample the integrated point cloud into the 512-channel LiDAR pattern, which is sufficient to densely measure the objects in the vertical direction. As shown in Table. \ref{tab:compare},  for the cases of $pe<5$ and $pe<10$, the results of the methods are similar, indicating that they give feasible extrinsic parameter solutions of the test cases. But for $pe<1$ and $ pe<0.5$, our method outperforms the others, indicating the better accuracy of the proposed method, and the lower $AVG$ metric of our method represents much fewer failed cases during testing. In \cite{wang2017reflectance}, the calibration target is segmented on each scan line. However, because the point cloud can not completely fill the FOV by integration, there are numerous discontinuities on each scan line, and therefore many targets can not be completely segmented and located, which reduces the constraints participating in the calibration process. And the corner estimation process is also affected by the non-uniform distribution of the scan patterns. The same problem also has an impact on the edge extraction process in \cite{zhou2018automatic}. Besides, the axial ranging error of the LiDAR in different target placements affects the estimated planar parameter, and thus influence the solved transformation according to the plane correspondence. The proposed method performs more accurate results than the others, due to the consideration of the Solid-State LiDAR noise model both in feature refinement and corner estimation process, and therefore eliminate the above mentioned influence caused by the systematic error of the LiDAR.
+
+% only after we resample the integrated points to 128-channel LiDAR-like pattern, can they generate feasible solutions. The proposed method performs more accurate calibration results than the others by a large margin, especially for $pe<0.5$ and $pe<1$, due to the consideration of characteristics of Solid-State LiDAR. 
+
+
+
+% error,but the calibration results are inaccurate without consideration of characteristics of Solid-State LiDAR. The proposed method has lower average reprojection error,  
+
+The influence of the calibration target placement is also investigated. As shown in Fig.~\ref{fig:placement} (a), the proposed method achieve better performance by adding samples of target placements with different distances and poses, and the error can remain stable with minimal samples at 5\textasciitilde6 poses, therefore the entire calibration process can be effectively completed in a short time.
+
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+
+
+\begin{figure}[!htb]
+	\centering
+	\subfloat[$n_{frame} = 1$]{\includegraphics[trim=0 2 0 16, clip, width=0.16\textwidth]{int_denoise/denoise_False_0003.png}}
+	\subfloat[$n_{frame} = 10$]{\includegraphics[trim=0 2 0 16, clip, width=0.16\textwidth]{int_denoise/denoise_False_0010.png}}
+	\subfloat[$n_{frame} = 50$]{\includegraphics[trim=0 2 0 16, clip, width=0.16\textwidth]{int_denoise/denoise_False_0050.png}}
+	% \subfloat[]{\includegraphics[width=0.25\textwidth]{0002.png}}
+	% \subfloat[]{\includegraphics[width=0.25\textwidth]{0026.png}}
+	\\[-2ex]
+	\subfloat[$n_{frame} = 1$]{\includegraphics[trim=0 2 0 16, clip, width=0.16\textwidth]{int_denoise/denoise_True_0003.png}}
+	\subfloat[$n_{frame} = 10$]{\includegraphics[trim=0 2 0 16, clip, width=0.16\textwidth]{int_denoise/denoise_True_0010.png}}
+	\subfloat[$n_{frame} = 50$]{\includegraphics[trim=0 2 0 16, clip, width=0.16\textwidth]{int_denoise/denoise_True_0050.png}}
+	% \subfloat[]{\includegraphics[width=0.25\textwidth]{0001.png}}
+	\\[-1ex]
+	\caption{Visualization of the point cloud integration process. $n_{frame}$ denotes the number of frames used during integration. The process of (a)-(c) is naively stacking of the point cloud, and the process of (d)-(f) is the proposed time-domain integration method. }
+	\label{fig:integration_visualization} 
+	
+\end{figure}
+
+
+
+
+\subsection{Evaluation of Feature Refinement}
+
+In this section, we evaluate the performance of the proposed feature refinement module which is based on the noise model of the Solid-State LiDAR. Fig.~\ref{fig:integration_visualization} illustrates the point clouds pattern of the checkerboard when integrated for different frames. It can be seen that a single frame ($n_{frame}=1$) of the LiDAR is very sparse, and thus hard to extract effective reflectance distribution information from it. As the integrated frames increases, the reflectance feature of the calibration target become more significant, however, it can be seen from Fig.~\ref{fig:integration_visualization}(b)-(c) (especially from the side view) that, the process of naively stacking the point clouds introduces lots of random noise and thus increases the variance of the calibration target measurement, which will affect the subsequent feature extraction process. After applying the noise reduction-aided integration, a more accurate measurement of the target can be obtained. As shown in Fig. \ref{fig:integration_visualization}(e) and (f), in the width and the thickness direction of the checkerboard, most of the noise points have been eliminated. Fig.~\ref{fig:placement} (b) shows that, increasing the integration time can improve the calibration performance, and after integrating for around 50 frames, the calibration error began to stabilize. This is consistent with the FOV-coverage characteristic of the non-repetitive scanning LiDAR.
+
+
+\begin{table}[!htb]
+	\centering
+		\begin{tabular}{cccccc}
+			\toprule[2pt]
+			\multicolumn{1}{c}{\multirow{2}{*}{Module}} & \multicolumn{1}{c}{\multirow{2}{*}{$AVG$}} & \multicolumn{4}{c}{$ |NRE|<pe~(\%) $}                                                                             \\ \cline{3-6} 
+			\multicolumn{1}{c}{}                        & \multicolumn{1}{c}{}                         & \multicolumn{1}{c}{$pe=0.5$} & \multicolumn{1}{c}{$=1$} & $=5$ & $=10$ \\
+			\midrule
+			% MI\cite{pandey2015automatic}                                          & 9.77		&		1.89		&		3.93		&		39.34		&		60.15               \\
+			w/o refine                                       &     1.246		&		79.674		&		91.328		&		92.490		&		95.515               \\
+			w/ \textit{R}                                        &   0.965		&		83.383		&		95.245		&		96.768		&		97.338               \\
+			w/ \textit{R}+\textit{I}                                        &   0.788		&		85.372		&		96.333		&		97.338		&		97.907               \\
+			w/ \textit{P}+\textit{I}                                        &    0.806		&		\textbf{85.311}		&		96.263		&		97.267		&		97.836               \\
+			w/ \textit{R}+\textit{P}+\textit{I}                                        &    \textbf{0.644}		&		83.830		&		\textbf{96.366}		&		\textbf{98.240}		&		\textbf{98.385}              \\
+			\bottomrule[2pt]
+		\end{tabular}
+	\caption{Ablation study of the feature refinement pipeline. The definitions of $AVG$, $NRE$ and $pe$ are the same as in Table.~\ref{tab:compare}.}
+	\label{tab:abalation_study}
+	% 
+\end{table}
+
+
+We also conducted ablation experiments, and the results are shown in Table.~\ref{tab:abalation_study}. Among them, w/- and w/o- donate with or without the related operations, \textit{w/o refine} means that no feature refinement process has been applied, the point cloud of the located checkerboard is directly used for corner estimation; \textit{R} denotes that the point cloud is resampled; \textit{I} represents the proposed time-domain integration method, and \textit{P} represents iterative plane fitting. Since resample process is performed in a 2D plane, when the plane fitting is not applied, we use the method in 3.2.2 to directly estimate the normal of the checkerboard point cloud, and transform it to the $xOy$ plane to perform resampling. According to the result in Table.~\ref{tab:abalation_study}, the different combinations of \textit{I}, \textit{P}, and \textit{R} all improve the calibration performance, and among them, the improvement by \textit{R} is most significant, because it effectively reduces the influence of the non-uniformity scanning pattern of the LiDARs (as shown in Fig.~\ref{fig:scanning_pattern} (d),(e) and (g)) and improves the accuracy of the corresponding 3D corner estimation. When using the complete feature refinement pipeline (\textit{R}+\textit{P}+\textit{I}), the percentage of $pe<0.5$ is slightly reduced compared to \textit{R}+\textit{I} or \textit{P}+\textit{I}, this may be because the refinement process has smoothed out part of the useful information from the original point cloud, but it significantly increases the robustness and eliminates most of the 3D corner misdetection caused by LiDAR measurement errors, therefore a lower average NRE value can be observed.
+
+% 我们也对feature refinement进行了消融实验, 结果如Table.~\ref{tab:abalation_study}所示. 其中w/o refine表示没有经过feature refinement过程,  R代表对点云进行了重采样, I代表本文提出的时域积分方法, P代表迭代平面拟合.
+
+% 注意resample过程是在2D平面内进行的, 因此在没有使用plane fitting时, 我们是使用了3.2.2中的方法, 直接估计平面法线并将其转换到$xOy$平面在进行resample.
+
+% I,P,R的的不同组合对标定性能都有一定的提升, 其中resample产生的提升较大的, 因为其有效的解决了LiDAR扫描的非均匀性问题(Fig~\ref{fig:scanning_pattern}(d),(e) and (g)), 并且提高对应3D角点估计的准确性.
+
+% 注意当使用完整的feature refinement pipeline(R+P+I)时, $pe<0.5$的百分比相比于R+I和P+I有所下降, 这可能是这一过程将部分来自原始点云的有用信息平滑掉了, 但是这一过程显著增加了鲁棒性, 并且消除了了大部分由于LiDAR的测量误差导致的3D角点误检测对标定结果的影响, 所以获得了更低average NRE值.
+
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[trim=0 0 0 5, clip, width=0.5\textwidth]{cost_visualization.jpg} 
+	\caption{Distribution of cost function $\mathcal{L}$ and reprojection error with the increments of optimizing variables, i.e. the rigid body transformation parameters between calibration target measurement and standard calibration board model. In the left column, the Z-axis represents $\mathcal{L}$, and in the right column, the Z-axis represents the reprojection error.}
+	\label{fig:cost} 
+	
+\end{figure}
+
+
+
+
+
+
+\subsection{Evaluation of 3D Corner Estimation}
+
+The performance of the proposed method is highly related to the estimation of the checkerboard corner from the point cloud. Therefore, we further discuss the performance of corner estimation. Fig.~\ref{fig:cost} illustrates the distribution of cost function $\mathcal{L}$ and reprojection errors during corner point estimation. The X and Y axes in each subplot donates the increment from the initial value of optimization variables (i.e., the transformation parameters between the point cloud measurement $P^I_c$ and the standard checkerboard model $S_c$), the left column is the distribution of similarity function $\mathcal{L}$, and the right column is that of the reprojection error.We use two rows to represent the optimization variables of different dimensions. It can be seen, that in the space which the optimization variables spin, the minimum of $\mathcal{L}$ and the reprojection error are corresponding to the similar region, which means that as long as a set of optimal solutions for 3D corner fitting is found, the optimal extrinsic parameters can be solved correspondingly. This can prove the rationality of the proposed method from one aspect.
+
+Fig.~\ref{fig:corner_reprojection} is the visualization result of the checkerboard corner detected from point cloud and image, respectively. The left is the projection of the detected 3D corners back to image, and the right is the corners directly detected from the image. Both of the all the LiDAR-camera combinations (listed in Table~\ref{tab:sensor_parameter})show similar results. Considering the influence of camera parameters, calibration board size, and environmental factors on the calibration algorithm during deployment, the above evaluation results can guide the operation and parameters adjustment of the calibration process.
+
+
+% The performance of the proposed method is highly related to the estimated checkerboard corners. Therefore, we further discuss the performance of corner estimation. Fig.~\ref{fig:cost} illustrates the distribution of cost function $\mathcal{L}$ and reprojection errors during corner point estimation. The X and Y axes in each subplot donates partial dimensions of the optimization variables (i.e., the transformation between the $\bm{P^I_c}$ and the standard checkerboard model $\bm{S_c}$), the left column is the distribution of similarity function $\mathcal{L}$, and the right column is that of the reprojection error. It can be seen, that in the space which the optimization variables spin, the minimum of $\mathcal{L}$ and the reprojection error are corresponding to the similar region, which means that, as long as a set of optimal solutions for 3D corners are found, the optimal extrinsic parameters can be solved correspondingly. This can prove the rationality of the proposed method from one aspect. Fig.~\ref{fig:corner_reprojection} is the visualization result of the checkerboard corner detected from point cloud and image, respectively, it also shows the consistency of estimated corners both from 2D and 3D space. More detailed experiments can be found on our project website (link in the abstract).
+
+% Fig.~\ref{fig:corner_reprojection} is the visualization result of the checkerboard corner detected from point cloud and image, respectively. The left of Fig.~\ref{fig:corner_reprojection}(a) and (b) is the detected 3D corner reprojected to image, and the right are the corners directly detected from the image. Both of the two LiDARs show similar results. Considering the influence of camera parameters, calibration board size, and environmental factors on the calibration algorithm during deployment, the above evaluation results can guide the operation and parameters adjustment of the calibration process.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[trim=0 30 0 40, clip, width=0.48\textwidth]{horizon.png}
+	\\
+	\caption{Visualization the estimated corners of the calibration target. The left is the reprojection of points from Solid-State LiDAR, the red dots are reprojection of detected 3D corners; the right is detected 2D corners directly from image. }
+	\label{fig:corner_reprojection}  
+	% 
+\end{figure}
+% \begin{figure*}[!htb]
+% 	\centering
+% 	\subfloat[]{\includegraphics[width=0.5\textwidth]{horizon.png}}
+% 	\subfloat[]{\includegraphics[width=0.5\textwidth]{mid100.png}}
+% 	\\
+% 	\caption{Visualization of calibration board point cloud and detected corners. (a) The left is the projection of calibration board point cloud from Horzion scanning model, and the red dots are projection of detected 3D corners; the right is detected 2D corners directly from image. (b) The same corner detection and projection result from Mid 40/100 scanning model. }
+% 	\label{fig:corner_reprojection} 
+% \end{figure*}
+
+\section{Conclusion}
+
+
+In order to obtain high-quality RGB-D data from large-scale scenarios, this paper proposes a novel extrinsic calibration method for non-repetitive scanning Solid-State LiDAR-camera systems. Based on the measuring model of the Solid-State LiDAR, a 3D corner estimation pipeline is first presented. During the operation, the time-domain integration is first adopt to obtain dense point clouds, and the calibration target is segmented and located based on the difference of normals. The feature refinement is then applied to obtain a stable and accurate measurement of the target. The 3D corners of the calibration target are estimated by non-linear optimization, which is constrained by the reflectance intensity distribution of the target measurement. With the corresponding 3D corners and 2D corners estimated from the images, the extrinsic parameters are finally solved. The entire workflow is fully automated, and only needs the user to change the position of the checkerboard several times. The extensive experiments demonstrate that our method can perform accurate calibration in real-world conditions. Future work includes conducting a more systematic analysis of the calibration process, and expanding the method into dynamic scenarios. 
+
+ 
+
+% The rapid development of the new Solid-State LiDAR enables robots to efficiently and accurately obtain dense point cloud from the environment, which can accelerate the commercialization of unmanned driving and intelligent robots. For accurate calibration of the Solid-State LiDAR-camera system, this paper first proposes a time domain integration method with a geometric feature refinement pipeline, to extract as much as effective information from fuzzy Solid-State LiDAR LiDAR measurement. Based on the reflectance distribution of calibration target point clouds, we proposed a 3D corner estimation from checkerboard measurement, and combine with the 2D corner extracted from image, the extrinsic parameters are solved by the proposed calibration method. The whole workflow is fully automated, only need the user to change the position of the checkerboard several times. 
+
+% Our method can also be easily extended to mechanical LiDAR-camera system and multi-sensor fusion system with different LiDARs and cameras, and related tests are listed on our project website. We also plan to conduct more systematic analysis of the calibration process and results based on the placement and sampling frequency of the checkerboard, and expand the calibration process into a dynamic calibration algorithm, so that the Solid-State LiDAR-camera system can be automatically calibrated itself in a dynamic scene.
+
+% \section*{Acknowledgment}
+% This work has been supported by Qianjiang Excellent Post-Doctoral Program (2020Y4A001), 2020 Zhejiang Postdoctoral Research Project (ZJ2020011) and CERNET Innovation Project (NGII20170315).The authors also would like to thank RoboSense (Suteng Innovation Technology Co., Ltd.) for borrowing device.
+
+% \bibliographystyle{styles/IEEEtran}
+% \bibliographystyle{unsrt}
+\bibliographystyle{abbrv-doi}
+
+\bibliography{reference}
+\end{document}
