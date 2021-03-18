@@ -1,4 +1,4 @@
-# Point Labeler
+# LiDAR segmentation标注工具Point Labeler说明文档
 ## 安装
 
 按照https://github.com/jbehley/point_labeler 的文档安装。
