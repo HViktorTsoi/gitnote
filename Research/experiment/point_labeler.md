@@ -1,7 +1,7 @@
 # Point Labeler
 ## 安装
 
-按照https://github.com/jbehley/point_labeler的文档安装。
+按照https://github.com/jbehley/point_labeler 的文档安装。
 
 注意最好单独用一个catckin的workspace以防止环境污染。
 
@@ -36,7 +36,7 @@
 
 # 标注类别
  ![20210318163348](https://cdn.jsdelivr.net/gh/HViktorTsoi/gitnote-image@master/PicGo/20210318163348.png)
- 
+
 1. 目前的版本，就使用point_labeler给定的类别，有什么就标注什么
 
 2. 路面上的围栏标注为fence，路两侧建筑施工的围墙标注为building
