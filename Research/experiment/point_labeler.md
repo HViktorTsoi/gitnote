@@ -35,9 +35,9 @@
    3. 所以目前可以把最大距离设置为100m，100~200以上的点云暂时丢弃，并且由于运动畸变这部分点云会对叠加结果产生影响
 
 # 标注类别
-
+ ![20210318163348](https://cdn.jsdelivr.net/gh/HViktorTsoi/gitnote-image@master/PicGo/20210318163348.png)
+ 
 1. 目前的版本，就使用point_labeler给定的类别，有什么就标注什么
-![20210318163348](https://cdn.jsdelivr.net/gh/HViktorTsoi/gitnote-image@master/PicGo/20210318163348.png)
 
 2. 路面上的围栏标注为fence，路两侧建筑施工的围墙标注为building
 
