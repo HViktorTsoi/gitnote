@@ -371,4 +371,10 @@ DL来为点云配准增加局部描述子
     1. LiDAR/camera给的观测量，作为相对位姿估计
     2. IMU给的测量值，作为自身状态估计
     3. 回环检测，用短期记忆监督，防止累计误差
-    4. 
+
+
+Non-repetitive scanning solid-state lidar的配准
+
+PointCloud with no overlap
+
+ICP -> pointcloud backbone -> 
