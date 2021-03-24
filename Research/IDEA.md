@@ -378,3 +378,7 @@ Non-repetitive scanning solid-state lidar的配准
 PointCloud with no overlap
 
 ICP -> pointcloud backbone -> 
+
+提高回环检测的召回率
+
+Bundle Adjustment
