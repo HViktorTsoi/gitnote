@@ -378,3 +378,5 @@ Non-repetitive scanning solid-state lidar的配准
 PointCloud with no overlap
 
 ICP -> pointcloud backbone -> 
+
+** 多livox多imu slam/标定
