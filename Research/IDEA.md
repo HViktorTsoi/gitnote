@@ -378,7 +378,6 @@ Non-repetitive scanning solid-state lidar的配准
 PointCloud with no overlap
 
 ICP -> pointcloud backbone -> 
-
 提高回环检测的召回率
 
 Bundle Adjustment
@@ -400,9 +399,9 @@ partial-complete的配准问题，需要关注的不是哪两个部分重叠，�
 2. 应该考虑多层次多尺度的点云配准，人可以从宏观上一眼就看出大概是怎么配准的，
 3. 应该往数学上引入
 
-
 考虑依赖单帧空间一致性的位姿图构建
 
+** 多livox多imu slam/标定
 
 无重叠点云配准， 考虑接缝区域，这个区域的检测实际上和semantic segmentation一样
 
