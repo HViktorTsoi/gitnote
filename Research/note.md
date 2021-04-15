@@ -344,3 +344,19 @@ ATLAS的AIPP在读取图片的时候，要注意RBG通道的顺序要和网络�
 
 # temperature parameter
 任意公式中的尺度缩放参数
+
+
+# informer作者经验分享
+1. 刷会议，slidelive
+2. wiki how
+3. abstract 问题要先抛出来；最后一句要总结贡献
+4. contribution要用项目编号，明确
+5. rebuttal，要先提出reviewer问了什么问题
+6. cooperation
+7. 交流合作讨论
+对scoop怎么看，您这个工作很solid，做了很长时间，如果这段时间scoop了，你觉得应该怎么处理，或者您有被scoop的经历可以分享
+
+1. 一般来说scoop不会完全一致，如果被人scoop了，说明方向是可行的，并且可以避开一些坑
+2. 所以尽量要做热点问题，这样scoop完全一致的概率就很小
+3. 如果是做old topic，被经典问题scoop，就要考虑是不是要继续做了
+4. 高年级要做热点，这样scoop的几率会小很多；低年级可以尝试做深入的问题
