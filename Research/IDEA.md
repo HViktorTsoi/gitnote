@@ -404,3 +404,7 @@ partial-complete的配准问题，需要关注的不是哪两个部分重叠，�
 ** 多livox多imu slam/标定
 
 动态场景的slam(非定位)
+
+无重叠点云配准， 考虑接缝区域，这个区域的检测实际上和semantic segmentation一样
+
+拼接之后，重新随机分开，然后再配准
