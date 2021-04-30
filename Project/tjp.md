@@ -42,3 +42,5 @@ ID就会是错误的, 在超过滑动窗口大小之后, ID就一直是那个窗
 21. marginalization必须遵循一定的顺序
 22. 添加prior之后再进行marginalization，有可能出现本来是父节点的变量变为子节点，此时如果还是按照原始顺序来margin， 可能把父节点当做叶节点给margin掉了（这个父节点的所有叶子节点会被删除，但是父节点保留（这里待确认）），后边如果再margin原来的那个父节点，就会出现segmentation fault（因为已经被margin掉了）
 23. 第二种情况是，添加的先验变量与普通变量连接到同一个父节点上了， isam的marginlize对于这样的情况处理的不正常
+24. 经过profile发现，最占用时间的是全局定位和scan2mapoptimization，后端优化的部分只占特别小的一部分，其中marginalization更小
+25. 对于杭研院数据集，在interactive slam建图之前，需要关闭liosam的回环检测，并将所有的地面都设置为ground，最后定位没有太大的偏差
