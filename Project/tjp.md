@@ -12,6 +12,14 @@
    1. 维护odom to map;
    2. 每次全局定位只有, 把全局transform作为gps factor, 加入因子图进行优化. (验证是不是要把全局定位转换到odometry系再加到因子图中)
 
+# multilidar localization
+1. 维护一个单独的imu preintegration不变
+2. 更改msg形式，使其存储每个LiDAR的id
+3. 对于每个lidar，单独使用image projection和feature extraction
+4. 在image projection中，维护LiDAR数量的imuQ，将imu对齐到不同的LiDAR系下
+5. 在graphLocalization中，用外参将每个LiDAR的特征经过时间同步之后融合在一起，然后进行scan2map的里程计估算以及全局定位
+6. 对于2和5，第二种方式是在image projection收到每个LiDAR之后，直接全都转换到base lidar的坐标系下，这样imu deskew等维持原样就可以
+
 ## 开发日志
 1. lio localization中, 用滑动窗口win来保存待全局匹配的关键帧, 并且没有保存关键帧id, 如果在全局定位之后直接用win的size来作为因子图节点的ID, 那么这个ID
 ID就会是错误的, 在超过滑动窗口大小之后, ID就一直是那个窗口最大长度了
