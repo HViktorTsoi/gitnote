@@ -129,3 +129,6 @@ Currently, these approaches are hampered by the huge cost of LiDAR devices, the 
 
 By a slight abuse of notation
 为了简洁性稍微滥用notation
+
+instantiation 实例化
+literature 文献
