@@ -67,3 +67,4 @@ DC Loam Livox中的方案：
     3.  修改gtsam的某个阈值，使得重构bayes树的间隔增大，这样即使全局定位慢导致定位约束因子滞后，也不会使得贝叶斯树重构成有bug的形式
 
 29. hdl_localization的一系列包会对正常的package查找openmp有影响
+30. TODO map localization丢失之后增大odometry滑动窗口大小

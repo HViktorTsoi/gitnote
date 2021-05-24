@@ -419,3 +419,7 @@ ATLAS的AIPP在读取图片的时候，要注意RBG通道的顺序要和网络�
 # BLH2XYZ中，XYZ是以地球质心为原点，地心-北极为Z轴，赤道平面为xOy平面的3D直角坐标系，因此直接用BLH2XYZ转换出来的坐标是不能用的，因为当车在地面行走时，这个轨迹相当于是相对于地球球心，贴在地面的一个空中的倾斜轨迹；如果想直接用于驾驶，必须转为相对于地面平行的空间直角坐标系（比如UTM之类的，或者将BLH2XYZ的结果）
 
 # 在ros robotlocalization的navsat_transform中，utm-odom的tf只用第一帧来计算
+
+
+# while we can track the relationship between features which are far, far apart, we usually shouldn’t, since the theoretical gain in accuracy is tiny (or, in the case of lin- earized approaches, even negative).
+
