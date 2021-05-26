@@ -323,6 +323,7 @@ ATLAS的AIPP在读取图片的时候，要注意RBG通道的顺序要和网络�
 
 
 # 坐标系转化原则
+
 从A坐标系的姿态转换到B坐标系的姿态，要用B->A的转换，左乘A坐标系下的姿态；
 
 其中B->A的转换是一个相对位姿，其绝对的值就是都以B系为参考，以B的原点为起点，看A系的原点在B系下是什么位姿，那么B->A就是什么变换；
@@ -340,6 +341,8 @@ ATLAS的AIPP在读取图片的时候，要注意RBG通道的顺序要和网络�
 	$P_B = P_{B->A} P_A$
 
 ×××××× 欧拉角在进行旋转时，所绕的三个轴都是以原始位姿作为参考来转的，而不是转了一个轴之后，以新的轴为参考再转下一个轴！！！！
+
+右手规则参考 https://gtsam.org/2021/02/23/uncertainties-part2.html
 
 
 # temperature parameter
@@ -379,3 +382,44 @@ ATLAS的AIPP在读取图片的时候，要注意RBG通道的顺序要和网络�
 2. 所以尽量要做热点问题，这样scoop完全一致的概率就很小
 3. 如果是做old topic，被经典问题scoop，就要考虑是不是要继续做了
 4. 高年级要做热点，这样scoop的几率会小很多；低年级可以尝试做深入的问题
+
+# 对于I-XXX系统， IMU的ba/bg的优化值可以用来检测系统是否估计的准确（错误的估计优化出来的ba/bg可能非常高），参考LVI-SAM
+
+# Fixed-Lag Smoothing
+也就是滑动窗口优化（Sliding Window Optimization）．状态向量包含随时间滑动的窗口内多个状态．但是也需要将旧状态边缘化到高斯先验中．因此在滤波算法中存在的边缘化问题，这里都存在．
+但是由于采用了多个状态的窗口，状态估计更精确，同时可以建立鲁棒的优化代价函数，降低外点对状态估计的影响．
+状态向量中可以加入测量的structure，但是太多strcuture会造成高斯先验矩阵是稠密的，通常会想办法减少structure的数量．
+
+# IMU预积分的目的
+
+参考这个 
+视觉惯性里程计的IMU预积分模型 - LZ紫色大智的文章 - 知乎 https://zhuanlan.zhihu.com/p/90213963
+
+因为IMU积分的当前pvq是通过
+上一个时刻的pvq + 当前时间段的积分(积分过程依赖这个时间段中每个时刻的q)
+计算得到的，每次当优化更新了上一时刻的pvq之后，如果想获得当前准确的pvq，就必须重新计算整个积分过程(因为当前时间段的积分在每个时刻都依赖最新的q)，这可能非常耗时。
+使用了预积分之后，只需要在第一次计算预积分项，后边对历史状态的pvq更新的时候，不需要重新计算预积分项，只要把i时刻的q更新一下重新算一遍即可。
+
+# gtsam的between factor，添加的量是两个factor V(t-1),V(t)之间的相对移动，即以V(t-1)为原点的坐标系下观察到的V(t)的坐标
+
+
+# 如果系统是线性的(AX+b形式)，就可以写出闭式解；如果是非线性，就很难写出闭式解。
+![20210511215450](https://cdn.jsdelivr.net/gh/HViktorTsoi/gitnote-image@master/PicGo/20210511215450.png)
+
+但是，对于非线性问题，将其在某个点处线性化之后，就又可以用闭式解的方式求解了，但是这种闭式解的得到的只可以是一个小的增量，而不能像线性问题一样的全局解，因为这个解只有在线性点附近才是比较准确的。
+
+
+这样的话，通过不断的线性化-》更新增量-》线性化-》更新增量。。。。就可以逐渐收敛到最优解附近
+
+# 3D旋转矩阵有9个参数，但是实际上只表征了3个方向的信息。由于矩阵的正交特征等约束，使得这个矩阵的inherent dimensionality仍然是3，实际上也是这个9D流型切空间的维度。
+
+# SE3的伴随性质 https://gtsam.org/2021/02/23/uncertainties-part3.html
+伴随性质可以用来将左乘转换成右乘，从而便于来求位姿的inverse、composition以及relative transformation的方差分布。
+
+# BLH2XYZ中，XYZ是以地球质心为原点，地心-北极为Z轴，赤道平面为xOy平面的3D直角坐标系，因此直接用BLH2XYZ转换出来的坐标是不能用的，因为当车在地面行走时，这个轨迹相当于是相对于地球球心，贴在地面的一个空中的倾斜轨迹；如果想直接用于驾驶，必须转为相对于地面平行的空间直角坐标系（比如UTM之类的，或者将BLH2XYZ的结果）
+
+# 在ros robotlocalization的navsat_transform中，utm-odom的tf只用第一帧来计算
+
+
+# while we can track the relationship between features which are far, far apart, we usually shouldn’t, since the theoretical gain in accuracy is tiny (or, in the case of lin- earized approaches, even negative).
+
