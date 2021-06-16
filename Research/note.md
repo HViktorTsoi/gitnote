@@ -344,6 +344,7 @@ ATLAS的AIPP在读取图片的时候，要注意RBG通道的顺序要和网络�
 
 右手规则参考 https://gtsam.org/2021/02/23/uncertainties-part2.html
 
+xxxx 首端变换坐标系要左乘, 末端变换坐标系要右乘
 
 # temperature parameter
 任意公式中的尺度缩放参数
@@ -423,3 +424,4 @@ ATLAS的AIPP在读取图片的时候，要注意RBG通道的顺序要和网络�
 
 # while we can track the relationship between features which are far, far apart, we usually shouldn’t, since the theoretical gain in accuracy is tiny (or, in the case of lin- earized approaches, even negative).
 
+# 在RS雷达中,如果没接时间同步线只连了pc, 那么是按照 接收到帧的系统时间 - 这一帧雷达旋转的时间 来计算消息时间戳的
