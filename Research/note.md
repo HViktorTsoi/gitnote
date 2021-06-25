@@ -425,3 +425,11 @@ xxxx 首端变换坐标系要左乘, 末端变换坐标系要右乘
 # while we can track the relationship between features which are far, far apart, we usually shouldn’t, since the theoretical gain in accuracy is tiny (or, in the case of lin- earized approaches, even negative).
 
 # 在RS雷达中,如果没接时间同步线只连了pc, 那么是按照 接收到帧的系统时间 - 这一帧雷达旋转的时间 来计算消息时间戳的
+
+# IMU内参标定
+对于razor imu来说, 重要标定三类误差:
+1. 用razor imu内置的板载程序来标定刻度误差, 主要包括传感器测量的无尺度三轴Acc的最大最小值; 用imu内置的程序来标定gyro的bias
+2. 用imu_tk来标定misalignment(消除三轴的非正交性), scale(三轴的测量缩放尺度, 否则三轴加速度合量就不等于g了), bias(三轴的偏置), 注意, 修正的测量 = mis * scale * (原始量 - bias)
+3. 使用imu_utils来标定噪声误差(liosam中的noise)和随机游走误差(liosam中的bias)
+
+# pointnet++相比于pointnet, 并没有更好的解决位置敏感的问题, 因为kdtree每个节点的local区域, 提特征的时候仍然是位置敏感的, 但是其改进是, local区域一般都是更小的part, 这些part一般来说相对于整个场景更具有普遍意义, 因此用这种local的方法可能有更好的效果
