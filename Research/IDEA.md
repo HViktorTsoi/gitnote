@@ -433,3 +433,9 @@ partial-complete的配准问题，需要关注的不是哪两个部分重叠，�
 **** 点云 + 标定板, 如果lost tracking, 就使用visual odometry预估下一个位置的姿态
 
 最准确的RTK也就是20cm精度, 这个定位不准, camera-lidar的标定就不准了
+
+camera高频 livox低频 考虑中间使用相机位姿估计的方法, 来补充位置
+
+** 从没有构建GT的数据集中学习vio
+
+** 用lidar的深度和vio的深度做匹配
