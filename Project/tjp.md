@@ -150,6 +150,12 @@ https://blog.csdn.net/beiguodexuecsdn/article/details/103099456
 5. 第四点对于其他的雷达会有不同的表现, 这个一定要注意转换, 否则在消除运动畸变的时候会有严重问题
 6. 验证的过程中, 运动畸变与外参标定的性能可能会有耦合, 这个需要注意, 最好能放在一起优化(但是会影响时间效率)
 7. 有些急转弯的地方不准， 可能是时间有偏差， 考虑在这些地方优化时间差（仅优化时间差，不考虑位姿变化）
+8. livox同步：
+   1. 首先用2.0的converter， 直接接TTL的pps，白色悬空
+   2. livox sdk是通过读取pc上某个串口来获取nmea的，由于pc同时还要用这个串口的nmea来给惯导差分， 所以：
+   3. 用socat创建两个虚拟串口， 一个是/dev/sync_forward, 一个是/dev/sync_livox（这两个串口就是转发逻辑，往一个里写，另一个就会读取到相同的数据）
+   4. 差分程序在接受nmea之后， 除了用于差分，还往/dev/sync_forward写入； 这时/dev/sync_livox就会接收到相同的报文
+   5. /dev/sync_forward和/dev/sync_livox波特率需要设置成相同的， 同时在livox ros driver中，修改 livox_lidar_config.json 的timesync_config， 更改enable_timesync为true，device_name为/dev/sync_livox， 
 
 
 
