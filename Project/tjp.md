@@ -32,6 +32,7 @@
 14. 惯导标定需要有一定的速度, 并且8字轨迹不能太重复, 轨迹的半径尽量要大于外参的杆臂长度
 15. 跑LIOSAM的时候, 发现IMU和雷达也需要较为精确
 16. Robosense的时间同步, 要求time mode从255改成2
+17. ins570d 05模式是“非debug"模式，这时输出的信息才全都是有用的信息
 
 ## hdl localization
 1. IMU LiDAR 外参标定
@@ -102,6 +103,7 @@ DC Loam Livox中的方案：
 
 29. hdl_localization的一系列包会对正常的package查找openmp有影响
 30. TODO map localization丢失之后增大odometry滑动窗口大小
+31. ICP fitness降不下去的一个重要原因： 距离lidar远处的点在地图内找不到匹配点， 在这种情况下，即使近处的点和地图匹配的非常完美，整体的fitness也会居高不下（因为远处点距离也大，对fitness贡献更大）。解决办法： 要不然就是把lidar超过地图边界的那些点去除掉；要不然就要保证地图范围足够广
 
 
 # 旋转固态雷达 + GPS/RTK平均确定位置 + imu确定姿态(imu可能需要地磁对齐)
@@ -156,7 +158,7 @@ https://blog.csdn.net/beiguodexuecsdn/article/details/103099456
    3. 用socat创建两个虚拟串口， 一个是/dev/sync_forward, 一个是/dev/sync_livox（这两个串口就是转发逻辑，往一个里写，另一个就会读取到相同的数据）
    4. 差分程序在接受nmea之后， 除了用于差分，还往/dev/sync_forward写入； 这时/dev/sync_livox就会接收到相同的报文
    5. /dev/sync_forward和/dev/sync_livox波特率需要设置成相同的， 同时在livox ros driver中，修改 livox_lidar_config.json 的timesync_config， 更改enable_timesync为true，device_name为/dev/sync_livox， 
-
+9. ***在天津港的helios采集的数据，时间同步其实还存在一个问题： 这个LiDAR固件版本是新的， 是以末点为帧时间戳的， 但是建图的时候仍然是以首点为时间戳
 
 
 # NDT mapping
