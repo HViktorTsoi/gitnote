@@ -103,7 +103,7 @@ DC Loam Livox中的方案：
 
 29. hdl_localization的一系列包会对正常的package查找openmp有影响
 30. TODO map localization丢失之后增大odometry滑动窗口大小
-31. ICP fitness降不下去的一个重要原因： 距离lidar远处的点在地图内找不到匹配点， 在这种情况下，即使近处的点和地图匹配的非常完美，整体的fitness也会居高不下（因为远处点距离也大，对fitness贡献更大）。解决办法： 要不然就是把lidar超过地图边界的那些点去除掉；要不然就要保证地图范围足够广
+31. ICP fitness降不下去的一个重要原因： 距离lidar远处的点在地图内找不到匹配点， 在这种情况下，即使近处的点和地图匹配的非常完美，整体的fitness也会居高不下（因为远处点距离也大，对fitness贡献更大）。解决办法： 要不然就是把lidar超过地图边界的那些点去除掉；要不然就要保证地图范围足够广g
 
 
 # 旋转固态雷达 + GPS/RTK平均确定位置 + imu确定姿态(imu可能需要地磁对齐)
