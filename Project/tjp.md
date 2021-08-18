@@ -159,6 +159,8 @@ https://blog.csdn.net/beiguodexuecsdn/article/details/103099456
    4. 差分程序在接受nmea之后， 除了用于差分，还往/dev/sync_forward写入； 这时/dev/sync_livox就会接收到相同的报文
    5. /dev/sync_forward和/dev/sync_livox波特率需要设置成相同的， 同时在livox ros driver中，修改 livox_lidar_config.json 的timesync_config， 更改enable_timesync为true，device_name为/dev/sync_livox， 
 9. ***在天津港的helios采集的数据，时间同步其实还存在一个问题： 这个LiDAR固件版本是新的， 是以末点为帧时间戳的， 但是建图的时候仍然是以首点为时间戳
+10. https://github.com/nkliuhui/sync_gps_lidar_imu_cam 是在上位机驱动处理的相机时间戳, 把每次imu的触发相机的时间publish出来, 相机的driver将这个时间存在队列里, 当图像到达之后, 用队首的时间戳assign给当前帧图像
+11. Pointgrey 原生的ros驱动, 是直接用系统当前时间覆盖了相机给出的嵌入式时间https://github.com/ros-drivers/pointgrey_camera_driver/blob/3afc3491c87b195810d0b3720d1613b5f03205c8/pointgrey_camera_driver/src/nodelet.cpp#L495
 
 
 # NDT mapping

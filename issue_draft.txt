@@ -1,0 +1,5 @@
+Hi, it's because the system did not initialize from the begining. During initialization, the initial pose (including position and attitude angle) should be near the real-world pose. Did you test localization with the same data that you built the map with, so you assume that **0 0 0 0 0 0** is your initial pose? Please make sure **0 0 0 0 0 0** or the pose estimation from RVIZ is close to your real-world pose.
+
+And it may not be the issue with the LiDAR-IMU extrinsic, if your sensor setup is tested successfully in fastlio, the it's also compatible with fastlio localization. 
+
+It will be more efficient if you may provide the test bag and the sample map for debugging, to cuijiahetony@live.com, or at leaset post some visualization from RVIZ, of the the pointcloud for initailization and the map.
