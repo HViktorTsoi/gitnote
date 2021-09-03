@@ -33,6 +33,9 @@
 15. 跑LIOSAM的时候, 发现IMU和雷达也需要较为精确
 16. Robosense的时间同步, 要求time mode从255改成2
 17. ins570d 05模式是“非debug"模式，这时输出的信息才全都是有用的信息
+18. ins570d的定位坐标转换: 
+                       惯导->主天线位置矢量               惯导-后轮中心位置矢量
+    主天线GNSS转笛卡尔 ---------------------> 惯导坐标系 -------------------------> 后轮中心坐标系
 
 ## hdl localization
 1. IMU LiDAR 外参标定
@@ -161,8 +164,15 @@ https://blog.csdn.net/beiguodexuecsdn/article/details/103099456
 9. ***在天津港的helios采集的数据，时间同步其实还存在一个问题： 这个LiDAR固件版本是新的， 是以末点为帧时间戳的， 但是建图的时候仍然是以首点为时间戳
 10. https://github.com/nkliuhui/sync_gps_lidar_imu_cam 是在上位机驱动处理的相机时间戳, 把每次imu的触发相机的时间publish出来, 相机的driver将这个时间存在队列里, 当图像到达之后, 用队首的时间戳assign给当前帧图像
 11. Pointgrey 原生的ros驱动, 是直接用系统当前时间覆盖了相机给出的嵌入式时间https://github.com/ros-drivers/pointgrey_camera_driver/blob/3afc3491c87b195810d0b3720d1613b5f03205c8/pointgrey_camera_driver/src/nodelet.cpp#L495
+12. ins和livox同步时, 会观测到位置/时间出现跳变, 在lidar时间戳里没有观测到跳变, 但是在ins时间戳里会观测到跳变
+13. ***** 雷达和相机同步, 需要把相邻两帧里和图像对应点拿出来, 而不是使用当前帧对应的点(比如图像是在每次雷达转到前方时拍摄的, 并且雷达每次转到前方之后会发布数据帧, 那么相机图像对应的点应该是上一帧的后半部分+当前帧的前半部分, 而不是当前帧的所有点)
 
 
 # NDT mapping
 1. 完全没用队列来做, ndt花费时间较长时, 用的是旧的点云, 但是确使用最新的位姿来作为initial guess, 这肯定会出问题, 
 2. ndt omp是使用两帧gnss之间的相对odom, 加上上一次ndt之后的点云->地图位姿来作为initial guess的, 而不是直接使用gnss pose, 这样的话其实ndt map和gnss没有直接关系(当然准确的情况下ndt odom和gnss pose应该是一致的)
+
+
+# LiDAR-惯导建图
+1. 用LIO-SAM建图, gps odom的第一帧不需要是0, 目前看gtsam会自动把所有的节点align到第一帧gps的坐标系下
+2. LIO-SAM在添加gps因子时, 需要poseCovariance在xy方向达到一定程度后才会添加, 即里程计估计的不确定性到达一定程度后, 才会采用gps修正, 实际建图时要考虑调整这个阈值, 看更信任谁的观测量
