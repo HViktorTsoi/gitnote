@@ -507,3 +507,13 @@ mvDepth = vector<float>(N,-1.0f);
 mvuRight = vector<float>(N,-1);
 ```
 即初始化size改为N
+
+# MSCKF的外参定义
+https://github.com/KumarRobotics/msckf_vio/issues/7
+
+# Basalt的奇怪bug: 在录制rosbag的时候, 将之前录制的bag转换为euroc格式的bag, 从0.01秒开始转录, basalt就可以跑成功; 而从0秒开始转录, basalt在优化时就会出现很大的error, 然后se3出现nan崩溃. 但用用basalt的ros wrapper跑相同的原始bag的时候就没有问题; 这里猜测是录制rosbag的初始时间恰好imu或者图像的帧存在误差 
+
+经过调试发现, garage对应的bag, 是先发出的第一帧图像topic, 然后再发出imu topic; 而buaa二楼的bag, 以及从0.01秒之后开始的garage.bag, 都是先发出的imu后发出的图像; 因此basalt在这里可能是有个初始化的假设, 即先要收到imu的预积分, 再收到图像进行优化才可以, 否则优化就会出现很大的误差(这里可能是同步topic的时候的时间处理问题, 需要检查代码)
+
+# 视觉里程计和无人机避障的猜想
+用里程计来提供局部定位, 此时无人机重要的功能是要保证不漂移出去, 或者局部悬停, 只需要里程计的 相对于某个点的 局部定位即可, 即无人机相对于这个点不运动
