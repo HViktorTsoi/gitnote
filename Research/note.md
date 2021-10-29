@@ -354,6 +354,9 @@ R = [-1 0 0]
 这种情况, 第一行是[0,-1, 0], 就是将源坐标的y值反转, 即原来的y轴被旋转了180; 第二行就是将源坐标的x反转
 这样方式可以在旋转量为整数的情况下,快速直观计算旋转矩阵
 
+xxx 对于VINS中的坐标表示方法
+imu^T_cam 表示 在imu系下观测得到的cam位姿
+
 # temperature parameter
 任意公式中的尺度缩放参数
 
@@ -508,6 +511,8 @@ mvuRight = vector<float>(N,-1);
 ```
 即初始化size改为N
 
+# ORBSLAM在手持的时候如果不好初始化, 就用手持画立方体, 基本就可以提供足够多的加速度用来初始化
+
 # MSCKF的外参定义
 https://github.com/KumarRobotics/msckf_vio/issues/7
 
@@ -517,3 +522,8 @@ https://github.com/KumarRobotics/msckf_vio/issues/7
 
 # 视觉里程计和无人机避障的猜想
 用里程计来提供局部定位, 此时无人机重要的功能是要保证不漂移出去, 或者局部悬停, 只需要里程计的 相对于某个点的 局部定位即可, 即无人机相对于这个点不运动
+
+# liosam在室内狭窄环境 需要把odometrySurfLeafSize mappingCornerLeafSize mappingSurfLeafSize全部调小, 否则会因为voxel的粒度太粗导致无法限制住imu的抖动, 从而造成累计误差越来越大, 然后导致imu优化出错误的ba和bg, 最终导致轨迹发生大幅度漂移,建图系统崩溃
+
+# kalibr在标定相机时, 要把time-calibration也打开, 这样才能获得比较准确的标定值;
+一个验证过的传感器-标定板方案: apriltag6x6-0.088尺寸 + realsense t265出厂标定的内参 + yesense imu

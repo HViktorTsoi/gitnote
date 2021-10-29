@@ -185,6 +185,7 @@ https://blog.csdn.net/beiguodexuecsdn/article/details/103099456
 11. Pointgrey 原生的ros驱动, 是直接用系统当前时间覆盖了相机给出的嵌入式时间https://github.com/ros-drivers/pointgrey_camera_driver/blob/3afc3491c87b195810d0b3720d1613b5f03205c8/pointgrey_camera_driver/src/nodelet.cpp#L495
 12. ins和livox同步时, 会观测到位置/时间出现跳变, 在lidar时间戳里没有观测到跳变, 但是在ins时间戳里会观测到跳变
 13. ***** 雷达和相机同步, 需要把相邻两帧里和图像对应点拿出来, 而不是使用当前帧对应的点(比如图像是在每次雷达转到前方时拍摄的, 并且雷达每次转到前方之后会发布数据帧, 那么相机图像对应的点应该是上一帧的后半部分+当前帧的前半部分, 而不是当前帧的所有点)
+14. 用运动畸变消除来解决相机-LiDAR的不同步问题, 应该将所有的点云补偿到图像帧时间戳对应的那个位姿处, 并且保证图像是全局快门的, 这样才能将图像和点云对齐
 
 
 # NDT mapping
