@@ -532,7 +532,7 @@ https://github.com/KumarRobotics/msckf_vio/issues/7
 1. 用pointgrey相机4mm镜头和livox的imu, 用mcu做硬件时间同步, 曝光时间5ms, 初始估计相机->imu时间差为0.009s左右
 2. 在标定的过程中, 注意比较缓慢的移动相机和imu; 数据采集时长为120s左右. 最后的freerun动作, 做的是从左下角旋转到右上角, 从右下角旋转到左上角
 3. 最后验证的过程, 首先看pdf, error的直方图 加速度和角速度都在0.0几左右, error的二维分布图在0.5pix以内; 用这套外参跑vins mono在不开外参估计的情况下可以正常初始化; 用这套外参跑r2live在不开外参优化的情况下不会崩溃并报so3错误; 但是肉眼观测外参的translation部分与测量的值并不是太一致,这里需要进一步确定.
-
+4. 实验发现vins对外参的translation部分好像并不敏感, 即使轻微改变translation部分也能正确初始化, 看来是rotation部分需要精确的标定
 # fast lio 要对原始点云做一定的下采样 才有最好的效果, 而不是用全部的点云
 
 # 跑r2live式犯的一个sb错: livox的imu要乘以g值; kalibr标定的时候也有这个sb错误
