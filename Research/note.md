@@ -496,6 +496,8 @@ bleeding effect邻域 + 车道线 + 几何边缘
 5. VINS Fusion应该是用imu到两个相机的外参来算baseline, 然后恢复深度的, 因此真实尺度依赖于baseline, 也就依赖于两个外参, 如果外参标的不准, 就会严重影响尺度, 并且造成偏移, 所以一般用出厂外参作为初始解, 并且最好把外参优化打开. 而VINS Mono虽然对外参也依赖, 但是没有VINS Fusion要求这么准确(考虑是不是要把baseline作为单独的参数给fusion用)
 6. 对于T265, 左右双目的KB内参和畸变参数都不同, 如果误用同一套参数,会导致最终的3D特征点有很大的误差,这里一定要注意
 
+*** VINS 系列一个非常重要的insight: imu的参数要仔细调整, 如果使用了差的imu, 要把acc_n等参数都调大, 这样在feature少的地方才不会造成漂移, 同时系统的鲁棒性会上升(但精度可能会受影响)
+
 # 用RealSense D435i跑双目ORB slam的时候, 双目的R矩阵可以用出厂的参数, 在realsense viewer中看calibration data, 其中wrold to left和world to right分别是左右的R矩阵(待确认, 输出的图像是不是已经做了极线对准了)
 
 # Realsense用rs-enumerate device查询外参的时候, Extrinsic from "A"	  To	  "B" 表示的是B->A的外参 
@@ -533,6 +535,7 @@ https://github.com/KumarRobotics/msckf_vio/issues/7
 2. 在标定的过程中, 注意比较缓慢的移动相机和imu; 数据采集时长为120s左右并开启时间标定. 最后的freerun动作, 做的是从左下角旋转到右上角, 从右下角旋转到左上角; 
 3. 最后验证的过程, 首先看pdf, error的直方图 加速度和角速度都在0.0几左右, error的二维分布图在0.5pix以内; 用这套外参跑vins mono在不开外参估计的情况下可以正常初始化; 用这套外参跑r2live在不开外参优化的情况下不会崩溃并报so3错误; 但是肉眼观测外参的translation部分与测量的值并不是太一致,这里需要进一步确定.
 4. 实验发现vins对外参的translation部分好像并不敏感, 即使轻微改变translation部分也能正确初始化, 看来是rotation部分需要精确的标定
+5. 1~4并不能保证标定出正确的外参, 实际上kalibr的标定单目imu的成功率非常低
 # fast lio 要对原始点云做一定的下采样 才有最好的效果, 而不是用全部的点云
 
 # 跑r2live式犯的一个sb错: livox的imu要乘以g值; kalibr标定的时候也有这个sb错误
