@@ -357,6 +357,8 @@ R = [-1 0 0]
 xxx 对于VINS中的坐标表示方法
 imu^T_cam 表示 在imu系下观测得到的cam位姿
 
+也有说法是, A到B的变换矩阵, 是经过这矩阵左乘之后, 把坐标系A下的点带到坐标系B下;
+
 # temperature parameter
 任意公式中的尺度缩放参数
 
@@ -498,6 +500,8 @@ bleeding effect邻域 + 车道线 + 几何边缘
 
 *** VINS 系列一个非常重要的insight: imu的参数要仔细调整, 如果使用了差的imu, 要把acc_n等参数都调大, 这样在feature少的地方才不会造成漂移, 同时系统的鲁棒性会上升(但精度可能会受影响)
 
+**** VINS fusion跑双目鱼眼的一个巨坑: 一定要用fisheye mask把鱼眼最外圈的feature屏蔽掉, 否则鱼眼边缘的异常特征点会严重影响tracking, 从而导致双目slam发散, 这也是最开始fusion跑T265和自组双目失败的原因(而pinhole相机就没有这个问题); 另外, MEI模型要比KB模型对鱼眼边缘的feature处理更加稳定, 因此如果要使用KB模型的话, mask要屏蔽掉更多的鱼眼边缘点(但这会导致可用feature变少)
+
 # 用RealSense D435i跑双目ORB slam的时候, 双目的R矩阵可以用出厂的参数, 在realsense viewer中看calibration data, 其中wrold to left和world to right分别是左右的R矩阵(待确认, 输出的图像是不是已经做了极线对准了)
 
 # Realsense用rs-enumerate device查询外参的时候, Extrinsic from "A"	  To	  "B" 表示的是B->A的外参 
@@ -527,6 +531,12 @@ https://github.com/KumarRobotics/msckf_vio/issues/7
 
 # liosam在室内狭窄环境 需要把odometrySurfLeafSize mappingCornerLeafSize mappingSurfLeafSize全部调小, 否则会因为voxel的粒度太粗导致无法限制住imu的抖动, 从而造成累计误差越来越大, 然后导致imu优化出错误的ba和bg, 最终导致轨迹发生大幅度漂移,建图系统崩溃
 
+# 与fast-lio相比, liosam对外参标定和时间同步的要求更低, 有一个大概的雷达-imu的外参就可以给lidar提供比较好的初始解; 但是可能需要比较好的imu; 而fast在外参和同步较差的情况下, 面对大的运动效果很差; 
+
+注意 fast lio使用yesense imu测试时, 当imu的频率调高的时候, 注意对应的ac_cov和gyr_cov也要调低(最好和标定出来的值一致), 这样才能匹配高质量高采样率的imu
+
+**** fast lio的一个巨坑: velodyne类型雷达的时间戳在读取的时候, 应该是把timestamp*1000, 而不是/1000
+
 # kalibr在标定相机时, 要把time-calibration也打开, 这样才能获得比较准确的标定值;
 一个验证过的传感器-标定板方案: apriltag6x6-0.088尺寸 + realsense t265出厂标定的内参 + yesense imu
 !!!!!!!!!!!终于成功的实现了一次外参标定
@@ -536,6 +546,8 @@ https://github.com/KumarRobotics/msckf_vio/issues/7
 3. 最后验证的过程, 首先看pdf, error的直方图 加速度和角速度都在0.0几左右, error的二维分布图在0.5pix以内; 用这套外参跑vins mono在不开外参估计的情况下可以正常初始化; 用这套外参跑r2live在不开外参优化的情况下不会崩溃并报so3错误; 但是肉眼观测外参的translation部分与测量的值并不是太一致,这里需要进一步确定.
 4. 实验发现vins对外参的translation部分好像并不敏感, 即使轻微改变translation部分也能正确初始化, 看来是rotation部分需要精确的标定
 5. 1~4并不能保证标定出正确的外参, 实际上kalibr的标定单目imu的成功率非常低
+6. 一个观察到的现象: 双目imu标定时, 如果其中某一目的初始reprojection error较高, 那么最终标定的相机-imu外参就有可能是失败的, 这个可能和相机的内参标定有关; 主相机和imu通常会标定成功, 但是从相机和imu就会标定不成功, 此时双目标定的外参是可以用来跑vins fusion的, 但是快速运动会导致崩溃, (开启在线外参估计后就不会崩溃了), 说明外参标定还是存在误差
+7. 对于6, 双目鱼眼相机的标定, 从相机-imu的标定效果要稍微好一些, 其表现为vins-mono能跑的时间稍微长一点, 但是最后如果不开外参估计, 还是会发散; 而vins-fusion可以直接跑下来
 # fast lio 要对原始点云做一定的下采样 才有最好的效果, 而不是用全部的点云
 
 # 跑r2live式犯的一个sb错: livox的imu要乘以g值; kalibr标定的时候也有这个sb错误
