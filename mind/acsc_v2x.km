@@ -1,0 +1,238 @@
+{
+    "root": {
+        "data": {
+            "id": "chmdsmltzww0",
+            "created": 1643888376469,
+            "text": "VINS keypoints"
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "chmdu081cc00",
+                    "created": 1643888484475,
+                    "text": "配准实验",
+                    "expandState": "expand",
+                    "layout": null
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "chme2bn39pc0",
+                            "created": 1643889136242,
+                            "text": "调高vins的featurepoint数量",
+                            "layout": null
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "chmdvipotf40",
+                            "created": 1643888603088,
+                            "text": "转化到世界坐标系",
+                            "layout": null
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "chmdvqfxnc00",
+                            "created": 1643888619912,
+                            "text": "转化为pointcloud2",
+                            "layout": null
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "chmdwl4f6ww0",
+                            "created": 1643888686696,
+                            "text": "integration",
+                            "expandState": "expand",
+                            "layout": null
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "chmdwssjf080",
+                                    "created": 1643888703392,
+                                    "text": "用livox标定integration的代码",
+                                    "layout": null
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "chmdwp1if1k0",
+                            "created": 1643888695227,
+                            "text": "保存pcd",
+                            "layout": null
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "chme254fnb40",
+                            "created": 1643889122054,
+                            "text": "用cc配准",
+                            "layout": null
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "chmdx75u7340",
+                            "created": 1643888734671,
+                            "text": "用o3d的gicp来配准",
+                            "layout": null
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "chme1v7lq7k0",
+                                    "created": 1643889100477,
+                                    "text": "初始解先手动指定",
+                                    "layout": null
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "chmdxjfrekg0",
+                                    "created": 1643888761393,
+                                    "text": "先测试直接配准尺度是否一致",
+                                    "layout": null
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "chmdxra0vig0",
+                                    "created": 1643888778460,
+                                    "text": "如果不一致, 手动调整scale",
+                                    "layout": null
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "chmdymtokh40",
+                                    "created": 1643888847129,
+                                    "text": "用scipy的optimizer, 结合o3d的配准,迭代优化scale",
+                                    "layout": null
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "chme4o6yiu80",
+                    "created": 1643889320293,
+                    "text": "可视化",
+                    "layout_mind_offset": {
+                        "x": 156,
+                        "y": 6
+                    }
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "chme4sowwtc0",
+                            "created": 1643889330086,
+                            "text": "发布tf"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "chmea48s52o0",
+                                    "created": 1643889747053,
+                                    "text": "utm->world"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "chme5ckuanc0",
+                                    "created": 1643889373376,
+                                    "text": "utm->ins570d"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "chme5hjxyxs0",
+                                    "created": 1643889384205,
+                                    "text": "ins570d->rslidar"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "chme5od34gg0",
+                                    "created": 1643889399028,
+                                    "text": "rslidar->livox"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "chme5u4hmgg0",
+                                    "created": 1643889411569,
+                                    "text": "livox->imu"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "chme6mql3000",
+                            "created": 1643889473855,
+                            "text": "保证静态tf的时间戳和采数据时间戳一致"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "chme7xy4og80",
+                            "created": 1643889576620,
+                            "text": "给发布特征点赋值语义/RGB信息"
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "chmfiwcul1s0",
+                    "created": 1643893256272,
+                    "text": "ORB SLAM Feature",
+                    "layout_mind_offset": {
+                        "x": 438,
+                        "y": 356
+                    }
+                },
+                "children": []
+            },
+            {
+                "data": {
+                    "id": "chmfjkdx6fs0",
+                    "created": 1643893308580,
+                    "text": "OPEN VINS Feature",
+                    "layout_mind_offset": {
+                        "x": 468,
+                        "y": 364
+                    }
+                },
+                "children": []
+            }
+        ]
+    },
+    "template": "default",
+    "theme": "fresh-blue",
+    "version": "1.4.43"
+}
