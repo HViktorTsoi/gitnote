@@ -475,3 +475,5 @@ camera高频 livox低频 考虑中间使用相机位姿估计的方法, 来补�
 列举出VSLAM系统中常见的配置; LiDAR SLAM中没有哪些配置, 是否可以加上去; VSLAM的评估问题, 可以考虑用LiDAR+VSLAM进行基于地图的评估
 
 prior: 人肯定在同一条管廊里走
+
+**** 纯GPS+顶视相机特征编码 ==model==> 消除了误差的高精度GPS(用RTK做)
