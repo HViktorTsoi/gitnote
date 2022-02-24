@@ -102,3 +102,5 @@ IMU标定工具: kalibr, imu_utils
 ![20220224192648](https://cdn.jsdelivr.net/gh/HViktorTsoi/gitnote-image@master/PicGo/20220224192648.png)
 
 这里注意, 按照欧拉角惯性-body转换过程可知, 因为欧拉角的roll角速度就是绕着x轴旋转, 所以绕x轴的角速度是不用变换的, 在绕zy旋转之后,就是最终body系下的角速度了; 而原来pitch角速度是绕y轴的旋转, 还要再经过x轴的一次旋转, 所以要左乘roll角; 同理yaw角速度还要绕yx旋转
+
+![20220224193311](https://cdn.jsdelivr.net/gh/HViktorTsoi/gitnote-image@master/PicGo/20220224193311.png)
