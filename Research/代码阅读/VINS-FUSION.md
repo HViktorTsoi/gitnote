@@ -64,3 +64,11 @@ class FeaturePerFrame//一个特征点的属性
     double dep_gradient;
 };
 ```
+
+# Global Fusion
+
+1. 输入的原始VIO转换到GPS对应的世界坐标系;
+2. 找到与某一帧VIO同步的GPS坐标;
+3. 每一帧VIO对应的全局位姿的R和T为优化变量, 共有两种约束来构成优化的cost
+   1. 前端相邻两帧之间计算出来的相对VIO, 与对应相邻两帧优化变量的相对位姿 之差
+   2. 某一帧对应的GPS全局坐标, 对应帧优化变量的位姿 之差
