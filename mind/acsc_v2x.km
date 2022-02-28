@@ -136,7 +136,8 @@
                         "data": {
                             "id": "chqf7c4tnhs0",
                             "created": 1644298590073,
-                            "text": "保存位姿和位姿对应点云 1h"
+                            "text": "保存位姿和位姿对应点云 1h",
+                            "progress": 9
                         },
                         "children": []
                     }
