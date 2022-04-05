@@ -17,3 +17,11 @@
 #　另外需要确定是不是因为GPS频率过高导致的问题
 确实有影响, GPS1HZ, 方差0.4的时候就不会崩溃
 # 考虑用地面上的竖直杆子作为约束
+
+# Relocalization思路
+1. 跑VIO， 将现有的需要地图优化的Keyframe Odometry，以及对应的image， /vins_estimator/keyframe_point
+2. 注意/vins_estimator/keyframe_point里的point3d是VIO世界坐标系，如果经过gtsamleKF的位姿，那么point3d对应的点坐标也应该优化，保持一致
+3. 保存VINS格式的pose graph， 其中VIO和PG都是优化得到的POSE， LOOP INFO全部设置为0(LOOP INFO存的是之前回环优化之后的pose和原始VIO之间的相对值, 格式为x,y,z,qw,qx,qy,qz,yaw); loop index是当前帧所回环到的历史帧ID, 默认都设置成-1
+4. 保存KF对应的keypoints以及descriptors, 注意分为两部分， 一个是VINS给的， 一个是LoopFusion自己重新检测的。 为了获得这些信息，需要过一遍KeyFrames的构造函数
+5. 1~4的过程可以考虑将优化之后的Pose以及更新的keyfram_point, image作为伪VINS的输出给loop_fusion, 然后使用loop_fusion的保存功能将pose graph存下李
+6. 在定位过程中， 首先载入保存的posegraph； 然后等待loop fusion将当前帧的与先验地图进行loop， 来做全局定位； 这里可能需要关掉optimization（如果只要最新的localization结果）
