@@ -477,3 +477,5 @@ camera高频 livox低频 考虑中间使用相机位姿估计的方法, 来补�
 prior: 人肯定在同一条管廊里走
 
 **** 纯GPS+顶视相机特征编码 ==model==> 消除了误差的高精度GPS(用RTK做GT)
+
+** 用NN学习一个clip函数; 用这个函数作为neck, backbone输入原始反射率作为feature, 最终学会通过阈值分割的方式分割车道线
