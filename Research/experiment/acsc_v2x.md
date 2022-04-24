@@ -61,7 +61,7 @@ Due to the degenerated sensor measurement and the error during feature tracking,
 
 \textbf{LiDAR-Camera Fusion.} 
 
-With the recent widespread application of LiDAR, there are a series of studies on the fusion of LiDAR point clouds and camera images， especially for the perception \cite{qian2021robust,vora2020pointpainting, ouyang2022saccadefork} and localization \cite{debeunne2020review} tasks of autonomous driving. 
+With the recent widespread application of LiDAR, there are a series of studies on the fusion of LiDAR point clouds and camera images, especially for the perception \cite{qian2021robust,vora2020pointpainting, ouyang2022saccadefork} and localization \cite{debeunne2020review} tasks of autonomous driving. 
 
 R2LIVE \cite{lin2021r} proposed a tightly-coupled sensor fusion framework, which fuses measurement from LiDAR, inertial sensor, and visual camera to achieve robust and accurate state estimation. The motion state within the framework is estimated by error-state iterated Kalman-filter to guarantee real-time performance and then refined with factor graph optimization. 
 
@@ -71,7 +71,7 @@ LVI-SAM \cite{shan2021lvi} proposed a semi-tightly-coupled lidar-visual-inertial
 
  Most of the existing fusion approaches assume that the LiDAR and camera are mounted to a fixed base frame, and also strictly require sensor measurement to share the same FOV. Such methods are hard to be applied in vehicle-infrastructure fusion scenarios, where the relative position between the vehicle and the infrastructure constantly changes, and they do not share the similar FOV in most cases. Besides, the cost of equipping integrated LiDAR-camera sensors on vehicles is still high, which also limits the mess deployment of autonomous vehicles. In this paper, we propose a new paradigm for LiDAR-camera fusion, which only requires low-cost cameras mounted on vehicle, and can achieve high-precision localization and mapping by fusing the point cloud information from roadside infrastructures.
 
-%=====================================================================
+<!-- %=====================================================================
 
 @inproceedings{zhao2021heterogeneous,
   title={Heterogeneous Relational Complement for Vehicle Re-identification},
@@ -295,7 +295,7 @@ LVI-SAM \cite{shan2021lvi} proposed a semi-tightly-coupled lidar-visual-inertial
   pages={5692--5698},
   year={2021},
   organization={IEEE}
-}
+} -->
 
 Background Filtering
 
@@ -310,39 +310,186 @@ notice that the driving direction there是相反的, 在这里仅仅靠图像是
 use only Infrastructure
 
 
+Overview
+
+The design objective of VILM is to achieve high precision visual mapping and localization with the aid of the 3D measurement from the roadside infrastructure. As shown in Fig. \ref{}, we first utilize the visual odometry and submap reconstruction to recover the 3D geometric information of the road environment, and also to obtain a accumulive estimation of the vehicle pose. While driving through the roadside infracture, the vehicle receives the static scene point cloud extracted from the infracture. Then, with the proposed elastic registration approach, the localization of the visual submap with respect to the infracture frame is estimated. We then design a factor graph-based method to fuse the registration resualt with the visual odmmetry, and a global consistent 3D map can be obtained after the graph optimization.
+
+<!-- 同时还可以用来做定位
+
+首先做Visual Odometry and Submap Reconstruction, 来获取局部的位置估计, 并从images 估计出场景的3D geometric information. 当车辆经过infracture时, 车辆端获取到Infrastructure的静态场景点云, 并通过elastic registration的方式将visual submap与infrastructure point cloud 对齐. 然后, 将求解出的相对位置作为global constraint, 使用factor graph based method将视觉重建结果与infrastructure的定位结果进行融合, 在map merge之后得到一个global consistent map. -->
+
+
+
 Submap Reconstruction
-Associating the 2D image to 3D point cloud is challenging. In this work, 我们基于the motion prior of vehicle camera， 使用图像对道路环境进行Keyframe-based sparse reconstruction, 来获取3D submap with 同质的information with the infrastructure point cloud。由于visual reconstruction存在尺度不确定的问题， the imu measurement is also used to recover the initial scale of the submap. 我们首先对extract FAST feature points for each images and track the features between each two frames via KIT. Then, the frame-to-frame realative pose is estimated and the initial 3D coordinate of the featue points is recovered by triangulation. The 3D feature points(named landmarks) and its corresponding camera pose as well as the imu measurement are accumulate into a sliding window, and then the submap is optimized through visual-inertial bundle adjustment. The structure of the submap can be described by the combination three sets 
-M = {T, D, O}
-where T={T_i|T_i \in SE(3), i=1,...,k_T} is the poses of each key frames,
-D={D_i|D_i \in R^3, i=1,...,k_D} is the coordinate of the estimate landmarks
-and O={<T_j, D_k， u，v>|T_j \in T, D_k \in D} is the association between poses and the landmarks, <T_j, D_k> denotes the landmark $k$ is visiable at camera pose $T_j$, and the observed pixel coordinate is (u,v). 
-
-注意这个reconstruction过程是持续进行的, 因此车辆可以同时估计自己相对于起始点的odometry
-The reconstruction
-这个同时用来估计车辆的相对位置
-
-initial localization
-为了充分利用初始定位信息from vehicle，并节省计算时间，我们设计了局部匹配的方法，来关联submap和infrastructure point cloud. Thanks to our factor-graph-based design， the rough realtive localization can be estimate by fusing visual odometry with historical position constraint of infrastructure. In particular, for the initialization case where the vehicle hasn't been associated to any infrastructure, we estimate the initial pose by fusing the visual odometry with the GPS measurement and the TOA-range measurement from \textred{the infrastructure-vehicle communication device}. 
-
-Thus the feature association between visual submap and point cloud can be performed localy， and much more computing-efficient than then global matching based method.
-since车辆是从上一个灯柱过来的， 
+Associating the 2D image to a 3D point cloud is challenging. In this work, based on the motion prior of the vehicle camera, we reconstruct the road environment with keyframe-based sparse visual odometry, to obtain a 3D submap with homogeneous geometric information as the infrastructure point cloud for the 2D-3D association. We first extract FAST features from each image and track them between every two frames via KLT. Then, the frame-to-frame relative pose is estimated and the initial 3D coordinate of the feature points is recovered by triangulation. Due to the scale ambiguity of visual reconstruction, the imu measurement is also used to recover the initial scale of the submap. The 3D feature points(named landmarks) and their corresponding camera pose as well as the imu measurement are accumulated into a sliding window, and then the submap is optimized through then visual-inertial bundle adjustment. The structure of the submap can be described by the combination of three sets 
+$$M = {\mathcal{T}, \mathcal{L}, \mathcal{O}}$$
+where 
+$$\mathcal{T}={T_i|T_i \in SE(3), i=1,...,n}$$
+is the poses of each keyframes,
+$$\mathcal{L}={L_i|L_i \in R^3, i=1,...,m}$$
+is the coordinate of the estimate landmarks
+and 
+$$\mathcal{O}={<T_i, L_j, u, v>|T_i \in \mathcal{T}, L_j \in \mathcal{L}, u,v \in \mathbb{R}}$$ 
+is the association between the poses and the landmarks, $<T_i, L_j>$ denotes the landmark $j$ is visible at camera pose $T_i$, and the observed pixel coordinate is $(u,v)$. The reconstruction is continuous during the vehicle driving, therefore the last pose $T_n$ can be an initial estimation of the current vehicle location, and the reconstructed points $L$ are kept for the subsequent submap registration and map optimization. 
 
 
-由于submap是由frames累积起来的， submap在位置和尺度上与真实的3D点云相比都会有偏移， 用传统的刚体假设是无法求解精确的相对变换。因此我们提出
+<!-- Notice that the pose in $T$ is accumulated without global constraint, the error of each pose is also accumulated  -->
+
+we can not obtain a global-consistant map by naively 
+
+by accumulating the frame-to-frame relative pose
+simultaneously
+
+
+<!-- The reconstruction -->
+<!-- 这个同时用来估计车辆的相对位置 -->
+ <!-- use a local-matching-based approach to associate the submap and the infrastructure point cloud to capitalize on the initial localization informationfrom from vehicle, -->
+<!-- 
+ Thus the feature association can be searched in the local region of the visual submap and the point cloud, which is much more computing-efficient than the global matching methods. -->
+
+There are two main challenges to align the point cloud with the submap. First, the submap are integrated by accumulate the visual odometry with the estimated 3D landmarks from 2D images, which means that the error of the pose, scale and feature depth are also accumulated into the submap and causing the skew and scale-inconsistency of the map.  Therefore, the conventional rigid-based point cloud registration algorithm is hard to be applied. An intuitive case is that, after tigid registration, part region of the submap could match, while displacement exists in the remaining part. Second, the visual submap is sparse and hard to extract effective geometric feature. By utilizing the non-rigid assumption, we proposed a elastic registration approach which jointly associate the non-rigid map segments with the infracture cloud and optimize the landmarks coordinate to tackle these problems, as described below.
+
+
+static scene extraction
+
+
+The point clouds obtained from the infrastructure LiDAR may be highly dynamic, especially for the scenario with heavy traffic flow. These dynamic points, such as vehicles and pedestrians, will cause the inconsistency between the visual submap and infrastructure point clouds. A straightforward idea to eliminate the influence is to classify the point cloud with semantic segmentation and then remove the points belonging to the possibly dynamic semantic category. However, inspired by \ref{removert} we observe that, based on the prior that the infrastructure LiDAR is mounted on a fixed position with a known pose, the dynamic points can actually be filtered out by the historical spatial occupancy information. Therefore, We divide the space that can be observed by the infrastructure into multiple voxels and then accumulate the point clouds during a period of time. The voxels are then voted if they are occupied by any points, and finally, those voxels with low occupancy can be classified as dynamic regions. The raw points that belong to those static voxels are subsampled and then transmitted to the vehicle. The details are shown in Algorithm \ref{}. And for the dynamic points in vehicle-side images, we remove the estimated 3D points with large reprojection errors before integrating them into the visual submap, since such points usually have an inconsistent motion with the static environment. \ref{vins}. The benefit of this design is that the succeeding submap registration procedure can obtain a time-invariant reference point cloud, and it improves the registration robustness. Besides, by doing this, there is also no need for the infrastructure to transmit the point cloud to the vehicle in real-time, since the point cloud is a static measurement of the environment and is identical during a period of time, and in the scenario where an infrastructure serves multiple vehicles, the same point cloud can be broadcasted to them, which greatly improves the scalability of the system.
+
+
+
+time invariant/agnostic; 可扩展性
+
+retains 那些非移动的动态障碍物 which may increase 特征数量并且b
+
+对于车辆端的图像， 我们将visual odometry过程中重投影误差大的点从submap中剔除掉，因为这些点通常与静态环境有不一致的运动趋势 \ref{}
+
+Initial Alignment 
+When the vehicle drives near the infrastructure, we query the infrastructure localization in the pose set $T$ of the vehicle, extract the neighboring pose set $T_sub$ that is close to the infrastructure, and then transform the associate landmarks to the global frame to construct the visual submap $M$. Thanks to our factor-graph-based design, the initial localization $T_i \in \mathcal{T}$ can be firstly estimated by fusing the visual odometry with historical position constraints of infrastructure. For the special case where the vehicle hasn't been associated with any infrastructures, we can also estimate the initial pose by fusing the visual odometry with the GPS measurement or the TOA-range measurement from \textred{the infrastructure-vehicle communication device}. 
+
+Due to the sparsity of the visual submap, the registration is first done on a coarser granularity with the aid of ground-plane semantic constraints. We estimate the ground-plane pose $T_{sub}$ from the submap and $T_{ipc}$ from infrastructure point clouds respectively. Notice the $x$, $y$ and $yaw$ part of the poses is zero since these axes are not observable from a plane estimation. Then we can estimate the pose that has eliminated relative roll, pitch, and z offset between the submap and infrastructure points
+
+$$
+T'_i = T_i \Delta T^{r,p,z} = T_i (T^{r,p,z}_{sub})^{-1} T^{r,p,z}_{icp}, ~T_i \in \mathcal{T}
+$$
+Taking $T'_i$ as an initial solution, we utilize the sparse NDT approach to estimate a rough relative alignment between the submap and infrastructure point cloud. For the sake of simplicity, we still use $T_i \in \mathcal{T}$ as the initial pose of the visual submap with respect to the infrastructure point cloud. Therefore, in the succeeding procedure, the feature association can be searched in the local region of the point cloud. It is more robust than the global matching methods since the visual submap is usually sparse and it is hard to extract distinctive geometry features. Meanwhile, it also improves computing efficiency because brute-force global matching is avoided.
+
+elastic registration
+
+Instead of treating the visual submap as a whole rigid point cloud, we regard it as a sequence of multiple 3D keyframe segments that may have displacement with each other. Each segment has an adjustable pose $\mathbf{T_i} \in \mathcal{T}$ and a corresponding 3D point set $\mathcal{F_i}$, representing the keyframe pose from initial alignment and the triangulated keyframe feature points attached with it. To associate the submap with the infrastructure point cloud, for each point in $\mathcal{F}_i$, we first search its neighboring point set from the infrastructure point cloud, if these points form a plane， then we estimate the parameter $(mathbf{n},mathbf{q})$, where $mathbf{n}$ is the normal vector of the plane and $mathbf{n}$ is an arbitrary fixed point on the plane. Then we can register the point clouds by minimizing the overall multi-segment point-to-plane distances
+
+$$
+r_d(\mathcal{T}, \mathcal{F}) =\sum_{ T_i \in \mathcal{T}}{ \sum_{p_j \in \mathcal{F}_i}{| \mathbf{n_{i,j}^T} \cdot ( \mathbf{T_i} \mathbf{p_j} - \mathbf{q_{i,j})} ) | } }  
+$$
+where $p_j$ is the 3D feature coordinate on camera frame that is observed at pose $T_i$, and $(\mathbf{n_{i,j},\mathbf{q_{i,j})$ neighboring plane parameter of $p_j$ from the infracture point clouds.
+
+Meanwhile，$\mathcal{T}$ and $\mathcal{F_T}$ are also constrained by the visual reconstruction, which means that the projected coordinate of a landmark $p_j$ on each image(those who can observe $p_j$) with pose $T_i$, should be consistent with the pixel coordinate $u$ of the feature points that are directly extracted from the images, therefore we can also construct a visual measurement residual
+$$
+r_{vis}(\mathcal{T}, \mathcal{F}) = \sum_{ T_m\in \mathcal{T}}{ \sum_{ T_i \in \mathcal{T}} { \sum_{p_j \in \mathcal{F}_i} { \sigma_m^{ij} \lVert \pi(\mathbf{K}, \mathbf{T_m^{-1}} \mathbf{T_i} \mathbf{p_j}) - u_m^{ij} \lVert } } }
+$$
+where \sigma_m^{ij} \in \{0,1\} is a binary value denotes whether landmark $p_j$ can be observed at camera pose $T_m$, which is known from the feature matching during visual odometry; $\pi(\mathbf{K}, X}$ is a function that projects the 3D point $X$ to image pixel coordinate with \mathbf{K} as the camera intrinsic parameter.
+
+Notice that, since a landmark may be covisiable in multiple images, it may has several corresponding $p_j$ \textcolor{red}{form ()()}, therefore
+$$
+\mathcal{L}\subset \{\mathcal{X}=\mathbf{T_i} \mathbf{p_j}|\mathbf{T_i} \in \mathcal{T}, \mathbf{p_j} \in \mathcal{F}_i \}
+$$
+Thus, rather than optimize all the 3D feature points from each frame, we only need to maintain a shared landmark set $\mathcal{L}$, so the residual can be simplified as
+
+$$
+r
+\\
+= r_{d}(\mathcal{T}, \mathcal{F}) + r_{vis}(\mathcal{T}, \mathcal{F})
+\\
+=r_{d}(\mathcal{T}, \mathcal{L}) + r_{vis}(\mathcal{T}, \mathcal{L})
+\\
+= \sum_{x_i \in \mathcal{L}}{| \mathbf{n_{i}^T} \cdot ( x_i - \mathbf{q_{i})} ) | }
++
+ \sum_{ T_i \in \mathcal{T}} { \sum_{x_j \in \mathcal{L}} { \sigma_i^j \lVert \pi(\mathbf{K}, \mathbf{T_i^{-1}} x_j) - u_i^j \lVert } } 
+$$
+
+Then we can estimate the poses of each segment in the infrastructure global frame as well as the refined landmark coordinates by minimizing $r$
+$$
+\mathcal{T}_{reg}^*, \mathcal{L}_{reg}^* = \arg \min_{\mathcal{T},\mathcal{L}} r 
+$$
+
+The poses in $\mathcal{T_{reg}}^*$ are kept for the later map optimization as global constraints and the landmarks as well as are registered merged to the final map.
 
 
 online map optimization
 
+factor graph construction
+To fuse the result from visual reconstruction and submap registration in real-time, we utilized a factor graph-based approach, as shown in Fig. {}. Each key-frame poses $T_i \in SE3$ to be solved are the node of the graph. The relative poses estimated by the visual odometry between adjacent frames are used as edge factors to connect each node from the graph. Meanwhile, the available GPS position $T_{gps} \in R^3$ that roughly estimated the vehicle position is also added to this factor graph as a constraint. Due to the large GPS positioning error, the covariance of this factor is set to a large value to against affecting the robustness of the initial positioning. 
 
-enpowers 大规模场景下使用低成本相机进行精确建图和定位的能力。
+After the submap registration, we use the optimized keyframe pose $\mathcal{T_{reg}}^*$ as prior factors and then add each factor to its corresponding node in the graph. Notice that, because the vehicle can not determine its world frame localization by visual odometry, we transform all of the visual odometry to the world frame after the first submap registration, then add a prior factor constraint at the first node and assign a large covariance to the translation and yaw angle part. In the subsequent optimization process,  the first pose is adjusted continuously to ensure the start point of the map is aligned with the world frame. 
 
-beside， 错误的回环检测对SLAM系统是致命的，可能会给地图的优化增加非常大的误差羡慕， 应用于驾驶场景是不可靠的
+
+map optimization
+Once a certain amount of visual odometry or a submap registration constraint has been added to the factor graph, we periodically optimize the graph so that we find the Maximum A Posteriori (MAP) estimate for the keyframe poses. Then the poses from the graph node are extracted to transform the 3D landmarks of the corresponding keyframes to the world frame and fused as the final map. Moreover, the last graph node is the current estimation of vehicle localization, and also serves as the initial pose if the vehicle is driving through the next infrastructure. 
+
+To maintain a global-consistent map and avoid map size increment during long-term mapping, the redundant feature points in the map should be eliminated. However, because the feature measurement varies when the camera observes the same position from different perspectives, the straight-forward voxelization downsample method may lead to the loss of multi-perspective feature information, which will cause tracking lost during re-localization. Therefore we design a map merging method based on local feature consistency, as shown in Algorithm~\ref{}. \textcolor{red}{Add brief description of the algorithm}.
+
+
+
+
+The factor graph size increase continusly during the mapping process. To avoid repeated construction of optimization problems and to improve computational efficiency, we use Incremental Smoothing and Mapping (ISAM) to optimize pose. \textcolor{red}{Add brief description to the ISAM process}
+
+
+在因子图在车辆定位建图的过程中是在持续增长的, to avoid 重复构建优化问题, 并且提高计算效率, we使用increamental Smoothing and Mapping的方式对pose进行优化.  在优化收敛之后, 我们
+(可以通过优化residual的异常值发现outlier)
+
+
+最终graph中节点的位姿被extract出来, 并且用这个pose将key frmae对应的3D landmark转换到世界坐标系, 构成最终的地图
+M =
+
+为了保持地图的一致性并降低长期建图过程中导致的地图尺寸增大的的问题, 应该对地图中冗余的特征点进行merge, 但是由于camera以不同实际视角观测同一个区域时, 特征测量值并不相同, 因此用straight-forward的voxelization方法或者random drop对地图下采样可能会导致地图特征的损失, 因此我们设计了基于局部特征一致性的地图合并方法, 如Algorithm所示
+map merging 这里应该加
+
+
+其中, 在submap registration之前, the estimated pose by the factor graph is used by section as initial pose
+
+
+
+enpowers 大规模场景下使用低成本相机进行精确建图和定位的能力. 
+
+beside, 错误的回环检测对SLAM系统是致命的, 可能会给地图的优化增加非常大的误差羡慕, 应用于驾驶场景是不可靠的
+
+
+
+implementation
+
+对于前端, 我们使用OpenVINS来获取到Visual Odometry, 以及三角化得到的特征点
+使用ceres solver来优化elastic registration problem
+我们使用gtsam framework来构建因子图优化框架
+
+
+<!-- 最关键的一步是将 -->
+
+<!-- 通过LM方法优化 -->
+
+<!-- 查询每个点的邻域，然后估计平面，使用点到平面的距离来约束 -->
+
+
+<!-- 第二个是稀疏的问题， 为了解决这个， 我们用 -->
+
+<!-- since车辆是从上一个灯柱过来的,  -->
+
+<!-- 由于submap是由frames累积起来的, submap在位置和尺度上与真实的3D点云相比都会有偏移, 用传统的刚体假设是无法求解精确的相对变换.因此我们提出 -->
+
+
+
+
+
+<!-- 我们提出了基于factor fraph以及isam的方式来实时融合visual reconstruction以及submap registration的结果, 如图所示.   -->
+
+<!-- 在submap registration之后, 我们extract优化之后的keyframe poses, 将其通过infrastructure的位置转换到world frame：然后将其作为prior factor 加入到graph中. -->
+
+<!-- 
+ 我们在第一次与infrastructure配准之后, 将初始的odometry变换到infrastructure所对应的world frame, 并且我们在第一帧位姿上添加prior factor constraint, 并assign a large cov to the translation and yaw angle part, thus在后续的优化过程中, 通过不断的调整first pose to ensure the map 起点 is aligned with the world frame. -->
 
 
 
 1. 传统的SLAM
 <!-- SLAM算法的原理. -->
-<!-- 连续的相机帧，跟踪设置关键点，以三角算法定位其3D位置，同时使用此信息来逼近推测相机自己的姿态 -->
+<!-- 连续的相机帧, 跟踪设置关键点, 以三角算法定位其3D位置, 同时使用此信息来逼近推测相机自己的姿态 -->
 <!-- SLAM累计误差的原因, However, due to 1. 由于视角持续变化导致的特征点变化, frames之间feature 的matching和tracking会存在误差 2. 由于SLAM是基于静态场景的假设来求解相对位姿, 在图像中非静态区域的特征点会与静态区域有不一致的motion, 这样会对estimated的relative pose精度产生影响 3. 在实际部署中, 传感器内外参标定的误差会对特征点的测量精度产生影响, 特别是对于low-cost sensor like cameras. 因此这些误差在frame-by-frame的位姿估计中会被累计下来, 最终对long-term的localization产生不可避免的影响. -->
 
 <!-- because when the vehicle is planning a path, whether it is manual planning or using the navigation algorithm, it will basically not drive through the similar path repeatedly in a short period of time. the way.
@@ -426,7 +573,7 @@ In this paper, we propose VILM, a Vehicle-Infrastructure collaborative 3D Locali
 <!-- therefore the map-centralized approaches such as ORB-SLAM \cite{campos2021orb} may not work as excepted, -->
 
 
-<!-- Currently, one of the most widely used low-cost sensors on mainstream vehicles are the cameras,  while camera-based SLAM -->
+<!-- Currently, one of the most widely used low-cost sensors on mainstream vehicles are the cameras, while camera-based SLAM -->
 
 the widely utilized loop closure detection
 
@@ -442,3 +589,29 @@ Specifically, the contributions of this paper can be summarized as follows:
 3. We implement and benchmark the proposed system on extensive self-collected datasets, and prove the mapping accuracy and robustness under various driving scenarios.
 
 
+
+
+$$
+r_{vis}(\mathcal{T}, \mathcal{F}_i) = \sum_{ T_m\in \mathcal{T}}{ \sum_{ T_i \in \mathcal{T}} { \sum_{p_j \in \mathcal{F}_i} { \sigma_m^{ij} \lVert \pi(\mathbf{K}, \mathbf{T_m^{-1}} \mathbf{T_i} \mathbf{p_j}) - u_m^{ij} \lVert } } }
+
+\\
+r_d(\mathcal{T}, \mathcal{F}_i) =\sum_{ T_i \in \mathcal{T}}{ \sum_{p_j \in \mathcal{F}_i}{| \mathbf{n_{i,j}^T} \cdot ( \mathbf{T_i} \mathbf{p_j} - \mathbf{q_{i,j})} ) | } } 
+\\
+\mathcal{L}\subset \{\mathcal{X}=\mathbf{T_i} \mathbf{p_j}|\mathbf{T_i} \in \mathcal{T}, \mathbf{p_j} \in \mathcal{F}_i \}
+\\
+
+r(\mathcal{T}, \mathcal{L}) 
+\\
+= r_{d}(\mathcal{T}, \mathcal{F}) + r_{vis}(\mathcal{T}, \mathcal{F})
+\\
+=r_{d}(\mathcal{T}, \mathcal{L}) + r_{vis}(\mathcal{T}, \mathcal{L})
+\\
+= \sum_{x_i \in \mathcal{L}}{| \mathbf{n_{i}^T} \cdot ( x_i - \mathbf{q_{i})} ) | }
++
+ \sum_{ T_i \in \mathcal{T}} { \sum_{x_j \in \mathcal{L}} { \sigma_i^j \lVert \pi(\mathbf{K}, \mathbf{T_i^{-1}} x_j) - u_i^j \lVert } } 
+\\
+\mathcal{T}^*, \mathcal{L}^* = \arg \min_{\mathcal{T},\mathcal{L}} r
+\\
+T'_i = T_i \Delta T^{r,p,z} = T_i T^{r,p,z}_{sub}^-1 T^{r,p,z}_{icp}, ~T_i \in \mathcal{T}
+
+$$

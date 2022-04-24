@@ -481,3 +481,10 @@ prior: 人肯定在同一条管廊里走
 ** 用NN学习一个clip函数; 用这个函数作为neck, backbone输入原始反射率作为feature, 最终学会通过阈值分割的方式分割车道线
 
 ** 同步电机时间差测试方式: 把imu放在电机上, 用mcu记录imu的时间和数据; 同时用mcu记录电机的can编码器报文以及接受时间; 给电机随机的转动, 然后把imu的角速度序列和电机编码器差分得到的速度序列log出来, 看两条曲线的latch,如果存在时延的话应该会有一个明显的latch 
+
+
+**** Infrastructure-assisted dynamic slam
+借用Infrastructure所测量和追踪的目标信息作为可移动的landmark， 将这个信息传到车端，这样车辆就可以在非landmark静态假设下进行slam
+motivated by this https://blog.csdn.net/tiancailx/article/details/78789253 这里说地标必须静止, 但如果已知landmark非静止， 是否可以relax这个假设
+
+*** 主动slam, 让slam
