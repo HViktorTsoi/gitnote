@@ -613,3 +613,39 @@ SVO原程序中，采用的是位姿变化为0的先验模型，也就是静止�
 
 # VINS-FUSION 特征点太多的情况也会导致VIO精度下降
 # 加噪声之后, 发现树的特征重复性比较明显, 而路牌比较有代表性, 因此在去全局配准的过程中, 检测路牌, 增加路牌对应点云的权重
+
+# 预积分的作用: 本身是一个独立的值, 由于他的特殊计算方式, 在优化更新R_w和b_a/b_g之后, 不用重复计算预积分过程, 可以直接得到预积分这一项的增量, 即做一次标量加法就可以了
+
+# liosam gps的用法: ekf_localization需要三个源: gps,imu,和odometry, 由于liosam本身有个lio, 所以就用lio作为odometry的源(发布的应该是tf的形式);如果按照liosam的配置, 不运行lio, 那么ekf_localization就一直收不到odometry, 就会导致/odometry/gps一致在0点
+
+
+# ESKF理解
+# EKF在传播时求状态的状态转移矩阵用到了线性化，而ESKF是对误差状态的转移矩阵进行线性化；由于误差状态的线性性更强，所以明显ESKF在此处更好
+1. 首先用传感器测量（或者任何不需要估计直接可以得到的量）来获取到下一时刻state的先验
+2. 然后需要求解的是error state(而不是像传统的KF一样直接求解state)
+3. 用先验state加上error state，就是最终要求解的值
+4. 通常在运动学方程中, g都是表示在inertial frame下
+5. 疑问，为什么实现中求H的过程都不带有d(x)/d(delta x), 而都只是像EKF一样只用了d(h(x))/d(x)? 一个猜测是delta x中的delta theta总是小量，其jacobian接近I，而d(x)/d(delta x)其他部分也是， 这样d(x)/d(delta x)整体就是I矩阵
+6. ESKF和EKF的过程类似，就是传播的过程中多了一步对error-state的传播，在更新过程中H阵是观测对error-state的雅克比，更新过程对error-state进行更新
+
+# IEKF
+IEKF的求解过程
+1. 定义目标函数f(x) = z - h(x), 就是KF中观测量与预测量处观测方程之间的差值
+2. 然后用GN方法最优化f(x), 这样最好理解
+
+# LINS使用的是robocentric frame的表征方式， state里保存的位置始终是相对于上一帧的相对位姿
+We use a robocentric formu- lation to build the iterated ESKF because it prevents large linearization errors caused by ever-growing uncertainty
+
+
+# 拓扑地图+局部路径规划器，这样是不需要构建精准的全局地图的
+
+# 注意ESKF的方差传播，这就是一般线性形式的方差传播过程
+x_t+1 = F * x_t
+那么方差的变化就是 P_t+1 = F * P_t * F^T
+所以对于state以及error-state，有了state的kinematics，就可以知道方差是怎么变化的
+
+# 基于非流型的estimator中，每次update之后没法保证quaternion和gravity的模1性质，因此需要在每次update之后将quaternion和graviaty进行归一化
+
+# INSIGHT: 
+1. slam中translation的小变化不会造成的累计误差量级与变化相同， 但是rotation的小变化会造成非常严重的累计误差， 所以在退化环境下一个重要的事情是准确估计航向角的变化
+2. KITTI Odometry这一评价指标，是将每个小段的轨迹Segment都转换到原点，然后在不对齐的前提下来计算位姿点的距离。这样其实比较接近odometry的应用场景，就是在任意点主要定位方式失效之后切换成odometry，此时看的就是odometry相对于失效点的相对位置误差随距离的累积

@@ -58,6 +58,18 @@ Besides, 由于limited FOV of camera, 即使车辆经过同一个道路, loop de
 <!-- This case demonstrates that the conventionalSLAM难以得到全局一致性的定位 在驾驶场景下, 我们也调研了GPS定位, 以及SLAM融合GPS的精度, 如图所示, (绝对误差评估, 累计误差评估) -->
 
 
+<!-- only needs 传场景的静态特征 -->
+
+<!-- therefore the map-centralized approaches such as ORB-SLAM \cite{campos2021orb} may not work as excepted, -->
+
+
+<!-- Currently, one of the most widely used low-cost sensors on mainstream vehicles are the cameras,  while camera-based SLAM -->
+
+<!-- the widely utilized loop closure detection -->
+
+<!-- 高质量的global constraint -->
+
+
 The basic idea of visual SLAM front-end is to track the associated feature points from consecutive frames and use the triangulation method to recover the 3D positions of the points, and then estimate the ego-poses of the camera through multi-view geometry. By accumulating the estimated poses and 3D points, the localization of the camera relative to the local frame can be obtained, as well as the environment map. However, because (1) the feature descriptors of the landmarks consistently change with the camera perspective, the feature matching and tracking process are not stable; (2) since SLAM is based on the static environment assumption, the features in the non-static area will have inconsistent motion with the static area, which also affects the accuracy of relative pose estimation; and (3) in actual deployment, the intrinsic and extrinsic sensors calibration error decrease the measurement accuracy of feature points, especially for a low-cost sensor like cameras. These errors will be inevitability accumulated during frame-by-frame pose estimation, thus making the accuracy of localization get worse during long-term driving. Most SLAM methods utilize loop closure detection\cite{LCD} to tackle this problem, which detects whether the camera has visited the same place before by image matching and constructs loop constraint, and then eliminates the error by pose graph optimization. However, this method has strict requirements on the vehicle trajectory, only when the current and the historical location of the vehicle have a large overlap can the loop closure be detected. In actual driving scenarios, such a loop constraint is hard to achieve, because the vehicle barely drives through a similar path repeatedly during a short period. Moreover, due to the limited FOV of the camera, the loop detection may still fail because of a slight change of perspective or changing lanes, even though the vehicle drives back to the same road.
 
 We set up a real-world road test to evaluate the performance of conventional slam algorithms. A RealSense D455 (90-degree FOV, with an imu) camera is mounted on the front of an autonomous vehicle, and a high-precision RTK-GNSS system is used to generate ground truth trajectory. We use ORB-SLAM3 \cite{} to estimate the camera pose while the vehicle is driving along the road, and then fuse the reconstructed 3D landmarks to obtain a sparse feature point map, as shown in Figure. \ref{fig:motivation_study}, where the color of the map points represents driving time. It can be seen that, due to lacking global constraint, there is an obvious accumulated drift in the estimated pose and map by ORBSLAM3 compared with the ground truth trajectory. At point A, the reconstructed ground plane of the two roads ought to overlap with each other since the vehicle is driving on a 2D road, however, there is an obvious Z-axis map drift at around 3m; then the error accumulates continuously, and at Point B, the drift has reached around 12m at Z-axis and 8m at Y-axis. Besides, the scale of the map has also shifted, which can be seen from the left part of the map, the width of the reconstructed map is slightly larger than the ground truth trajectory. The loop closure detection fails either at point A or B because the current and the historical orientation mismatches, especially at B, the two vehicle orientations while passing the road are completely opposite, therefore there are not enough overlapped features to detect loop closure.
@@ -86,13 +98,9 @@ RSU上的LiDAR可以获取到周围环境的精确measurement. 以Livox Horizon�
 除此之外, 如果RSU部署的足够密集, with RSU上部署的LiDAR seosors, 可以提供一个实时的三维高精度地图, 
 
 
-
-
 Thanks to our design, 我们可以给submap配准一个比较好的初始值, 所以可以用局部性的方式来配准
 
 introduction
-
-
 
 1. 地图很重要
 2. 但是现有的高精地图都是图商提供的, 构建地图需要高成本sensor, it is also required by要在这些地图上定位的用户车辆.
@@ -109,17 +117,6 @@ The camera-based Simultaneous Localization and Mapping (SLAM) \cite{campos2021or
 
 In this paper, we propose VILM, a Vehicle-Infrastructure collaborative 3D Localization and Mapping framework, to enable high-quality and low-cost vehicle-side visual mapping and localization, by fusing the 3D measurement from the intelligent road-side infrastructure. We designed an elastic submap-to-frame registration algorithm, to associate the vehicle camera images to the infrastructure point clouds, and then present a factor graph-based map optimization method to fuse the vehicle-infrastructure matching information to reconstruct a global-consistent map. The mapping framework can be performed in real-time with a low-cost communication, which only needs to transmit a static scene point cloud from the infrastructure to the vehicle once.  We evaluate the proposed system on extensive datasets under various driving scenarios and prove the accuracy and robustness of the proposed framework.
 
-<!-- only needs 传场景的静态特征 -->
-
-<!-- therefore the map-centralized approaches such as ORB-SLAM \cite{campos2021orb} may not work as excepted, -->
-
-
-<!-- Currently, one of the most widely used low-cost sensors on mainstream vehicles are the cameras,  while camera-based SLAM -->
-
-the widely utilized loop closure detection
-
-高质量的global constraint
-
 
 
 
@@ -129,4 +126,48 @@ Specifically, the contributions of this paper can be summarized as follows:
 2. An elastic 3D-to-2D registration algorithm is proposed to associate the camera images to the point cloud measurement from the infrastructure.
 3. We implement and benchmark the proposed system on extensive self-collected datasets, and prove the mapping accuracy and robustness under various driving scenarios.
 
+elastic 
+
+我们首先用voxelized来做初始对齐
+
+
+
+1. SLAM前端, VIO marginalization 之后, 最后的keypoints取出来
+2. 静态场景过滤
+3. 匹配 
+   1. 使用语义信息获取初始解
+   2. BA photoggeometric loss + point-on-plane constraint, multiple T
+4. 构建factor graph, 画一个graph
+5. 地图优化, 在factor graph optimization之后, 以新的位姿作为初始值, 检查一致性
+
+
+As mentioned in Section 4, during the mapping process, VIML maintains the optimized pose with the factor graph， therefore we can obtain a continuous trajectory of the vehicle by extracting the poses from each corresponding node. Then we calculate the ATE and RTE between the groundtruth and the estimated trajectories to evaluate the mapping accuracy. We also calculate the relative translation error which measures the drift of the estimated trajectories. We compare our approach with mainstream visual SLAM methods, the OpenVINS is run in visual odometry mode without loop closing, the VINS-Fusion and ORB-SLAM3 are run with loop closing correction, and VINS-GPS is a method that fuses the visual odometry with the GPS measurements as the global constraint. It is worth mentioning that the OpenVINS, VINS-Fusion, and ORB-SLAM3 can only estimate poses in the local coordinate frame w.r.t the start point of the map， while the groundtruth is GNSS pose in the UTM frame. Therefore, we need to first match the estimation with the groundtruth trajectory and transform it to the global frame before evaluation. In practice, poses in the UTM frame are also required in the vehicle localization task and there is no groundtruth reference provided, and it remains to be a challenging problem how to align the estimation from SLAM method like ORB-SLAM3 to the global frame in such a scenario. Our approach can directly generate maps and pose estimation under the global frame by associating with the infrastructure, which proves from another aspect that our method is more consistent with downstream tasks.
+
+As shown in Table. \ref{}, the OpenVINS and VINS-VIO perform worst because they are running in odometry only mode, and the localization error are accumulate without correction. And the performance of loop-closing-based methods such as VINS-Loop and ORB-SLAM3 are close to the visual-odometry methods because the loop closing constraints are sparse in the testing scenario and are not enough to eliminate the accumulative errors. \textcolor{red}{Adding specific description of the scenario.} The VINS-GPS is more globally consistent, but due to the multi-path effect in the urban environment, the variance of the GPS measurements is large. In this case, the confidence of the GPS poses in the fusion algorithm is reduced. Besides, there are also GPS-denied environments overpasses and long tunnels. Therefore, the localization performance still relies on visual odometry in most cases and also suffers from accumulative error. VIML outperforms the other methods, by periodically registering with the infrastructure point clouds, it can eliminate the cumulative error in time and align the constructed map to the global consistent coordinate system. Besides, VIML can also work in GPS-denied environments where the infrastructures are deployed and ensure that the vehicle has a reliable and high-precision localization in such scenarios.
+
+VIML outperforms其他方法， 通过周期性的与infrastructure点云进行配准，消除了累计误差，并且将地图对齐到了UTM一致的全局坐标系下。Besides， VIML同样可以在部署了infrastructure的GPS-denied环境下工作，可以在这种情况下让车辆也有可信赖的高精度定位
+
+ORB-SLAM3和VINS-loop的性能接近，因为车辆轨迹中loop closing的case太稀疏. 
+
+VINS-GPS更具有全局一致性，但是由于GPS测量值在城市中由于多路径效应，方差较大，在这种情况下只能将融合算法中的GPS置信度降低，因此大部分情况下还是依赖visual odometry. Besides, 在立交桥和长隧道这样的GPS-denied环境，还是只能依靠visual odometry进行定位，累计误差依然存在.
+
+
+% 1.  As mentioned in Sec4, 在，mapping过程中， VIML通过因子图来维护车辆经过infrastructure优化之后的pose， 因此将因子图的每个节点对应的pose取出来之后， 可以得到连续的轨迹, 我们通过计算其与groundtruth之间的ATE以及RTE来评估mapping accuracy
+
+% 1. 结果如表所示， 我们与主流方法进行了对比。 ORBSLAM3自带回环， OpenVINS是VO模式，VINS-FUSION是VO加回环检测，VINS-GPS是VO融合了GPS
+
+% LIO-SAM是LiDAR建图的结果，需要一个高成本的32线激光雷达， which还难以在大规模的驾驶任务中使用， 而我们的方法已经接近LiDAR建图的效果， 在全局一致性的结果上还超过了LiDAR
+
+% 注意ORB-SLAM3， VINS以及OpenVINS只能输出相对于建图起点的局部坐标系下的位姿， 而我们的groundtruth是在UTM坐标系下的，因此我们使用【evo align】将轨迹匹配到grountruth所在的坐标系，然后再进行评估。
+
+% 在真实的车辆定位任务中通常需要的也是UTM系下的坐标，而这时是没法获取到gt的， 怎么将ORMSLAM方法的定位转换到到全局坐标系下还是一个challenge problem。 我们的方法可以直接产生这一系下的地图和位姿，这从另一个方面证明，我们的方法这与下游任务更有consistency。
+
+% 从中可以看出，纯VO模式的open-vins与VINS的效果最差， 因为误差持续累积；ORB-SLAM3和VINS-LOOP虽然开了回环检测， 但是由于数据集是模拟真实车辆的驾驶轨迹， 轨迹中产生的回环十分稀疏，通常只有两种情况，第一种是整个轨迹是长路like 立交桥，误差持续累积；第二种是经过很久才回一次环，回环约束不足以消除所有的误差
+
+% （这里再加上GPS本身的error）VINS-GPS更有全局一致性， 但是由于GPS测量值在城市中，一部分由于多径效应有很大的跳变， 这种情况下只能将融合算法中GPS的置信度降低，大部分还是依赖VO，另外像立交桥和长隧道这种只能通过VO累积，误差仍然很大
+
+% VIML outperforms其他方法， 通过周期性的与infrastructure点云进行配准，消除了累计误差，并且将地图对齐到了UTM一致的全局坐标系下。Besides， VIML同样可以在部署了infrastructure的GPS-denied环境下工作，可以在这种情况下让车辆也有可信赖的高精度定位
+
+
+为了使用下游任务验证构建地图的质量，我们优化之后的地图上进行了重定位实验。我们从因子图中extract出每个节点对应的位姿T，并从特征点集合中找到T对应的特征点。为了节省存储空间，我们不保存每一个keyframe的原始图像，而是
 
