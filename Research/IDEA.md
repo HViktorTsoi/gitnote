@@ -497,3 +497,9 @@ prior: 人肯定在同一条管廊里走
 *** 在实际配准lidar的时候， 发现这样的规律：
     1. 语义确实有帮助，比如路牌/车站/栏杆这种明显特征的物体，确实可以帮助找到大概在地图上什么位置。因为地图上有这些物体的位置是固定的，通过语义就可以大概确定scan在地图的初始位置，然后再用结构化的几何算法进行refine
     2. 类似graph-matching， 不同语义物体之间的相对距离和旋转角度对配准也有帮助， 比如在scan中某两个近邻的物体，其距离为d，那么在地图中这两个物体距离肯定也是d， 那么就在地图中找“存在距离为d的两个物体”这样的地方， 很大概率就可以找到初始位置
+
+**** Infrastructure-assisted dynamic slam
+借用Infrastructure所测量和追踪的目标信息作为可移动的landmark， 将这个信息传到车端，这样车辆就可以在非landmark静态假设下进行slam
+motivated by this https://blog.csdn.net/tiancailx/article/details/78789253 这里说地标必须静止, 但如果已知landmark非静止， 是否可以relax这个假设
+
+*** 主动slam, 让slam的载体根据slam特征可观测性的要求运动
