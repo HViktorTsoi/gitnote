@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "stm32": "c",
+        "variables.h": "c"
+    }
+}

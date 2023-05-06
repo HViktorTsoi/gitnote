@@ -503,3 +503,21 @@ prior: 人肯定在同一条管廊里走
 motivated by this https://blog.csdn.net/tiancailx/article/details/78789253 这里说地标必须静止, 但如果已知landmark非静止， 是否可以relax这个假设
 
 *** 主动slam, 让slam的载体根据slam特征可观测性的要求运动
+
+*** Best Spinning Pattern for LiDAR SLAM
+
+电机和雷达强耦合的感知/定位算法
+
+BAG of world, 用LM来生成world的embedding
+
+回环检测只能消除回环附近的累计误差
+
+**** 用传统算法配准失败作为监督信息 来说明是否为退化环境
+
+**** degeneration detector 专门做退化情况检测
+
+*** 灯柱传感器可局部移动 想一下能做什么
+
+*** 楼板之间应该是有间距的 把这种规则类做一个统一 最为可以learn的constraint
+
+**** 可以将FAST-LIO这种维护局部地图　+ 和RSU共同定位 都融合进ikfom的框架中

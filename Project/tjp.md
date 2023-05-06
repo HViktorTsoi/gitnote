@@ -202,3 +202,5 @@ https://blog.csdn.net/beiguodexuecsdn/article/details/103099456
 # LiDAR-惯导建图
 1. 用LIO-SAM建图, gps odom的第一帧不需要是0, 目前看gtsam会自动把所有的节点align到第一帧gps的坐标系下
 2. LIO-SAM在添加gps因子时, 需要poseCovariance在xy方向达到一定程度后才会添加, 即里程计估计的不确定性到达一定程度后, 才会采用gps修正, 实际建图时要考虑调整这个阈值, 看更信任谁的观测量
+
+# 目前看港口建图，俯仰横滚有偏差， 很大的可能是因为LiDAR-IMU没有同步，并且LiDAR-IMU的外参的yaw角标定不准

@@ -656,3 +656,6 @@ r(\mathcal{T}, \mathcal{L})
 T'_i = T_i \Delta T^{r,p,z} = T_i T^{r,p,z}_{sub}^-1 T^{r,p,z}_{icp}, ~T_i \in \mathcal{T}
 
 $$
+
+
+

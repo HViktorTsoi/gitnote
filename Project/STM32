@@ -1,0 +1,26 @@
+1. STM32f103外部中断的
+GPIO端口号
+GPIO_PortSourceX 
+GPIO_PinSourceX
+EXTI_Line_X 
+EXTIXXX_IRQn
+EXTIXXX_IRQHandler
+必须对应且一致
+并且要注意，当GPIO号(以及对应的EXTI_LINE)大于4时, 中断响应是合并在一起的，如下例子， PB9对应的中断响应是EXTI9_5_IRQn
+#define KEY1_INT_GPIO_PORT         GPIOB // GPIO A
+#define KEY1_INT_GPIO_CLK          (RCC_APB2Periph_GPIOB|RCC_APB2Periph_AFIO) // ¿ªÆôAFIOÊ±ÖÓ
+#define KEY1_INT_GPIO_PIN          GPIO_Pin_9// PA0
+
+#define KEY1_INT_EXTI_PORTSOURCE   GPIO_PortSourceGPIOB // 
+#define KEY1_INT_EXTI_PINSOURCE    GPIO_PinSource9 //??
+#define KEY1_INT_EXTI_LINE         EXTI_Line9 //???
+#define KEY1_INT_EXTI_IRQ          EXTI9_5_IRQn //?????/??
+#define KEY1_IRQHandler            EXTI9_5_IRQHandler //??????
+
+2. STM32在直接链接按键的时候，最好使用上拉输入(如果按键按下接GND的话)，因为浮空输入有可能造成不确定性，受到外界电磁干扰
+
+3. https://shequ.stmicroelectronics.cn/thread-611135-1-1.html 
+    这里加入R8是应为默认pwm为5V 而SI2303的开启电压只要4.5V 所以需要R8和R12分压 最后给mos的电压就是4.5V左右； 而如果是3.3V的驱动PWM 直接全给进去就可以(不确定能否完全导通)
+
+
+用STLINK链接的时候 安装挖ST link utilities之后需要升级一下ST Link的固件

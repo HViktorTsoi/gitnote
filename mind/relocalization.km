@@ -1,0 +1,259 @@
+{
+    "root": {
+        "data": {
+            "id": "cr2j26a32280",
+            "created": 1678433615389,
+            "text": "MAP",
+            "expandState": "expand"
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "cr2j2iyo2880",
+                    "created": 1678433642997,
+                    "text": "KeyFrames",
+                    "layout": null,
+                    "expandState": "expand"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "cr2j3v9l3h40",
+                            "created": 1678433748142,
+                            "text": "KeyFrame ID",
+                            "layout": null,
+                            "expandState": "expand"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "cr2j3xv7wog0",
+                            "created": 1678433753804,
+                            "text": "Timestamp",
+                            "layout": null,
+                            "expandState": "expand"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "cr2j42p5gs80",
+                            "created": 1678433764321,
+                            "text": "(ODOM)T__cam__o__world",
+                            "layout": null,
+                            "expandState": "expand"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "cr2j4lxikb40",
+                            "created": 1678433806186,
+                            "text": "Sensor Parameter",
+                            "layout": null,
+                            "expandState": "expand"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "cr2j4xn48740",
+                                    "created": 1678433831678,
+                                    "text": "K,D",
+                                    "layout": null,
+                                    "expandState": "expand"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "cr2j4zonpuw0",
+                                    "created": 1678433836125,
+                                    "text": "T__body__o__camera",
+                                    "layout": null,
+                                    "expandState": "expand"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "cr2j6ogaijk0",
+                                    "created": 1678433968403,
+                                    "text": "Image Size",
+                                    "layout": null,
+                                    "expandState": "expand"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "cr2j5e9j60w0",
+                            "created": 1678433867862,
+                            "text": "2D KeyPoints",
+                            "layout": null,
+                            "expandState": "expand"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "cr2j5iym7ow0",
+                                    "created": 1678433878086,
+                                    "text": "undistorted",
+                                    "layout": null,
+                                    "expandState": "expand"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "cr2j5nni7oo0",
+                                    "created": 1678433888298,
+                                    "text": "raw",
+                                    "layout": null,
+                                    "expandState": "expand"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "cr2j5pbwl680",
+                                    "created": 1678433891950,
+                                    "text": "descriptor",
+                                    "layout": null,
+                                    "expandState": "expand"
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "cr2jm2e0cko0",
+                    "created": 1678435174202,
+                    "text": "Map Points",
+                    "layout_mind_offset": {
+                        "x": -17.499999739229793,
+                        "y": 13.749999795109034
+                    },
+                    "layout": null,
+                    "expandState": "expand"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "cr2jm7eh72o0",
+                            "created": 1678435185114,
+                            "text": "Map Points ID",
+                            "layout": null,
+                            "expandState": "expand"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "cr2jmplpukw0",
+                            "created": 1678435224734,
+                            "text": "Reference Keyframe",
+                            "layout": null,
+                            "expandState": "expand"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "cr2k4l4s2680",
+                                    "created": 1678436625558,
+                                    "text": "KeyFrame ID"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "cr2k5agcisg0",
+                                    "created": 1678436680677,
+                                    "text": "Timestamp"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "cr2k4rwo5sw0",
+                                    "created": 1678436640305,
+                                    "text": "Odometry"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "cr2jmgyl8o00",
+                            "created": 1678435205922,
+                            "text": "3D Coord",
+                            "expandState": "expand",
+                            "layout": null
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "cr2jmkyhbw80",
+                            "created": 1678435214622,
+                            "text": "Descriptor",
+                            "layout": null,
+                            "expandState": "expand"
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "cr2jz1v0fz40",
+                    "created": 1678436191788,
+                    "text": "Infra Maps",
+                    "layout_right_offset": {
+                        "x": 0,
+                        "y": 38.749999422580004
+                    },
+                    "expandState": "expand"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "cr2jz9yqgk80",
+                            "created": 1678436209427,
+                            "text": "T__world__o__infra",
+                            "expandState": "expand"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "cr2jzelh5xs0",
+                            "created": 1678436219509,
+                            "text": "3D Points",
+                            "expandState": "expand"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "cr2jzigsg140",
+                            "created": 1678436227933,
+                            "text": "3D Normals",
+                            "expandState": "expand"
+                        },
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    "template": "default",
+    "theme": "fresh-blue",
+    "version": "1.4.43"
+}

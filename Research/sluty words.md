@@ -136,3 +136,7 @@ literature 文献
 turn-key 一站式方案
 
 inevitably 不可避免地
+
+negligible 微不足道地
+
+a modest communication bandwidth
