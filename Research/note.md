@@ -739,3 +739,15 @@ x_t+1 = F * x_t
 # LIOSAM回环的时候会加mtx 这会在回环负载高的时候出现严重的race condition问题，会丢消息
 # 建图时距离远是为了增加里程计鲁棒性；最后构成地图时保留近距离点云是为了最终地图质量
 
+
+RVIZ中 flat square是有size的 近大远小 所以在可视化map的时候效果较好 远处的被遮蔽的同时近处面积较大可见性更好
+而Point方式 远近都是一个pixel大小 完全没有遮挡关系
+
+# 在BALM类算法中，surfel的timestamp可能是一个好的度量， 比如同一个墙的两面这类场景，由于常识，LiDAR不可能同时扫到两个面，因此用timestamp可以防止两个面被划成同一个面（但是对于不同时间扫到同一个面的情况可能需要单独考虑）
+
+# Voxel Map 即使不加covariance权重 都可以有效的提高LIO的鲁棒性 0.25Voxel Size
+# VoxelMap的原始实现中 没有对BA求导
+# hilti2022 03序列 调低IMU的权重 可以提高楼梯间的鲁棒性
+# 估计外参的公式是正确的 但是在degenerate情况下观测量太少 效果反倒不好
+# 显式的估计外参，可以允许我们根据LiDAR的文档更准确的设置ranging cov以及angle cov，所以可能导致了更好的效果
+# 动态物体的马氏距离

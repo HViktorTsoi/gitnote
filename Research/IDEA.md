@@ -521,3 +521,25 @@ BAG of world, 用LM来生成world的embedding
 *** 楼板之间应该是有间距的 把这种规则类做一个统一 最为可以learn的constraint
 
 **** 可以将FAST-LIO这种维护局部地图　+ 和RSU共同定位 都融合进ikfom的框架中
+
+** 通过某个任务的性能最优化RSU的部署方式
+
+Unsupervised Semantic Correspondence Using Stable Diffusion 考虑再把优化出来的text embedding转换回自然语言
+
+车辆每次离开Infrastructure之后上传地图的一部分(可以是两个infrastructure之间的部分),这样可以实现crowd sensing, 并且分担数据传输量 
+
+Utilizing model to solve worst case of SLAMs, solving SLAM crash and odometry break down
+
+Utilizing infrastructure measurement for health check
+
+Drag Your GAN: Interactive Point-based Manipulation on the Generative Image Manifold 一个好的思路： 固定Image相关的参数，转而去优化latent code，送到固定参数的网络去生成新的图像
+
+*** 通过里程计预估的视角关系，来判断一个平面是不是属于墙的两个不同面。 同样的方法可以尝试用于检测其他具有多个面并且存在遮挡的几何形状
+
+*** 如果有足够的匹配量就延迟更新局部地图
+
+*** voxel map 如果有点的covariance了 可以尝试同时优化点的坐标
+
+intrinsic calibration of LiDAR
+
+Rotation LiDAR with rotation state estimation, w/o integration of encoder information, thus we can save hardware cost and enable more tight hardware integration

@@ -378,3 +378,60 @@ motivation
 
 # argument
 初始解可以比较精确， 比如我们可以用静止GPS叠加的方式 获取到非常精确地单点定位（在室外停车或者交通灯附近），但是当车运动起来之后这个方法就不可以了；还可以用零速修正的方式
+
+
+# Sensys2022 Indoor Smartphone SLAM with Learned Echoic Location Features
+## Section Title & Paragraph start Phrasing
+5 Design of ELF-SLAM
+From the measurement study, the acoustic echoes exhibit sub-meter spatial distinctness, which is the basis of the fingerprint approach.
+
+5.1 Approach Overview
+        As illustrated in Fig. 7, the mapping phase of ELF-SLAM consists of two major components:
+    Trajectory map construction:
+        A user holds a smartphone and moves within the target indoor space to collect the acoustic echoes and IMU data simultaneously on the movement trajectory
+    
+    Trajectory map superimposition
+        When multiple trajectory maps are available (e.g., through crowdsensing), they are su- perimposed to generate a floor map.
+
+5.2 Graph-based SLAM Formulation
+    Graph-based SLAM [26] constructs a graph whose nodes represent the mobile’s poses and edges represent the kinetic constraints relating two poses. 
+
+5.3 ELF For Loop Closure Detection
+        Identifying an effective feature for loop closure detection is critical to SLAM. In this section, we first demonstrate the ineffectiveness of the generic features. Then, we propose using CL to construct a learning-based feature.
+
+    5.3.1 Ineffectiveness ofgeneric features.
+        We conduct a controlled experiment to evaluate several generic acoustic features.
+    
+    5.3.2 Learning-based ELF.
+            The ineffectiveness of generic features motivates us to apply CL to construct a custom feature, i.e., ELF. In what follows, we present ...
+            
+        Data pairing
+            constructs positive/negative data pairs needed by CL. In image recognition tasks, the positive samples are constructed by introducing spatial perturbations such as resizing, cropping, and blurring, which do not erase the information needed for image recognition. However,
+        
+        Model pre-training
+            exploits self-supervised learning to build a basic ELF extractor, which will be specialized by the model fine- tuning step presented later.
+
+        Model fine-tuning
+            uses a small amount of unlabeled data collected by users in a specific target space to adapt the pre-trained model to capture the environment-specific characteristics.
+
+    5.3.3 Loop closure detection using ELF. 
+        The last row of Fig. 8 shows ?? + 58 × 2, and ?? + 58 × 3 as marked by the green arrows. Fig. 11 the ESS trace computed using ELF. It shows peaks at footstep ?? + 58,
+
+5.4 Loop Closure Curation
+    5.4.1 Approach design
+            We propose a clustering-based loop closure curation approach that is based on an ESS matrix defined as follows
+
+        ESS matrix
+            Consider a user’s trajectory consisting of ?? foot-1) × (??−1) ESS matrix, where the (??, ??)th element is the ELF-based steps. The pair-wise ESSs between any two footsteps form a (?? −
+
+        Clustering-based approach for loop closure curation
+            The goal of loop closure curation is to remove the false positives from the binarized ESS matrix. Due
+
+    5.4.2 Effectiveness ofloop closure curation
+        To demonstrate the impact of the false positives on SLAM, we use all positives in Fig. 12 as the loop closure information to construct the trajectory map. The
+
+5.5 Trajectory Map Superimposition
+    The trajectory map constructed from a single user’s data only contains the echo data on a specific trajectory. For real applications, it is desirable to combine many trajectory maps to form a floor map that covers most/all accessible locations.
+
+5.6 Localization
+    Once a map (either a trajectory map or floor map) is constructed, a smartphone’s location can be determined after capturing the echoes in response to the chirps. We consider two localization approaches...
